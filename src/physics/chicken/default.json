@@ -85,7 +85,6 @@
     },
     "leg0": {
       "bone": "leg0",
-      "density": 303.485464368,
       "shapes": [
         {
           "type": "box",
@@ -95,21 +94,16 @@
             -0.5
           ],
           "size": [
-            2.6,
-            4.6,
-            2.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
+            3,
+            5,
+            3
           ]
         }
-      ]
+      ],
+      "mass": 47.667199999999994
     },
     "leg1": {
       "bone": "leg1",
-      "density": 303.485464368,
       "shapes": [
         {
           "type": "box",
@@ -119,17 +113,13 @@
             -0.5
           ],
           "size": [
-            2.6,
-            4.6,
-            2.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
+            3,
+            5,
+            3
           ]
         }
-      ]
+      ],
+      "mass": 47.667199999999994
     },
     "wing0": {
       "bone": "wing0",
@@ -334,20 +324,8 @@
   },
   "collisionPairs": [
     [
-      "leg0",
-      "leg1"
-    ],
-    [
       "body",
       "head"
-    ],
-    [
-      "body",
-      "leg0"
-    ],
-    [
-      "body",
-      "leg1"
     ],
     [
       "body",
@@ -430,8 +408,8 @@
   "trigger": "!q.is_alive",
   "release": "q.is_alive",
   "simulation": {
-    "frequency": 20,
-    "iterations": 6,
+    "frequency": 60,
+    "iterations": 10,
     "contactLimit": 128,
     "gravity": 9.82,
     "poseTransition": 0.4,
