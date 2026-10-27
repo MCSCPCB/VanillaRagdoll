@@ -25,9 +25,246 @@
           ]
         }
       ]
+    },
+    "wing": {
+      "bone": "wing",
+      "density": 512,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -40,
+            19,
+            2
+          ],
+          "size": [
+            55.6,
+            7.6,
+            7.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -40,
+            19,
+            32
+          ],
+          "size": [
+            55.6,
+            0.8,
+            55.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "wingtip": {
+      "bone": "wingtip",
+      "density": 512,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -84,
+            24,
+            0
+          ],
+          "size": [
+            55.6,
+            3.6,
+            3.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -84,
+            24,
+            30
+          ],
+          "size": [
+            55.6,
+            0.8,
+            55.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "wing1": {
+      "bone": "wing1",
+      "density": 512,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -16,
+            19,
+            2
+          ],
+          "size": [
+            55.6,
+            7.6,
+            7.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -16,
+            19,
+            32
+          ],
+          "size": [
+            55.6,
+            0.8,
+            55.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "wingtip1": {
+      "bone": "wingtip1",
+      "density": 512,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -84,
+            24,
+            0
+          ],
+          "size": [
+            55.6,
+            3.6,
+            3.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -84,
+            24,
+            30
+          ],
+          "size": [
+            55.6,
+            0.8,
+            55.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
     }
   },
-  "joints": {},
+  "joints": {
+    "wing": {
+      "type": "coneTwist",
+      "a": "root",
+      "b": "wing",
+      "swing": 75,
+      "twist": 35,
+      "anchorB": [
+        28,
+        -3.552713678800501e-15,
+        -13.051643192488264
+      ],
+      "anchorA": [
+        -12,
+        11,
+        -22
+      ]
+    },
+    "wingtip": {
+      "type": "coneTwist",
+      "a": "wing",
+      "b": "wingtip",
+      "swing": 65,
+      "twist": 25,
+      "anchorB": [
+        28,
+        -3.552713678800501e-15,
+        -23.23119777158774
+      ],
+      "anchorA": [
+        -16,
+        4.9999999999999964,
+        -15.051643192488264
+      ]
+    },
+    "wing1": {
+      "type": "coneTwist",
+      "a": "root",
+      "b": "wing1",
+      "swing": 75,
+      "twist": 35,
+      "anchorB": [
+        28,
+        -3.552713678800501e-15,
+        -13.051643192488264
+      ],
+      "anchorA": [
+        12,
+        11,
+        -22
+      ]
+    },
+    "wingtip1": {
+      "type": "coneTwist",
+      "a": "wing1",
+      "b": "wingtip1",
+      "swing": 65,
+      "twist": 25,
+      "anchorB": [
+        28,
+        -3.552713678800501e-15,
+        -23.23119777158774
+      ],
+      "anchorA": [
+        -40,
+        4.9999999999999964,
+        -15.051643192488264
+      ]
+    }
+  },
   "collisionPairs": [],
   "variants": [
     {
@@ -38,9 +275,9 @@
   "trigger": "!q.is_alive||q.death_ticks>0",
   "release": "q.is_alive&&q.death_ticks==0",
   "simulation": {
-    "frequency": 20,
-    "iterations": 6,
-    "contactLimit": 128,
+    "frequency": 60,
+    "iterations": 12,
+    "contactLimit": 256,
     "gravity": 9.82,
     "poseTransition": 0.4,
     "initialVelocity": [

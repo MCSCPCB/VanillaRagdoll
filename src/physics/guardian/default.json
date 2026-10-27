@@ -9,7 +9,7 @@
   "bodies": {
     "head": {
       "bone": "head",
-      "density": 4096,
+      "density": 4095.999999996281,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "tailpart1": {
       "bone": "tailpart1",
-      "density": 4096,
+      "density": 2855.52232383,
       "shapes": [
         {
           "type": "box",
@@ -81,19 +81,37 @@
     },
     "tailpart2": {
       "bone": "tailpart2",
-      "density": 4096,
+      "density": 1095.32781889,
       "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1.5,
+            9,
+            7.5
+          ],
+          "size": [
+            0.8,
+            8.6,
+            8.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
         {
           "type": "box",
           "center": [
             1,
             9,
-            6
+            3
           ],
           "size": [
             1.6,
-            8.6,
-            11.6
+            1.6,
+            5.6
           ],
           "rotation": [
             0,
@@ -135,6 +153,11 @@
         0,
         0,
         -3.5
+      ],
+      "anchorA": [
+        0,
+        0,
+        8
       ]
     },
     "tailpart1": {
@@ -162,7 +185,17 @@
         0
       ],
       "swing": 45,
-      "twist": 22.5
+      "twist": 22.5,
+      "anchorA": [
+        0,
+        0,
+        2.5
+      ],
+      "anchorB": [
+        -2.220446049250313e-16,
+        0,
+        -3.5
+      ]
     },
     "tailpart2": {
       "type": "coneTwist",
@@ -189,28 +222,30 @@
         0
       ],
       "swing": 45,
-      "twist": 22.5
+      "twist": 22.5,
+      "anchorA": [
+        -2.220446049250313e-16,
+        0,
+        2.5
+      ],
+      "anchorB": [
+        -0.4024814976055724,
+        1.7763568394002505e-15,
+        -6.622333478450153
+      ]
     }
   },
   "collisionPairs": [
     [
-      "tailpart0",
+      "head",
       "tailpart1"
     ],
     [
-      "tailpart1",
+      "head",
       "tailpart2"
     ],
     [
-      "head",
-      "tailpart0"
-    ],
-    [
-      "head",
-      "tailpart1"
-    ],
-    [
-      "head",
+      "tailpart0",
       "tailpart2"
     ]
   ],
@@ -220,11 +255,6 @@
       "scale": 1,
       "joints": {
         "tailpart0": {
-          "anchorA": [
-            0,
-            0,
-            8
-          ],
           "axisA": [
             0,
             0,

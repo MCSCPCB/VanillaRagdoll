@@ -15,7 +15,7 @@
           "type": "box",
           "center": [
             0,
-            8,
+            0,
             0
           ],
           "size": [
@@ -33,7 +33,7 @@
     },
     "tentacle1": {
       "bone": "tentacle1",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "tentacle2": {
       "bone": "tentacle2",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -81,18 +81,18 @@
     },
     "tentacle3": {
       "bone": "tentacle3",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
           "center": [
             0,
-            -8.5,
+            -16,
             5
           ],
           "size": [
             1.6,
-            16.6,
+            17.6,
             1.6
           ],
           "rotation": [
@@ -105,7 +105,7 @@
     },
     "tentacle4": {
       "bone": "tentacle4",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -129,7 +129,7 @@
     },
     "tentacle5": {
       "bone": "tentacle5",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -153,7 +153,7 @@
     },
     "tentacle6": {
       "bone": "tentacle6",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -177,7 +177,7 @@
     },
     "tentacle7": {
       "bone": "tentacle7",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -201,7 +201,7 @@
     },
     "tentacle8": {
       "bone": "tentacle8",
-      "density": 4096,
+      "density": 3863.27272727,
       "shapes": [
         {
           "type": "box",
@@ -307,7 +307,7 @@
       "twist": 22.5,
       "anchorB": [
         0,
-        8.5,
+        9,
         0
       ]
     },
@@ -601,7 +601,7 @@
         "tentacle1": {
           "anchorA": [
             5,
-            -15,
+            -7,
             0
           ],
           "axisA": [
@@ -628,7 +628,7 @@
         "tentacle2": {
           "anchorA": [
             3.5,
-            -15,
+            -7,
             3.5
           ],
           "axisA": [
@@ -655,7 +655,7 @@
         "tentacle3": {
           "anchorA": [
             0,
-            -8,
+            -7,
             5
           ],
           "axisA": [
@@ -682,7 +682,7 @@
         "tentacle4": {
           "anchorA": [
             -3.5,
-            -15,
+            -7,
             3.5
           ],
           "axisA": [
@@ -709,7 +709,7 @@
         "tentacle5": {
           "anchorA": [
             -5,
-            -15,
+            -7,
             0
           ],
           "axisA": [
@@ -736,7 +736,7 @@
         "tentacle6": {
           "anchorA": [
             -3.5,
-            -15,
+            -7,
             -3.5
           ],
           "axisA": [
@@ -763,7 +763,7 @@
         "tentacle7": {
           "anchorA": [
             0,
-            -15,
+            -7,
             -5
           ],
           "axisA": [
@@ -790,7 +790,7 @@
         "tentacle8": {
           "anchorA": [
             3.5,
-            -15,
+            -7,
             -3.5
           ],
           "axisA": [

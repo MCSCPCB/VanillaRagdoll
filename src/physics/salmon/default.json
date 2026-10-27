@@ -57,7 +57,7 @@
     },
     "tailfin": {
       "bone": "tailfin",
-      "density": 4096,
+      "density": 5152,
       "shapes": [
         {
           "type": "box",

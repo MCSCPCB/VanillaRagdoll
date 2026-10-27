@@ -9,7 +9,7 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096,
+      "density": 2951.66820276,
       "shapes": [
         {
           "type": "box",

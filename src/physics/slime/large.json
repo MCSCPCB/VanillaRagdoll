@@ -38,13 +38,13 @@
   "release": "q.is_alive",
   "defaults": {
     "friction": 0.3,
-    "restitution": 0,
+    "restitution": 1,
     "linearDamping": 0.01,
     "angularDamping": 0.01
   },
   "simulation": {
-    "frequency": 20,
-    "iterations": 6,
+    "frequency": 40,
+    "iterations": 8,
     "contactLimit": 128,
     "gravity": 9.82,
     "poseTransition": 0.4,

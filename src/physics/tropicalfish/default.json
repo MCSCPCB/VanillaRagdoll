@@ -9,7 +9,7 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096,
+      "density": 8307.69230769,
       "shapes": [
         {
           "type": "box",
@@ -33,7 +33,7 @@
     },
     "leftFin": {
       "bone": "leftFin",
-      "density": 4096,
+      "density": 1125,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "rightFin": {
       "bone": "rightFin",
-      "density": 4096,
+      "density": 1125,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "tailfin": {
       "bone": "tailfin",
-      "density": 4096,
+      "density": 3850,
       "shapes": [
         {
           "type": "box",

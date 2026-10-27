@@ -33,7 +33,7 @@
     },
     "feet": {
       "bone": "feet",
-      "density": 4096,
+      "density": 672,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "rightWing": {
       "bone": "rightWing",
-      "density": 4096,
+      "density": 1792,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "rightWingTip": {
       "bone": "rightWingTip",
-      "density": 4096,
+      "density": 7992,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +105,7 @@
     },
     "leftWing": {
       "bone": "leftWing",
-      "density": 4096,
+      "density": 1792,
       "shapes": [
         {
           "type": "box",
@@ -129,7 +129,7 @@
     },
     "leftWingTip": {
       "bone": "leftWingTip",
-      "density": 4096,
+      "density": 7992,
       "shapes": [
         {
           "type": "box",

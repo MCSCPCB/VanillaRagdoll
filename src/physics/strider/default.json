@@ -33,7 +33,7 @@
     },
     "bristle5": {
       "bone": "bristle5",
-      "density": 4096,
+      "density": 36192,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "bristle4": {
       "bone": "bristle4",
-      "density": 4096,
+      "density": 36192,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "bristle3": {
       "bone": "bristle3",
-      "density": 4096,
+      "density": 36192,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +105,7 @@
     },
     "bristle2": {
       "bone": "bristle2",
-      "density": 4096,
+      "density": 36192,
       "shapes": [
         {
           "type": "box",
@@ -129,7 +129,7 @@
     },
     "bristle1": {
       "bone": "bristle1",
-      "density": 4096,
+      "density": 36192,
       "shapes": [
         {
           "type": "box",
@@ -153,7 +153,7 @@
     },
     "bristle0": {
       "bone": "bristle0",
-      "density": 4096,
+      "density": 36192,
       "shapes": [
         {
           "type": "box",

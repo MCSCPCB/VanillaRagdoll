@@ -33,7 +33,7 @@
     },
     "stinger": {
       "bone": "stinger",
-      "density": 4096,
+      "density": 192,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "rightwing_bone": {
       "bone": "rightwing_bone",
-      "density": 4096,
+      "density": 9632,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "leftwing_bone": {
       "bone": "leftwing_bone",
-      "density": 4096,
+      "density": 9632,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +105,7 @@
     },
     "leg_front": {
       "bone": "leg_front",
-      "density": 4096,
+      "density": 2112,
       "shapes": [
         {
           "type": "box",
@@ -129,7 +129,7 @@
     },
     "leg_mid": {
       "bone": "leg_mid",
-      "density": 4096,
+      "density": 2112,
       "shapes": [
         {
           "type": "box",
@@ -153,7 +153,7 @@
     },
     "leg_back": {
       "bone": "leg_back",
-      "density": 4096,
+      "density": 2112,
       "shapes": [
         {
           "type": "box",

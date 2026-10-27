@@ -33,7 +33,7 @@
     },
     "tail": {
       "bone": "tail",
-      "density": 4096,
+      "density": 2112,
       "shapes": [
         {
           "type": "box",

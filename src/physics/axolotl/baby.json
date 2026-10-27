@@ -33,7 +33,7 @@
     },
     "right_arm": {
       "bone": "right_arm",
-      "density": 4096,
+      "density": 157.322359396,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "right_leg": {
       "bone": "right_leg",
-      "density": 4096,
+      "density": 157.322359396,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "left_arm": {
       "bone": "left_arm",
-      "density": 4096,
+      "density": 157.322359396,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +105,7 @@
     },
     "left_leg": {
       "bone": "left_leg",
-      "density": 4096,
+      "density": 157.322359396,
       "shapes": [
         {
           "type": "box",
@@ -129,7 +129,7 @@
     },
     "tail": {
       "bone": "tail",
-      "density": 4096,
+      "density": 1533.89300412,
       "shapes": [
         {
           "type": "box",
@@ -177,7 +177,7 @@
     },
     "left_gills": {
       "bone": "left_gills",
-      "density": 4096,
+      "density": 943.934156379,
       "shapes": [
         {
           "type": "box",
@@ -201,7 +201,7 @@
     },
     "right_gills": {
       "bone": "right_gills",
-      "density": 4096,
+      "density": 943.934156379,
       "shapes": [
         {
           "type": "box",
@@ -225,7 +225,7 @@
     },
     "top_gills": {
       "bone": "top_gills",
-      "density": 4096,
+      "density": 1140.58710562,
       "shapes": [
         {
           "type": "box",

@@ -9,19 +9,19 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096,
+      "density": 2347.5184513,
       "shapes": [
         {
           "type": "box",
           "center": [
             0,
-            29,
+            32,
             0
           ],
           "size": [
-            6.6,
-            10.6,
-            2.6
+            7.6,
+            11.6,
+            3.6
           ],
           "rotation": [
             0,
@@ -33,19 +33,19 @@
     },
     "head": {
       "bone": "head",
-      "density": 4096,
+      "density": 2906.0065938863636,
       "shapes": [
         {
           "type": "box",
           "center": [
             0,
-            34.5,
+            28,
             0
           ],
           "size": [
-            7.6,
-            20.6,
-            7.6
+            7.4,
+            7.4,
+            7.4
           ],
           "rotation": [
             0,
@@ -57,7 +57,7 @@
     },
     "rightArm": {
       "bone": "rightArm",
-      "density": 4096,
+      "density": 1567.56756757,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "leftArm": {
       "bone": "leftArm",
-      "density": 4096,
+      "density": 1567.56756757,
       "shapes": [
         {
           "type": "box",
@@ -178,7 +178,17 @@
         0
       ],
       "swing": 45,
-      "twist": 22.5
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        -4,
+        0
+      ],
+      "anchorA": [
+        0,
+        6,
+        0
+      ]
     },
     "rightArm": {
       "type": "coneTwist",
@@ -369,7 +379,7 @@
         "rightLeg": {
           "anchorA": [
             -2,
-            -6,
+            -9,
             0
           ],
           "axisA": [
@@ -396,7 +406,7 @@
         "leftLeg": {
           "anchorA": [
             2,
-            -6,
+            -9,
             0
           ],
           "axisA": [
@@ -426,8 +436,8 @@
   "trigger": "!q.is_alive",
   "release": "q.is_alive",
   "simulation": {
-    "frequency": 20,
-    "iterations": 6,
+    "frequency": 40,
+    "iterations": 8,
     "contactLimit": 128,
     "gravity": 9.82,
     "poseTransition": 0.4,

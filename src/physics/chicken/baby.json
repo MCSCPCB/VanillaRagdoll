@@ -47,11 +47,16 @@
             0
           ]
         }
+      ],
+      "center": [
+        0,
+        3.75,
+        -1.25
       ]
     },
     "leg0": {
       "bone": "leg0",
-      "density": 4096,
+      "density": 455.111111111,
       "shapes": [
         {
           "type": "box",
@@ -75,7 +80,7 @@
     },
     "leg1": {
       "bone": "leg1",
-      "density": 4096,
+      "density": 455.111111111,
       "shapes": [
         {
           "type": "box",
@@ -99,7 +104,7 @@
     },
     "wing0": {
       "bone": "wing0",
-      "density": 4096,
+      "density": 480.395061728,
       "shapes": [
         {
           "type": "box",
@@ -123,7 +128,7 @@
     },
     "wing1": {
       "bone": "wing1",
-      "density": 4096,
+      "density": 480.395061728,
       "shapes": [
         {
           "type": "box",

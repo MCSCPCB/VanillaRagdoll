@@ -9,19 +9,19 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096,
+      "density": 3857.14285714,
       "shapes": [
         {
           "type": "box",
           "center": [
             0,
-            2,
-            4.5
+            3,
+            2.9992
           ],
           "size": [
-            1.5,
-            3.5,
-            6.5
+            1.6,
+            5.6,
+            5.6
           ],
           "rotation": [
             0,
@@ -33,7 +33,7 @@
     },
     "leftFin": {
       "bone": "leftFin",
-      "density": 4096,
+      "density": 1125,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +57,7 @@
     },
     "rightFin": {
       "bone": "rightFin",
-      "density": 4096,
+      "density": 1125,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +81,7 @@
     },
     "tailfin": {
       "bone": "tailfin",
-      "density": 4096,
+      "density": 3850,
       "shapes": [
         {
           "type": "box",

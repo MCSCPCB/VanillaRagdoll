@@ -47,6 +47,11 @@
             0
           ]
         }
+      ],
+      "center": [
+        0,
+        30.25,
+        -0.525
       ]
     },
     "head": {
@@ -107,6 +112,11 @@
             0
           ]
         }
+      ],
+      "center": [
+        0,
+        34.833,
+        -23.167
       ]
     },
     "left_ear": {
@@ -159,7 +169,7 @@
     },
     "tail": {
       "bone": "tail",
-      "density": 4096,
+      "density": 7072,
       "shapes": [
         {
           "type": "box",
@@ -600,7 +610,16 @@
   "variants": [
     {
       "geometry": "default",
-      "scale": 1
+      "scale": 1,
+      "joints": {
+        "head": {
+          "anchorB": [
+            0.5,
+            -9.833,
+            13.167
+          ]
+        }
+      }
     }
   ],
   "trigger": "!q.is_alive",

@@ -9,19 +9,73 @@
   "bodies": {
     "head": {
       "bone": "head",
-      "density": 4096,
+      "density": 3478.97276633,
       "shapes": [
         {
           "type": "box",
           "center": [
-            0.009999999999999787,
-            7.4875,
-            -5.4875
+            0.01,
+            6.5,
+            -4.5
           ],
           "size": [
-            6.05,
-            7.025,
-            7.025
+            5.65,
+            4.65,
+            4.65
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            0,
+            4.99,
+            -8
+          ],
+          "size": [
+            2.6,
+            1.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -2,
+            10,
+            -4.5
+          ],
+          "size": [
+            1.6,
+            1.6,
+            0.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            2,
+            10,
+            -4.5
+          ],
+          "size": [
+            1.6,
+            1.6,
+            0.8
           ],
           "rotation": [
             0,
@@ -33,7 +87,7 @@
     },
     "tail": {
       "bone": "tail",
-      "density": 4096,
+      "density": 2009.77066667,
       "shapes": [
         {
           "type": "box",
@@ -57,7 +111,7 @@
     },
     "leg0": {
       "bone": "leg0",
-      "density": 4096,
+      "density": 5767.168,
       "shapes": [
         {
           "type": "box",
@@ -81,7 +135,7 @@
     },
     "leg1": {
       "bone": "leg1",
-      "density": 4096,
+      "density": 5767.168,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +159,7 @@
     },
     "leg2": {
       "bone": "leg2",
-      "density": 4096,
+      "density": 5767.168,
       "shapes": [
         {
           "type": "box",
@@ -129,7 +183,7 @@
     },
     "leg3": {
       "bone": "leg3",
-      "density": 4096,
+      "density": 5767.168,
       "shapes": [
         {
           "type": "box",
@@ -153,7 +207,7 @@
     },
     "body": {
       "bone": "body",
-      "density": 4096,
+      "density": 10675.8826667,
       "shapes": [
         {
           "type": "box",
@@ -177,47 +231,47 @@
     }
   },
   "joints": {
+    "head": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "head",
+      "swing": 45,
+      "twist": 22.5
+    },
     "tail": {
       "type": "coneTwist",
-      "a": "head",
+      "a": "body",
       "b": "tail",
       "swing": 45,
       "twist": 22.5
     },
     "leg0": {
       "type": "coneTwist",
-      "a": "head",
+      "a": "body",
       "b": "leg0",
       "swing": 45,
       "twist": 22.5
     },
     "leg1": {
       "type": "coneTwist",
-      "a": "head",
+      "a": "body",
       "b": "leg1",
       "swing": 45,
       "twist": 22.5
     },
     "leg2": {
       "type": "coneTwist",
-      "a": "head",
+      "a": "body",
       "b": "leg2",
       "swing": 45,
       "twist": 22.5
     },
     "leg3": {
       "type": "coneTwist",
-      "a": "head",
+      "a": "body",
       "b": "leg3",
       "swing": 45,
       "twist": 22.5
-    },
-    "body": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "body",
-      "swing": 25,
-      "twist": 15
     }
   },
   "collisionPairs": [

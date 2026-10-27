@@ -81,7 +81,7 @@
     },
     "left_wing": {
       "bone": "left_wing",
-      "density": 4096,
+      "density": 6992,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +105,7 @@
     },
     "right_wing": {
       "bone": "right_wing",
-      "density": 4096,
+      "density": 6992,
       "shapes": [
         {
           "type": "box",

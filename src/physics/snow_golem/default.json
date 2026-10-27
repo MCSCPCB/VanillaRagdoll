@@ -81,7 +81,7 @@
     },
     "arm1": {
       "bone": "arm1",
-      "density": 4096,
+      "density": 1651.9245283,
       "shapes": [
         {
           "type": "box",
@@ -105,7 +105,7 @@
     },
     "arm2": {
       "bone": "arm2",
-      "density": 4096,
+      "density": 1651.9245283,
       "shapes": [
         {
           "type": "box",
