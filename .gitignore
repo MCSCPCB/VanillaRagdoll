@@ -1,0 +1,15 @@
+# Local build tools, references, research, backups and output
+/.local/
+
+# Dependencies and editor/OS files
+node_modules/
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Distribution files belong in releases, not source control
+*.mcpack
+*.mcaddon
+*.log

@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "shell": {
+      "bone": "body_rolled_up",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            5,
+            -1
+          ],
+          "size": [
+            10,
+            10,
+            10
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {},
+  "collisionPairs": [],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

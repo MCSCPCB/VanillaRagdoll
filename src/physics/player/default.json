@@ -1,0 +1,236 @@
+{
+  "formatVersion": 1,
+  "bodies": {
+    "body": {
+      "bone": "body",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            18,
+            0
+          ],
+          "size": [
+            8.5,
+            12.5,
+            4.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head": {
+      "bone": "head",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            28,
+            0
+          ],
+          "size": [
+            9,
+            9,
+            9
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "rightArm": {
+      "bone": "rightArm",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -6,
+            18,
+            0
+          ],
+          "size": [
+            4.5,
+            12.5,
+            4.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leftArm": {
+      "bone": "leftArm",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            6,
+            18,
+            0
+          ],
+          "size": [
+            4.5,
+            12.5,
+            4.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "rightLeg": {
+      "bone": "rightLeg",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -1.9000000000000001,
+            6,
+            0
+          ],
+          "size": [
+            4.5,
+            12.5,
+            4.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leftLeg": {
+      "bone": "leftLeg",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1.9000000000000001,
+            6,
+            0
+          ],
+          "size": [
+            4.5,
+            12.5,
+            4.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "head": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "head",
+      "swing": 35,
+      "twist": 22.5
+    },
+    "rightArm": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "rightArm",
+      "swing": 60,
+      "twist": 15
+    },
+    "leftArm": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leftArm",
+      "swing": 60,
+      "twist": 15
+    },
+    "rightLeg": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "rightLeg",
+      "swing": 60,
+      "twist": 15
+    },
+    "leftLeg": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leftLeg",
+      "swing": 60,
+      "twist": 15
+    }
+  },
+  "collisionPairs": [
+    [
+      "head",
+      "rightLeg"
+    ],
+    [
+      "head",
+      "leftLeg"
+    ],
+    [
+      "rightArm",
+      "leftArm"
+    ],
+    [
+      "rightArm",
+      "leftLeg"
+    ],
+    [
+      "leftArm",
+      "rightLeg"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 0.9375
+    }
+  ],
+  "trigger": "!q.is_alive&&!v.is_first_person&&!v.map_face_icon",
+  "release": "q.is_alive",
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

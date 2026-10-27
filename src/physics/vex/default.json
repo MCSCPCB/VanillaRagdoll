@@ -1,0 +1,435 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "body": {
+      "bone": "body",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            4,
+            -0.1
+          ],
+          "size": [
+            2.4,
+            3.4,
+            1.2
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head": {
+      "bone": "head",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            8.5,
+            -0.2
+          ],
+          "size": [
+            4.2,
+            4.2,
+            3.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "rightArm": {
+      "bone": "rightArm",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -2,
+            4.25,
+            0
+          ],
+          "size": [
+            1.4,
+            3.4,
+            1.4
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leftArm": {
+      "bone": "leftArm",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            2,
+            4.25,
+            0
+          ],
+          "size": [
+            1.4,
+            3.4,
+            1.4
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leftWing": {
+      "bone": "leftWing",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0.5,
+            5,
+            1
+          ],
+          "size": [
+            1.6,
+            1.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "rightWing": {
+      "bone": "rightWing",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -0.5,
+            5,
+            1
+          ],
+          "size": [
+            1.6,
+            1.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "head": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "head",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        -2.5,
+        0.2
+      ]
+    },
+    "rightArm": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "rightArm",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0.5,
+        1.5,
+        0
+      ]
+    },
+    "leftArm": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leftArm",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        -0.5,
+        1.5,
+        0
+      ]
+    },
+    "leftWing": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leftWing",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "rightWing": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "rightWing",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "leftArm",
+      "leftWing"
+    ],
+    [
+      "head",
+      "leftArm"
+    ],
+    [
+      "head",
+      "leftWing"
+    ],
+    [
+      "leftWing",
+      "rightWing"
+    ],
+    [
+      "rightArm",
+      "rightWing"
+    ],
+    [
+      "head",
+      "rightWing"
+    ],
+    [
+      "head",
+      "rightArm"
+    ],
+    [
+      "body",
+      "head"
+    ],
+    [
+      "body",
+      "rightArm"
+    ],
+    [
+      "body",
+      "leftArm"
+    ],
+    [
+      "body",
+      "leftWing"
+    ],
+    [
+      "body",
+      "rightWing"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1,
+      "joints": {
+        "rightArm": {
+          "anchorA": [
+            -1.5,
+            1.75,
+            0.1
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "leftArm": {
+          "anchorA": [
+            1.5,
+            1.75,
+            0.1
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

@@ -1,0 +1,660 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "head": {
+      "bone": "head",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            24,
+            0
+          ],
+          "size": [
+            7.6,
+            7.6,
+            7.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts0": {
+      "bone": "upperBodyParts0",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts1": {
+      "bone": "upperBodyParts1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts2": {
+      "bone": "upperBodyParts2",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts3": {
+      "bone": "upperBodyParts3",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts4": {
+      "bone": "upperBodyParts4",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts5": {
+      "bone": "upperBodyParts5",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts6": {
+      "bone": "upperBodyParts6",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts7": {
+      "bone": "upperBodyParts7",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts8": {
+      "bone": "upperBodyParts8",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts9": {
+      "bone": "upperBodyParts9",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts10": {
+      "bone": "upperBodyParts10",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyParts11": {
+      "bone": "upperBodyParts11",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            20,
+            1
+          ],
+          "size": [
+            1.6,
+            7.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {},
+  "collisionPairs": [
+    [
+      "head",
+      "upperBodyParts0"
+    ],
+    [
+      "head",
+      "upperBodyParts1"
+    ],
+    [
+      "head",
+      "upperBodyParts2"
+    ],
+    [
+      "head",
+      "upperBodyParts3"
+    ],
+    [
+      "head",
+      "upperBodyParts4"
+    ],
+    [
+      "head",
+      "upperBodyParts5"
+    ],
+    [
+      "head",
+      "upperBodyParts6"
+    ],
+    [
+      "head",
+      "upperBodyParts7"
+    ],
+    [
+      "head",
+      "upperBodyParts8"
+    ],
+    [
+      "head",
+      "upperBodyParts9"
+    ],
+    [
+      "head",
+      "upperBodyParts10"
+    ],
+    [
+      "head",
+      "upperBodyParts11"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts1"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts2"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts3"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts4"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts10"
+    ],
+    [
+      "upperBodyParts0",
+      "upperBodyParts11"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts2"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts3"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts4"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts10"
+    ],
+    [
+      "upperBodyParts1",
+      "upperBodyParts11"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts3"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts4"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts2",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts2"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts2"
+    ],
+    [
+      "upperBodyParts3",
+      "upperBodyParts4"
+    ],
+    [
+      "upperBodyParts3",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts3",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts3",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts3",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts3",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts3"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts3"
+    ],
+    [
+      "upperBodyParts4",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts4",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts4",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts4",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts4",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts4"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts4"
+    ],
+    [
+      "upperBodyParts5",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts5",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts5",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts5",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts5"
+    ],
+    [
+      "upperBodyParts6",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts6",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts6",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts6"
+    ],
+    [
+      "upperBodyParts7",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts7",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts7"
+    ],
+    [
+      "upperBodyParts8",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts8"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts11",
+      "upperBodyParts9"
+    ],
+    [
+      "upperBodyParts10",
+      "upperBodyParts11"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

@@ -1,0 +1,268 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "head": {
+      "bone": "head",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            8,
+            0
+          ],
+          "size": [
+            15.404255319148938,
+            15.404255319148938,
+            15.404255319148938
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tailpart0": {
+      "bone": "tailpart0",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            8,
+            11.499999999999998
+          ],
+          "size": [
+            3.404255319148936,
+            3.404255319148936,
+            6.404255319148937
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tailpart1": {
+      "bone": "tailpart1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1.5,
+            8.5,
+            3.5
+          ],
+          "size": [
+            2.8297872340425534,
+            2.8297872340425534,
+            6.829787234042553
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tailpart2": {
+      "bone": "tailpart2",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            9,
+            6
+          ],
+          "size": [
+            1.8297872340425532,
+            8.829787234042554,
+            11.829787234042554
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "tailpart0": {
+      "type": "coneTwist",
+      "a": "head",
+      "b": "tailpart0",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        0,
+        -3.5
+      ]
+    },
+    "tailpart1": {
+      "type": "coneTwist",
+      "a": "tailpart0",
+      "b": "tailpart1",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tailpart2": {
+      "type": "coneTwist",
+      "a": "tailpart1",
+      "b": "tailpart2",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "tailpart0",
+      "tailpart1"
+    ],
+    [
+      "tailpart1",
+      "tailpart2"
+    ],
+    [
+      "head",
+      "tailpart0"
+    ],
+    [
+      "head",
+      "tailpart1"
+    ],
+    [
+      "head",
+      "tailpart2"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 2.35,
+      "joints": {
+        "tailpart0": {
+          "anchorA": [
+            0,
+            0,
+            8
+          ],
+          "axisA": [
+            0,
+            0,
+            -1
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            0,
+            -1
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

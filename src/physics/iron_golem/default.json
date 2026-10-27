@@ -1,0 +1,528 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "body": {
+      "bone": "body",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            27,
+            -0.5
+          ],
+          "size": [
+            17.6,
+            11.6,
+            10.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            0,
+            18.5,
+            0
+          ],
+          "size": [
+            9.6,
+            5.6,
+            6.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head": {
+      "bone": "head",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            38,
+            -3.5
+          ],
+          "size": [
+            7.6,
+            9.6,
+            7.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "arm0": {
+      "bone": "arm0",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -11,
+            18.5,
+            0
+          ],
+          "size": [
+            3.6,
+            29.6,
+            5.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "arm1": {
+      "bone": "arm1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            11,
+            18.5,
+            0
+          ],
+          "size": [
+            3.6,
+            29.6,
+            5.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leg0": {
+      "bone": "leg0",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -4.5,
+            7.75,
+            -0.5
+          ],
+          "size": [
+            5.6,
+            15.1,
+            4.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leg1": {
+      "bone": "leg1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            4.5,
+            7.75,
+            -0.5
+          ],
+          "size": [
+            5.6,
+            15.1,
+            4.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "head": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "head",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        -5,
+        0.5
+      ]
+    },
+    "arm0": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "arm0",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        2,
+        12.5,
+        0
+      ]
+    },
+    "arm1": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "arm1",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        -2,
+        12.5,
+        0
+      ]
+    },
+    "leg0": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leg0",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0.5,
+        8.25,
+        0.5
+      ]
+    },
+    "leg1": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leg1",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        8.25,
+        0.5
+      ]
+    }
+  },
+  "collisionPairs": [
+    [
+      "body",
+      "head"
+    ],
+    [
+      "arm0",
+      "body"
+    ],
+    [
+      "body",
+      "leg0"
+    ],
+    [
+      "arm0",
+      "leg0"
+    ],
+    [
+      "arm1",
+      "body"
+    ],
+    [
+      "body",
+      "leg1"
+    ],
+    [
+      "arm1",
+      "leg1"
+    ],
+    [
+      "leg0",
+      "leg1"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1,
+      "joints": {
+        "head": {
+          "anchorA": [
+            0,
+            7.1973169368,
+            -2.570430408
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "arm0": {
+          "anchorA": [
+            -9,
+            5.1973169368,
+            0.429569592
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "arm1": {
+          "anchorA": [
+            9,
+            5.1973169368,
+            0.429569592
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "leg0": {
+          "anchorA": [
+            -4,
+            -9.8026830632,
+            0.429569592
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "leg1": {
+          "anchorA": [
+            4.5,
+            -9.8026830632,
+            0.429569592
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

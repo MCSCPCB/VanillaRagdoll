@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "root": {
+      "bone": "root",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            8,
+            24
+          ],
+          "size": [
+            23.6,
+            23.6,
+            63.6
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {},
+  "collisionPairs": [],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1
+    }
+  ],
+  "trigger": "!q.is_alive||q.death_ticks>0",
+  "release": "q.is_alive&&q.death_ticks==0",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

@@ -1,0 +1,207 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "base": {
+      "bone": "base",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            2,
+            0
+          ],
+          "size": [
+            16,
+            4,
+            16
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "lid": {
+      "bone": "lid",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            15.5,
+            0
+          ],
+          "size": [
+            16,
+            1,
+            16
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -7.5,
+            10,
+            0
+          ],
+          "size": [
+            1,
+            10,
+            16
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            7.5,
+            10,
+            0
+          ],
+          "size": [
+            1,
+            10,
+            16
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            0,
+            10,
+            -7.5
+          ],
+          "size": [
+            14,
+            10,
+            1
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            0,
+            10,
+            7.5
+          ],
+          "size": [
+            14,
+            10,
+            1
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head": {
+      "bone": "head",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            9,
+            0
+          ],
+          "size": [
+            6,
+            6,
+            6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "lid": {
+      "type": "coneTwist",
+      "a": "base",
+      "b": "lid",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "head": {
+      "type": "coneTwist",
+      "a": "base",
+      "b": "head",
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "base",
+      "lid"
+    ],
+    [
+      "base",
+      "head"
+    ],
+    [
+      "head",
+      "lid"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

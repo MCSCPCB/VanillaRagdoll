@@ -1,0 +1,487 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "body": {
+      "bone": "body",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            3,
+            0.5
+          ],
+          "size": [
+            3.8,
+            3.8,
+            4.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            1.5,
+            5,
+            -3.02
+          ],
+          "size": [
+            0.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "box",
+          "center": [
+            -1.5,
+            5,
+            -3.05
+          ],
+          "size": [
+            0.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "stinger": {
+      "bone": "stinger",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            2.5,
+            3
+          ],
+          "size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "rightwing_bone": {
+      "bone": "rightwing_bone",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -1,
+            5,
+            -1
+          ],
+          "size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leftwing_bone": {
+      "bone": "leftwing_bone",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1,
+            5,
+            -1
+          ],
+          "size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leg_front": {
+      "bone": "leg_front",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            1,
+            0
+          ],
+          "size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leg_mid": {
+      "bone": "leg_mid",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            1,
+            1
+          ],
+          "size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "leg_back": {
+      "bone": "leg_back",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            1,
+            2
+          ],
+          "size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "stinger": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "stinger",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "rightwing_bone": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "rightwing_bone",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "leftwing_bone": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leftwing_bone",
+      "axisA": [
+        0,
+        0,
+        -1
+      ],
+      "axisB": [
+        0,
+        0,
+        -1
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "leg_front": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leg_front",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "leg_mid": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leg_mid",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "leg_back": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "leg_back",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "leftwing_bone",
+      "rightwing_bone"
+    ],
+    [
+      "body",
+      "stinger"
+    ],
+    [
+      "body",
+      "rightwing_bone"
+    ],
+    [
+      "body",
+      "leftwing_bone"
+    ],
+    [
+      "body",
+      "leg_front"
+    ],
+    [
+      "body",
+      "leg_mid"
+    ],
+    [
+      "body",
+      "leg_back"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "baby",
+      "scale": 2,
+      "joints": {
+        "rightwing_bone": {
+          "anchorA": [
+            -1,
+            1.8608247423,
+            -1.254007732
+          ],
+          "axisA": [
+            -0.3339129003,
+            -0.2164396139,
+            -0.9174181536
+          ],
+          "twistAxisA": [
+            -0.9396926208,
+            0,
+            0.3420201433
+          ],
+          "axisB": [
+            0,
+            0,
+            -1
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "leftwing_bone": {
+          "anchorA": [
+            1,
+            1.8608247423,
+            -1.254007732
+          ],
+          "axisA": [
+            0.3339129003,
+            -0.2164396139,
+            -0.9174181536
+          ],
+          "twistAxisA": [
+            -0.9396926208,
+            0,
+            -0.3420201433
+          ],
+          "axisB": [
+            0,
+            0,
+            -1
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

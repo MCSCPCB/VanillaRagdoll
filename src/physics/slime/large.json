@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "bodies": {
+    "cube": {
+      "bone": "cube",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            4,
+            -0.25
+          ],
+          "size": [
+            6.6,
+            6,
+            6.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {},
+  "collisionPairs": [],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 4
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

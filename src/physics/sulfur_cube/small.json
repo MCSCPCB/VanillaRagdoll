@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "bodies": {
+    "sulfur_cube": {
+      "bone": "sulfur_cube",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            5,
+            0
+          ],
+          "size": [
+            10,
+            10,
+            10
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {},
+  "collisionPairs": [],
+  "variants": [
+    {
+      "geometry": "small",
+      "scale": 1
+    }
+  ],
+  "trigger": "!q.is_alive||(q.fuse_time>=0&&q.fuse_time<=2)",
+  "release": "q.is_alive&&(q.fuse_time<0||q.fuse_time>2)",
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

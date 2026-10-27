@@ -1,0 +1,299 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "piece2": {
+      "bone": "piece2",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            6,
+            0
+          ],
+          "size": [
+            10.6,
+            10.6,
+            10.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "piece1": {
+      "bone": "piece1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            16,
+            0
+          ],
+          "size": [
+            8.6,
+            8.6,
+            8.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head": {
+      "bone": "head",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            24,
+            0
+          ],
+          "size": [
+            6.6,
+            6.6,
+            6.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "arm1": {
+      "bone": "arm1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            7,
+            21,
+            0
+          ],
+          "size": [
+            10.6,
+            0.8,
+            0.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "arm2": {
+      "bone": "arm2",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            7,
+            21,
+            0
+          ],
+          "size": [
+            10.6,
+            0.8,
+            0.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "piece1": {
+      "type": "coneTwist",
+      "a": "piece2",
+      "b": "piece1",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        -5,
+        0
+      ]
+    },
+    "head": {
+      "type": "coneTwist",
+      "a": "piece1",
+      "b": "head",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        -4,
+        0
+      ]
+    },
+    "arm1": {
+      "type": "coneTwist",
+      "a": "piece1",
+      "b": "arm1",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "arm2": {
+      "type": "coneTwist",
+      "a": "piece1",
+      "b": "arm2",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "arm1",
+      "piece2"
+    ],
+    [
+      "arm2",
+      "piece2"
+    ],
+    [
+      "piece1",
+      "piece2"
+    ],
+    [
+      "head",
+      "piece1"
+    ],
+    [
+      "arm1",
+      "piece1"
+    ],
+    [
+      "arm2",
+      "piece1"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

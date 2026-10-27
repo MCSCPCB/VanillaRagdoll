@@ -1,0 +1,429 @@
+{
+  "formatVersion": 1,
+  "bodies": {
+    "bodyCube_0": {
+      "bone": "bodyCube_0",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            7.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_1": {
+      "bone": "bodyCube_1",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            6.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_2": {
+      "bone": "bodyCube_2",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            5.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_3": {
+      "bone": "bodyCube_3",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            4.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_4": {
+      "bone": "bodyCube_4",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            3.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_5": {
+      "bone": "bodyCube_5",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            2.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_6": {
+      "bone": "bodyCube_6",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            1.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "bodyCube_7": {
+      "bone": "bodyCube_7",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            0.5,
+            0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "insideCube": {
+      "bone": "insideCube",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            4,
+            0
+          ],
+          "size": [
+            4,
+            4,
+            4
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "bodyCube_0": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_0",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_1": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_1",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_2": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_2",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_3": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_3",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_4": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_4",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_5": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_5",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_6": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_6",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "bodyCube_7": {
+      "type": "coneTwist",
+      "a": "insideCube",
+      "b": "bodyCube_7",
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "bodyCube_0",
+      "bodyCube_1"
+    ],
+    [
+      "bodyCube_0",
+      "bodyCube_2"
+    ],
+    [
+      "bodyCube_0",
+      "bodyCube_3"
+    ],
+    [
+      "bodyCube_0",
+      "bodyCube_4"
+    ],
+    [
+      "bodyCube_0",
+      "bodyCube_5"
+    ],
+    [
+      "bodyCube_0",
+      "bodyCube_6"
+    ],
+    [
+      "bodyCube_0",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_0",
+      "insideCube"
+    ],
+    [
+      "bodyCube_1",
+      "bodyCube_2"
+    ],
+    [
+      "bodyCube_1",
+      "bodyCube_3"
+    ],
+    [
+      "bodyCube_1",
+      "bodyCube_4"
+    ],
+    [
+      "bodyCube_1",
+      "bodyCube_5"
+    ],
+    [
+      "bodyCube_1",
+      "bodyCube_6"
+    ],
+    [
+      "bodyCube_1",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_2",
+      "bodyCube_3"
+    ],
+    [
+      "bodyCube_2",
+      "bodyCube_4"
+    ],
+    [
+      "bodyCube_2",
+      "bodyCube_5"
+    ],
+    [
+      "bodyCube_2",
+      "bodyCube_6"
+    ],
+    [
+      "bodyCube_2",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_3",
+      "bodyCube_4"
+    ],
+    [
+      "bodyCube_3",
+      "bodyCube_5"
+    ],
+    [
+      "bodyCube_3",
+      "bodyCube_6"
+    ],
+    [
+      "bodyCube_3",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_4",
+      "bodyCube_5"
+    ],
+    [
+      "bodyCube_4",
+      "bodyCube_6"
+    ],
+    [
+      "bodyCube_4",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_5",
+      "bodyCube_6"
+    ],
+    [
+      "bodyCube_5",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_6",
+      "bodyCube_7"
+    ],
+    [
+      "bodyCube_7",
+      "insideCube"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 2
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

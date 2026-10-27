@@ -1,0 +1,836 @@
+{
+  "formatVersion": 1,
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "bodies": {
+    "body": {
+      "bone": "body",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            8,
+            0
+          ],
+          "size": [
+            11.6,
+            15.6,
+            11.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle1": {
+      "bone": "tentacle1",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            5,
+            -16,
+            0
+          ],
+          "size": [
+            1.6,
+            17.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle2": {
+      "bone": "tentacle2",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            3.5,
+            -16,
+            3.5
+          ],
+          "size": [
+            1.6,
+            17.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle3": {
+      "bone": "tentacle3",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            -8.5,
+            5
+          ],
+          "size": [
+            1.6,
+            16.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle4": {
+      "bone": "tentacle4",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -3.5,
+            -16,
+            3.5
+          ],
+          "size": [
+            1.6,
+            17.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle5": {
+      "bone": "tentacle5",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -5,
+            -16,
+            0
+          ],
+          "size": [
+            1.6,
+            17.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle6": {
+      "bone": "tentacle6",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -3.500000000000001,
+            -16,
+            -3.5
+          ],
+          "size": [
+            1.6000000000000019,
+            17.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle7": {
+      "bone": "tentacle7",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            -16,
+            -5
+          ],
+          "size": [
+            1.6,
+            17.6,
+            1.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tentacle8": {
+      "bone": "tentacle8",
+      "density": 4096,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            3.4999999999999987,
+            -16,
+            -3.499999999999999
+          ],
+          "size": [
+            1.5999999999999994,
+            17.6,
+            1.599999999999999
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "tentacle1": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle1",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tentacle2": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle2",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tentacle3": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle3",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5,
+      "anchorB": [
+        0,
+        8.5,
+        0
+      ]
+    },
+    "tentacle4": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle4",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tentacle5": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle5",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tentacle6": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle6",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tentacle7": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle7",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    },
+    "tentacle8": {
+      "type": "coneTwist",
+      "a": "body",
+      "b": "tentacle8",
+      "axisA": [
+        0,
+        1,
+        0
+      ],
+      "axisB": [
+        0,
+        1,
+        0
+      ],
+      "twistAxisA": [
+        -1,
+        0,
+        0
+      ],
+      "twistAxisB": [
+        -1,
+        0,
+        0
+      ],
+      "swing": 45,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "body",
+      "tentacle1"
+    ],
+    [
+      "body",
+      "tentacle2"
+    ],
+    [
+      "body",
+      "tentacle3"
+    ],
+    [
+      "body",
+      "tentacle4"
+    ],
+    [
+      "body",
+      "tentacle5"
+    ],
+    [
+      "body",
+      "tentacle6"
+    ],
+    [
+      "body",
+      "tentacle7"
+    ],
+    [
+      "body",
+      "tentacle8"
+    ],
+    [
+      "tentacle1",
+      "tentacle2"
+    ],
+    [
+      "tentacle1",
+      "tentacle3"
+    ],
+    [
+      "tentacle1",
+      "tentacle4"
+    ],
+    [
+      "tentacle1",
+      "tentacle5"
+    ],
+    [
+      "tentacle1",
+      "tentacle6"
+    ],
+    [
+      "tentacle1",
+      "tentacle7"
+    ],
+    [
+      "tentacle1",
+      "tentacle8"
+    ],
+    [
+      "tentacle2",
+      "tentacle3"
+    ],
+    [
+      "tentacle2",
+      "tentacle4"
+    ],
+    [
+      "tentacle2",
+      "tentacle5"
+    ],
+    [
+      "tentacle2",
+      "tentacle6"
+    ],
+    [
+      "tentacle2",
+      "tentacle7"
+    ],
+    [
+      "tentacle2",
+      "tentacle8"
+    ],
+    [
+      "tentacle3",
+      "tentacle4"
+    ],
+    [
+      "tentacle3",
+      "tentacle5"
+    ],
+    [
+      "tentacle3",
+      "tentacle6"
+    ],
+    [
+      "tentacle3",
+      "tentacle7"
+    ],
+    [
+      "tentacle3",
+      "tentacle8"
+    ],
+    [
+      "tentacle4",
+      "tentacle5"
+    ],
+    [
+      "tentacle4",
+      "tentacle6"
+    ],
+    [
+      "tentacle4",
+      "tentacle7"
+    ],
+    [
+      "tentacle4",
+      "tentacle8"
+    ],
+    [
+      "tentacle5",
+      "tentacle6"
+    ],
+    [
+      "tentacle5",
+      "tentacle7"
+    ],
+    [
+      "tentacle5",
+      "tentacle8"
+    ],
+    [
+      "tentacle6",
+      "tentacle7"
+    ],
+    [
+      "tentacle6",
+      "tentacle8"
+    ],
+    [
+      "tentacle7",
+      "tentacle8"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 1,
+      "joints": {
+        "tentacle1": {
+          "anchorA": [
+            5,
+            -15,
+            0
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            0,
+            0,
+            1
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle2": {
+          "anchorA": [
+            3.5,
+            -15,
+            3.5
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -0.7071067812,
+            0,
+            0.7071067812
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle3": {
+          "anchorA": [
+            0,
+            -8,
+            5
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle4": {
+          "anchorA": [
+            -3.5,
+            -15,
+            3.5
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            -0.7071067812,
+            0,
+            -0.7071067812
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle5": {
+          "anchorA": [
+            -5,
+            -15,
+            0
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            0,
+            0,
+            -1
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle6": {
+          "anchorA": [
+            -3.5,
+            -15,
+            -3.5
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            0.7071067812,
+            0,
+            -0.7071067812
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle7": {
+          "anchorA": [
+            0,
+            -15,
+            -5
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            1,
+            0,
+            0
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "tentacle8": {
+          "anchorA": [
+            3.5,
+            -15,
+            -3.5
+          ],
+          "axisA": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisA": [
+            0.7071067812,
+            0,
+            0.7071067812
+          ],
+          "axisB": [
+            0,
+            1,
+            0
+          ],
+          "twistAxisB": [
+            -1,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "trigger": "!q.is_alive",
+  "release": "q.is_alive",
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}

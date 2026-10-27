@@ -1,0 +1,252 @@
+{
+  "formatVersion": 1,
+  "bodies": {
+    "upperBodyPart1": {
+      "bone": "upperBodyPart1",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            18.6,
+            1
+          ],
+          "size": [
+            20,
+            3,
+            3
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyPart2": {
+      "bone": "upperBodyPart2",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -0.5,
+            12.100000000000001,
+            1
+          ],
+          "size": [
+            11,
+            10.000000000000002,
+            3
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "upperBodyPart3": {
+      "bone": "upperBodyPart3",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            1.5,
+            21,
+            1.5
+          ],
+          "size": [
+            3,
+            6,
+            3
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head1": {
+      "bone": "head1",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            0,
+            24,
+            0
+          ],
+          "size": [
+            8,
+            8,
+            8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head2": {
+      "bone": "head2",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            -9,
+            21,
+            -1
+          ],
+          "size": [
+            6,
+            6,
+            6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "head3": {
+      "bone": "head3",
+      "density": 1000,
+      "shapes": [
+        {
+          "type": "box",
+          "center": [
+            9,
+            21,
+            -1
+          ],
+          "size": [
+            6,
+            6,
+            6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "joints": {
+    "upperBodyPart2": {
+      "type": "coneTwist",
+      "a": "upperBodyPart1",
+      "b": "upperBodyPart2",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "upperBodyPart3": {
+      "type": "coneTwist",
+      "a": "upperBodyPart2",
+      "b": "upperBodyPart3",
+      "swing": 45,
+      "twist": 22.5
+    },
+    "head1": {
+      "type": "coneTwist",
+      "a": "upperBodyPart1",
+      "b": "head1",
+      "swing": 35,
+      "twist": 22.5
+    },
+    "head2": {
+      "type": "coneTwist",
+      "a": "upperBodyPart1",
+      "b": "head2",
+      "swing": 35,
+      "twist": 22.5
+    },
+    "head3": {
+      "type": "coneTwist",
+      "a": "upperBodyPart1",
+      "b": "head3",
+      "swing": 35,
+      "twist": 22.5
+    }
+  },
+  "collisionPairs": [
+    [
+      "upperBodyPart2",
+      "upperBodyPart3"
+    ],
+    [
+      "upperBodyPart2",
+      "head1"
+    ],
+    [
+      "upperBodyPart2",
+      "head2"
+    ],
+    [
+      "upperBodyPart2",
+      "head3"
+    ],
+    [
+      "upperBodyPart3",
+      "head2"
+    ],
+    [
+      "upperBodyPart3",
+      "head3"
+    ],
+    [
+      "head1",
+      "head2"
+    ],
+    [
+      "head1",
+      "head3"
+    ],
+    [
+      "head2",
+      "head3"
+    ]
+  ],
+  "variants": [
+    {
+      "geometry": "default",
+      "scale": 2
+    }
+  ],
+  "trigger": "!q.is_alive||(q.max_health>0&&q.health<=0)",
+  "release": "q.is_alive&&q.health>0",
+  "defaults": {
+    "friction": 0.3,
+    "restitution": 0,
+    "linearDamping": 0.01,
+    "angularDamping": 0.01
+  },
+  "simulation": {
+    "frequency": 20,
+    "iterations": 6,
+    "contactLimit": 128,
+    "gravity": 9.82,
+    "poseTransition": 0.4,
+    "initialVelocity": [
+      1,
+      1,
+      1
+    ],
+    "initialSpin": 0
+  },
+  "outputLevel": "standard"
+}
