@@ -158,7 +158,6 @@
     },
     "Neck": {
       "bone": "Neck",
-      "density": 4096.00000015,
       "shapes": [
         {
           "type": "box",
@@ -219,55 +218,8 @@
         0,
         28.50010981,
         -9.50038368
-      ]
-    },
-    "MuleEarL": {
-      "bone": "MuleEarL",
-      "density": 2638.53711534,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -1.9999999999999991,
-            35.5,
-            -4.510000000000002
-          ],
-          "size": [
-            1.6000000000000019,
-            6.6,
-            0.8000000000000057
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "MuleEarR": {
-      "bone": "MuleEarR",
-      "density": 2638.53711534,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            1.9999999999999991,
-            35.5,
-            -4.510000000000002
-          ],
-          "size": [
-            1.6000000000000019,
-            6.6,
-            0.8000000000000057
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 340.41720690715033
     }
   },
   "joints": {
@@ -452,70 +404,6 @@
       ],
       "swing": 45,
       "twist": 22.5
-    },
-    "MuleEarL": {
-      "type": "coneTwist",
-      "a": "Neck",
-      "b": "MuleEarL",
-      "axisA": [
-        0,
-        0,
-        -1
-      ],
-      "axisB": [
-        0,
-        0,
-        -1
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        0,
-        -3.5,
-        0
-      ]
-    },
-    "MuleEarR": {
-      "type": "coneTwist",
-      "a": "Neck",
-      "b": "MuleEarR",
-      "axisA": [
-        0,
-        0,
-        -1
-      ],
-      "axisB": [
-        0,
-        0,
-        -1
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        0,
-        -3.5,
-        0
-      ]
     }
   },
   "collisionPairs": [
@@ -582,18 +470,6 @@
     [
       "LegBR",
       "Tail"
-    ],
-    [
-      "MuleEarL",
-      "Neck"
-    ],
-    [
-      "MuleEarR",
-      "Neck"
-    ],
-    [
-      "MuleEarL",
-      "MuleEarR"
     ]
   ],
   "variants": [
@@ -642,60 +518,6 @@
           "twistAxisA": [
             -1,
             0,
-            0
-          ],
-          "axisB": [
-            0,
-            0,
-            -1
-          ],
-          "twistAxisB": [
-            -1,
-            0,
-            0
-          ]
-        },
-        "MuleEarL": {
-          "anchorA": [
-            1.950434024,
-            3.5064156745,
-            4.99038368
-          ],
-          "axisA": [
-            0,
-            0,
-            -1
-          ],
-          "twistAxisA": [
-            -0.9659258263,
-            0.2588190451,
-            0
-          ],
-          "axisB": [
-            0,
-            0,
-            -1
-          ],
-          "twistAxisB": [
-            -1,
-            0,
-            0
-          ]
-        },
-        "MuleEarR": {
-          "anchorA": [
-            -1.950434024,
-            3.5064156745,
-            4.99038368
-          ],
-          "axisA": [
-            0,
-            0,
-            -1
-          ],
-          "twistAxisA": [
-            -0.9659258263,
-            -0.2588190451,
             0
           ],
           "axisB": [

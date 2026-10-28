@@ -33,7 +33,6 @@
     },
     "head": {
       "bone": "head",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -53,30 +52,12 @@
             0
           ]
         }
-      ]
-    },
-    "nose": {
-      "bone": "nose",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            25,
-            -5
-          ],
-          "size": [
-            1.6,
-            3.6,
-            1.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
+      ],
+      "mass": 563.712,
+      "center": [
+        0,
+        29,
+        0
       ]
     },
     "leftLeg": {
@@ -336,38 +317,6 @@
         4,
         0
       ]
-    },
-    "nose": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "nose",
-      "axisA": [
-        0,
-        0,
-        -1
-      ],
-      "axisB": [
-        0,
-        0,
-        -1
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        0,
-        1,
-        1
-      ]
     }
   },
   "collisionPairs": [
@@ -418,10 +367,6 @@
     [
       "head",
       "rightarm"
-    ],
-    [
-      "head",
-      "nose"
     ]
   ],
   "variants": [
@@ -476,33 +421,6 @@
             0,
             1,
             0
-          ],
-          "twistAxisB": [
-            -1,
-            0,
-            0
-          ]
-        },
-        "nose": {
-          "anchorA": [
-            0,
-            -3,
-            -4
-          ],
-          "axisA": [
-            0,
-            0,
-            -1
-          ],
-          "twistAxisA": [
-            -1,
-            0,
-            0
-          ],
-          "axisB": [
-            0,
-            0,
-            -1
           ],
           "twistAxisB": [
             -1,

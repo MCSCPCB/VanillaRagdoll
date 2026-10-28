@@ -62,7 +62,6 @@
     },
     "head": {
       "bone": "head",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -92,55 +91,8 @@
         0,
         3.614,
         -7.574
-      ]
-    },
-    "right_ear": {
-      "bone": "right_ear",
-      "density": 1472,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -1,
-            6,
-            -7
-          ],
-          "size": [
-            1.6,
-            1.6,
-            1.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "left_ear": {
-      "bone": "left_ear",
-      "density": 1472,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            1,
-            7,
-            -7
-          ],
-          "size": [
-            1.6,
-            1.6,
-            1.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 22.080000000000002
     },
     "right_hind_leg": {
       "bone": "right_hind_leg",
@@ -421,75 +373,9 @@
         2,
         0
       ]
-    },
-    "right_ear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "right_ear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
-    "left_ear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "left_ear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
     }
   },
   "collisionPairs": [
-    [
-      "head",
-      "left_ear"
-    ],
-    [
-      "head",
-      "right_ear"
-    ],
-    [
-      "left_ear",
-      "right_ear"
-    ],
     [
       "body",
       "tail"
@@ -497,14 +383,6 @@
     [
       "body",
       "head"
-    ],
-    [
-      "body",
-      "right_ear"
-    ],
-    [
-      "body",
-      "left_ear"
     ],
     [
       "body",

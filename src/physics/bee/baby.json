@@ -9,7 +9,6 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -28,67 +27,13 @@
             0,
             0
           ]
-        },
-        {
-          "type": "box",
-          "center": [
-            1.5,
-            5,
-            -3.02
-          ],
-          "size": [
-            0.8,
-            1.8,
-            1.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            -1.5,
-            5,
-            -3.05
-          ],
-          "size": [
-            0.8,
-            1.8,
-            1.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
         }
-      ]
-    },
-    "stinger": {
-      "bone": "stinger",
-      "density": 44.9492455418,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            2.5,
-            3
-          ],
-          "size": [
-            1.8,
-            1.8,
-            1.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
+      ],
+      "mass": 75.23199999999808,
+      "center": [
+        0,
+        3.1391752577319587,
+        0.25400773195876286
       ]
     },
     "rightwing_bone": {
@@ -138,108 +83,9 @@
           ]
         }
       ]
-    },
-    "leg_front": {
-      "bone": "leg_front",
-      "density": 157.322359396,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            1,
-            0
-          ],
-          "size": [
-            1.8,
-            1.8,
-            1.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "leg_mid": {
-      "bone": "leg_mid",
-      "density": 157.322359396,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            1,
-            1
-          ],
-          "size": [
-            1.8,
-            1.8,
-            1.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "leg_back": {
-      "bone": "leg_back",
-      "density": 157.322359396,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            1,
-            2
-          ],
-          "size": [
-            1.8,
-            1.8,
-            1.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
     }
   },
   "joints": {
-    "stinger": {
-      "type": "coneTwist",
-      "a": "body",
-      "b": "stinger",
-      "axisA": [
-        0,
-        0,
-        -1
-      ],
-      "axisB": [
-        0,
-        0,
-        -1
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
     "rightwing_bone": {
       "type": "coneTwist",
       "a": "body",
@@ -293,87 +139,6 @@
       ],
       "swing": 45,
       "twist": 22.5
-    },
-    "leg_front": {
-      "type": "coneTwist",
-      "a": "body",
-      "b": "leg_front",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
-    "leg_mid": {
-      "type": "coneTwist",
-      "a": "body",
-      "b": "leg_mid",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
-    "leg_back": {
-      "type": "coneTwist",
-      "a": "body",
-      "b": "leg_back",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
     }
   },
   "collisionPairs": [
@@ -383,27 +148,11 @@
     ],
     [
       "body",
-      "stinger"
-    ],
-    [
-      "body",
       "rightwing_bone"
     ],
     [
       "body",
       "leftwing_bone"
-    ],
-    [
-      "body",
-      "leg_front"
-    ],
-    [
-      "body",
-      "leg_mid"
-    ],
-    [
-      "body",
-      "leg_back"
     ]
   ],
   "variants": [

@@ -9,7 +9,6 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096.00000006,
       "shapes": [
         {
           "type": "box",
@@ -34,36 +33,8 @@
         0,
         3.550093744,
         0.600145945
-      ]
-    },
-    "tail": {
-      "bone": "tail",
-      "density": 4095.99999922,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            7.349853003,
-            5.000299994
-          ],
-          "size": [
-            3.75952481,
-            3.059938801,
-            3.75952481
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
       ],
-      "center": [
-        0,
-        7.350128586,
-        5.000156006
-      ]
+      "mass": 339.51765339735965
     },
     "head": {
       "bone": "head",
@@ -280,33 +251,6 @@
     }
   },
   "joints": {
-    "tail": {
-      "type": "coneTwist",
-      "a": "body",
-      "b": "tail",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
     "head": {
       "type": "coneTwist",
       "a": "body",
@@ -558,10 +502,6 @@
     [
       "left_ear",
       "right_ear"
-    ],
-    [
-      "body",
-      "tail"
     ],
     [
       "body",

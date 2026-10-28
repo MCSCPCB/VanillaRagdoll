@@ -9,7 +9,6 @@
   "bodies": {
     "body": {
       "bone": "body",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -52,7 +51,8 @@
         0,
         2.25,
         -5.25
-      ]
+      ],
+      "mass": 948.24
     },
     "tail": {
       "bone": "tail",
@@ -80,60 +80,18 @@
     },
     "tail_fin": {
       "bone": "tail_fin",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
           "center": [
-            3.5,
+            0,
             2.5,
             22
           ],
           "size": [
-            2.6,
+            9.6,
             0.6,
             5.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            0,
-            2.5,
-            23
-          ],
-          "size": [
-            3.6,
-            0.6,
-            3.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            -3.5,
-            2.5,
-            22
-          ],
-          "size": [
-            2.6,
-            0.6,
-            5.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
           ]
         }
       ],
@@ -141,7 +99,8 @@
         0,
         2.5,
         22.333
-      ]
+      ],
+      "mass": 25.247999999999998
     },
     "left_fin": {
       "bone": "left_fin",
@@ -199,53 +158,6 @@
         -8.000228062,
         1.499877065,
         -0.500376898
-      ]
-    },
-    "back_fin": {
-      "bone": "back_fin",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            9.75,
-            3
-          ],
-          "size": [
-            0.6,
-            2.6,
-            3.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            0,
-            7.75,
-            1.8
-          ],
-          "size": [
-            0.6,
-            0.6,
-            1.2
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ],
-      "center": [
-        0,
-        8.750189431,
-        2.399417018
       ]
     }
   },
@@ -336,33 +248,6 @@
       "swing": 45,
       "twist": 22.5
     },
-    "back_fin": {
-      "type": "coneTwist",
-      "a": "body",
-      "b": "back_fin",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
     "tail_fin": {
       "type": "coneTwist",
       "a": "tail",
@@ -400,10 +285,6 @@
     [
       "body",
       "left_fin"
-    ],
-    [
-      "back_fin",
-      "body"
     ],
     [
       "body",
@@ -497,33 +378,6 @@
             0,
             0,
             -1
-          ],
-          "twistAxisB": [
-            -1,
-            0,
-            0
-          ]
-        },
-        "back_fin": {
-          "anchorA": [
-            0,
-            4.75,
-            7.25
-          ],
-          "axisA": [
-            0,
-            0.8660254038,
-            0.5
-          ],
-          "twistAxisA": [
-            -1,
-            0,
-            0
-          ],
-          "axisB": [
-            0,
-            1,
-            0
           ],
           "twistAxisB": [
             -1,

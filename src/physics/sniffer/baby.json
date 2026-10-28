@@ -33,7 +33,6 @@
     },
     "head": {
       "bone": "head",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -53,54 +52,12 @@
             0
           ]
         }
-      ]
-    },
-    "left_ear": {
-      "bone": "left_ear",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            5.5,
-            6.5,
-            -11.5
-          ],
-          "size": [
-            0.81998199819982,
-            10.81998199819982,
-            2.81998199819982
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "right_ear": {
-      "bone": "right_ear",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -5.5,
-            6.5,
-            -11.5
-          ],
-          "size": [
-            0.81998199819982,
-            10.81998199819982,
-            2.81998199819982
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
+      ],
+      "mass": 987.179812901007,
+      "center": [
+        0,
+        7.5,
+        -15.500000000000002
       ]
     },
     "right_front_leg": {
@@ -472,92 +429,12 @@
         3,
         0
       ]
-    },
-    "left_ear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "left_ear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        -0.5,
-        5.5,
-        0.5
-      ]
-    },
-    "right_ear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "right_ear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        0.5,
-        5.5,
-        0.5
-      ]
     }
   },
   "collisionPairs": [
     [
-      "head",
-      "left_ear"
-    ],
-    [
-      "head",
-      "right_ear"
-    ],
-    [
       "body",
       "head"
-    ],
-    [
-      "body",
-      "left_ear"
-    ],
-    [
-      "body",
-      "right_ear"
     ],
     [
       "body",

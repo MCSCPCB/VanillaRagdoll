@@ -58,7 +58,7 @@
         12,
         0
       ],
-      "mass": 413.712,
+      "mass": 416.304,
       "shapes": [
         {
           "type": "box",
@@ -80,35 +80,6 @@
         }
       ]
     },
-    "nose": {
-      "bone": "nose",
-      "center": [
-        0,
-        9,
-        -4
-      ],
-      "mass": 2.5920000000000005,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            9,
-            -4
-          ],
-          "size": [
-            1.8,
-            1.8,
-            0.8
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
     "arms": {
       "bone": "arms",
       "center": [
@@ -118,24 +89,6 @@
       ],
       "mass": 28.728,
       "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            5.278594555433773,
-            -2.3348604327990463
-          ],
-          "size": [
-            3.8,
-            0.6,
-            1.8
-          ],
-          "rotation": [
-            -59.999999999999986,
-            0,
-            0
-          ]
-        },
         {
           "type": "box",
           "center": [
@@ -271,43 +224,6 @@
       "swing": 45,
       "twist": 22.5
     },
-    "nose": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "nose",
-      "anchorA": [
-        0,
-        -2.5,
-        -3.5
-      ],
-      "anchorB": [
-        0,
-        0.5,
-        0.5
-      ],
-      "axisA": [
-        0,
-        0,
-        -1
-      ],
-      "axisB": [
-        0,
-        0,
-        -1
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
     "arms": {
       "type": "coneTwist",
       "a": "body",
@@ -429,17 +345,12 @@
     "neck",
     "arms",
     "left_hip",
-    "right_hip",
-    "nose"
+    "right_hip"
   ],
   "collisionPairs": [
     [
       "body",
       "head"
-    ],
-    [
-      "head",
-      "nose"
     ],
     [
       "body",

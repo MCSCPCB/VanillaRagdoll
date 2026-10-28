@@ -33,7 +33,6 @@
     },
     "head": {
       "bone": "head",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -53,54 +52,12 @@
             0
           ]
         }
-      ]
-    },
-    "leftear": {
-      "bone": "leftear",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            4.5,
-            26.5,
-            0
-          ],
-          "size": [
-            0.6,
-            2.6,
-            3.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "rightear": {
-      "bone": "rightear",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -4.5,
-            26.5,
-            0
-          ],
-          "size": [
-            0.6,
-            2.6,
-            3.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
+      ],
+      "mass": 557.620416,
+      "center": [
+        0,
+        28,
+        0
       ]
     },
     "rightarm": {
@@ -360,60 +317,6 @@
         6,
         0
       ]
-    },
-    "leftear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "leftear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
-    },
-    "rightear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "rightear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5
     }
   },
   "collisionPairs": [
@@ -464,14 +367,6 @@
     [
       "head",
       "rightarm"
-    ],
-    [
-      "head",
-      "leftear"
-    ],
-    [
-      "head",
-      "rightear"
     ]
   ],
   "variants": [
@@ -520,60 +415,6 @@
           "twistAxisA": [
             -1,
             0,
-            0
-          ],
-          "axisB": [
-            0,
-            1,
-            0
-          ],
-          "twistAxisB": [
-            -1,
-            0,
-            0
-          ]
-        },
-        "leftear": {
-          "anchorA": [
-            5,
-            2,
-            0
-          ],
-          "axisA": [
-            -0.5,
-            0.8660254038,
-            0
-          ],
-          "twistAxisA": [
-            -0.8660254038,
-            -0.5,
-            0
-          ],
-          "axisB": [
-            0,
-            1,
-            0
-          ],
-          "twistAxisB": [
-            -1,
-            0,
-            0
-          ]
-        },
-        "rightear": {
-          "anchorA": [
-            -5,
-            2,
-            0
-          ],
-          "axisA": [
-            0.5,
-            0.8660254038,
-            0
-          ],
-          "twistAxisA": [
-            -0.8660254038,
-            0.5,
             0
           ],
           "axisB": [

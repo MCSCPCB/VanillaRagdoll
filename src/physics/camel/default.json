@@ -56,7 +56,6 @@
     },
     "head": {
       "bone": "head",
-      "density": 4096,
       "shapes": [
         {
           "type": "box",
@@ -117,55 +116,8 @@
         0,
         34.833,
         -23.167
-      ]
-    },
-    "left_ear": {
-      "bone": "left_ear",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            4.75,
-            43,
-            -19.5
-          ],
-          "size": [
-            2.1,
-            0.6,
-            1.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "right_ear": {
-      "bone": "right_ear",
-      "density": 4096,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -4.75,
-            43,
-            -19.5
-          ],
-          "size": [
-            2.1,
-            0.6,
-            1.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 1196.4799999999998
     },
     "tail": {
       "bone": "tail",
@@ -347,70 +299,6 @@
       ],
       "swing": 45,
       "twist": 22.5
-    },
-    "left_ear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "left_ear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        -1.75,
-        0,
-        0
-      ]
-    },
-    "right_ear": {
-      "type": "coneTwist",
-      "a": "head",
-      "b": "right_ear",
-      "axisA": [
-        0,
-        1,
-        0
-      ],
-      "axisB": [
-        0,
-        1,
-        0
-      ],
-      "twistAxisA": [
-        -1,
-        0,
-        0
-      ],
-      "twistAxisB": [
-        -1,
-        0,
-        0
-      ],
-      "swing": 45,
-      "twist": 22.5,
-      "anchorB": [
-        1.75,
-        0,
-        0
-      ]
     },
     "left_hind_leg": {
       "type": "coneTwist",
@@ -597,14 +485,6 @@
     [
       "right_front_leg",
       "right_hind_leg"
-    ],
-    [
-      "head",
-      "left_ear"
-    ],
-    [
-      "head",
-      "right_ear"
     ]
   ],
   "variants": [
