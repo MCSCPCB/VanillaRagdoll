@@ -9,7 +9,6 @@
   "bodies": {
     "root": {
       "bone": "root",
-      "density": 2048,
       "shapes": [
         {
           "type": "box",
@@ -24,41 +23,23 @@
             63.6
           ]
         }
-      ]
+      ],
+      "mass": 17711.328
     },
-    "wing": {
-      "bone": "wing",
-      "density": 512,
+    "neck3": {
+      "bone": "neck3",
       "shapes": [
         {
           "type": "box",
           "center": [
-            -40,
-            19,
-            2
-          ],
-          "size": [
-            55.6,
-            7.6,
-            7.6
-          ],
-          "rotation": [
             0,
-            0,
+            24,
             0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            -40,
-            19,
-            32
           ],
           "size": [
-            55.6,
-            0.8,
-            55.6
+            10,
+            10,
+            50
           ],
           "rotation": [
             0,
@@ -66,137 +47,11 @@
             0
           ]
         }
-      ]
-    },
-    "wingtip": {
-      "bone": "wingtip",
-      "density": 512,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -84,
-            24,
-            0
-          ],
-          "size": [
-            55.6,
-            3.6,
-            3.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            -84,
-            24,
-            30
-          ],
-          "size": [
-            55.6,
-            0.8,
-            55.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "wing1": {
-      "bone": "wing1",
-      "density": 512,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -16,
-            19,
-            2
-          ],
-          "size": [
-            55.6,
-            7.6,
-            7.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            -16,
-            19,
-            32
-          ],
-          "size": [
-            55.6,
-            0.8,
-            55.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "wingtip1": {
-      "bone": "wingtip1",
-      "density": 512,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            -84,
-            24,
-            0
-          ],
-          "size": [
-            55.6,
-            3.6,
-            3.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            -84,
-            24,
-            30
-          ],
-          "size": [
-            55.6,
-            0.8,
-            55.6
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 2500
     },
     "head": {
       "bone": "head",
-      "density": 2048,
       "shapes": [
         {
           "type": "box",
@@ -234,191 +89,23 @@
             0
           ]
         }
-      ]
-    },
-    "neck1": {
-      "bone": "neck1",
-      "density": 2048,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "neck2": {
-      "bone": "neck2",
-      "density": 2048,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "neck3": {
-      "bone": "neck3",
-      "density": 2048,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "neck4": {
-      "bone": "neck4",
-      "density": 2048,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "neck5": {
-      "bone": "neck5",
-      "density": 2048,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "tail1": {
-      "bone": "tail1",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "tail2": {
-      "bone": "tail2",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 2468
     },
     "tail3": {
       "bone": "tail3",
-      "density": 1536,
       "shapes": [
         {
           "type": "box",
           "center": [
             0,
             24,
-            0
+            -5
           ],
           "size": [
             10,
             10,
-            10
+            60
           ],
           "rotation": [
             0,
@@ -426,143 +113,23 @@
             0
           ]
         }
-      ]
-    },
-    "tail4": {
-      "bone": "tail4",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "tail5": {
-      "bone": "tail5",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "tail6": {
-      "bone": "tail6",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "tail7": {
-      "bone": "tail7",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
-    },
-    "tail8": {
-      "bone": "tail8",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 2250
     },
     "tail9": {
       "bone": "tail9",
-      "density": 1536,
       "shapes": [
         {
           "type": "box",
           "center": [
             0,
             24,
-            0
+            -5
           ],
           "size": [
             10,
             10,
-            10
+            60
           ],
           "rotation": [
             0,
@@ -570,23 +137,23 @@
             0
           ]
         }
-      ]
+      ],
+      "mass": 2250
     },
-    "tail10": {
-      "bone": "tail10",
-      "density": 1536,
+    "wing": {
+      "bone": "wing",
       "shapes": [
         {
           "type": "box",
           "center": [
-            0,
-            24,
-            0
+            -40,
+            19,
+            2
           ],
           "size": [
-            10,
-            10,
-            10
+            55.6,
+            7.6,
+            7.6
           ],
           "rotation": [
             0,
@@ -594,23 +161,23 @@
             0
           ]
         }
-      ]
+      ],
+      "mass": 1109.776
     },
-    "tail11": {
-      "bone": "tail11",
-      "density": 1536,
+    "wing1": {
+      "bone": "wing1",
       "shapes": [
         {
           "type": "box",
           "center": [
-            0,
-            24,
-            0
+            -16,
+            19,
+            2
           ],
           "size": [
-            10,
-            10,
-            10
+            55.6,
+            7.6,
+            7.6
           ],
           "rotation": [
             0,
@@ -618,35 +185,11 @@
             0
           ]
         }
-      ]
-    },
-    "tail12": {
-      "bone": "tail12",
-      "density": 1536,
-      "shapes": [
-        {
-          "type": "box",
-          "center": [
-            0,
-            24,
-            0
-          ],
-          "size": [
-            10,
-            10,
-            10
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ]
-        }
-      ]
+      ],
+      "mass": 1109.776
     },
     "frontleg": {
       "bone": "frontleg",
-      "density": 1536,
       "shapes": [
         {
           "type": "box",
@@ -665,19 +208,13 @@
             0,
             0
           ]
-        }
-      ]
-    },
-    "frontlegtip": {
-      "bone": "frontlegtip",
-      "density": 1536,
-      "shapes": [
+        },
         {
           "type": "box",
           "center": [
-            0,
-            -7,
-            -1
+            -12,
+            -25.6532139409058,
+            -4.274036462814973
           ],
           "size": [
             6,
@@ -685,34 +222,21 @@
             6
           ],
           "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            0,
-            -3.190700843488335,
-            -1.561418086351685
-          ],
-          "size": [
-            8,
-            4,
-            16
-          ],
-          "rotation": [
-            43,
+            -28.65,
             0,
             0
           ]
         }
+      ],
+      "mass": 1092,
+      "center": [
+        -12,
+        -4,
+        2
       ]
     },
     "frontleg1": {
       "bone": "frontleg1",
-      "density": 1536,
       "shapes": [
         {
           "type": "box",
@@ -731,19 +255,13 @@
             0,
             0
           ]
-        }
-      ]
-    },
-    "frontlegtip1": {
-      "bone": "frontlegtip1",
-      "density": 1536,
-      "shapes": [
+        },
         {
           "type": "box",
           "center": [
-            0,
-            -7,
-            -1
+            12,
+            -25.6532139409058,
+            -4.274036462814973
           ],
           "size": [
             6,
@@ -751,34 +269,21 @@
             6
           ],
           "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            0,
-            -3.190700843488335,
-            -1.561418086351685
-          ],
-          "size": [
-            8,
-            4,
-            16
-          ],
-          "rotation": [
-            43,
+            -28.65,
             0,
             0
           ]
         }
+      ],
+      "mass": 1092,
+      "center": [
+        12,
+        -4,
+        2
       ]
     },
     "rearleg": {
       "bone": "rearleg",
-      "density": 1536,
       "shapes": [
         {
           "type": "box",
@@ -797,19 +302,13 @@
             0,
             0
           ]
-        }
-      ]
-    },
-    "rearlegtip": {
-      "bone": "rearlegtip",
-      "density": 1536,
-      "shapes": [
+        },
         {
           "type": "box",
           "center": [
-            0,
-            -22,
-            2
+            -16,
+            -33.409161490526486,
+            49.97779946589495
           ],
           "size": [
             12,
@@ -817,34 +316,21 @@
             12
           ],
           "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            0,
-            -14.6500479853575,
-            0.19516546723413164
-          ],
-          "size": [
-            18,
-            6,
-            24
-          ],
-          "rotation": [
-            43,
+            28.65,
             0,
             0
           ]
         }
+      ],
+      "mass": 5772,
+      "center": [
+        -16,
+        -4,
+        42
       ]
     },
     "rearleg1": {
       "bone": "rearleg1",
-      "density": 1536,
       "shapes": [
         {
           "type": "box",
@@ -863,19 +349,13 @@
             0,
             0
           ]
-        }
-      ]
-    },
-    "rearlegtip1": {
-      "bone": "rearlegtip1",
-      "density": 1536,
-      "shapes": [
+        },
         {
           "type": "box",
           "center": [
-            0,
-            -22,
-            2
+            16,
+            -33.409161490526486,
+            49.97779946589495
           ],
           "size": [
             12,
@@ -883,33 +363,89 @@
             12
           ],
           "rotation": [
-            0,
-            0,
-            0
-          ]
-        },
-        {
-          "type": "box",
-          "center": [
-            0,
-            -14.6500479853575,
-            0.19516546723413164
-          ],
-          "size": [
-            18,
-            6,
-            24
-          ],
-          "rotation": [
-            43,
+            28.65,
             0,
             0
           ]
         }
+      ],
+      "mass": 5772,
+      "center": [
+        16,
+        -4,
+        42
       ]
     }
   },
   "joints": {
+    "neck3": {
+      "type": "coneTwist",
+      "a": "root",
+      "b": "neck3",
+      "swing": 55,
+      "twist": 25,
+      "anchorB": [
+        0,
+        0,
+        25
+      ],
+      "anchorA": [
+        0,
+        16,
+        1
+      ]
+    },
+    "head": {
+      "type": "coneTwist",
+      "a": "neck3",
+      "b": "head",
+      "swing": 45,
+      "twist": 30,
+      "anchorB": [
+        0,
+        0.2552674230145868,
+        12.552674230145868
+      ],
+      "anchorA": [
+        0,
+        0,
+        8
+      ]
+    },
+    "tail3": {
+      "type": "coneTwist",
+      "a": "root",
+      "b": "tail3",
+      "swing": 55,
+      "twist": 25,
+      "anchorB": [
+        0,
+        0,
+        30
+      ],
+      "anchorA": [
+        0,
+        16,
+        1
+      ]
+    },
+    "tail9": {
+      "type": "coneTwist",
+      "a": "tail3",
+      "b": "tail9",
+      "swing": 55,
+      "twist": 25,
+      "anchorB": [
+        0,
+        0,
+        30
+      ],
+      "anchorA": [
+        0,
+        0,
+        30
+      ]
+    },
     "wing": {
       "type": "coneTwist",
       "a": "root",
@@ -918,30 +454,13 @@
       "twist": 35,
       "anchorB": [
         28,
-        -3.552713678800501e-15,
-        -13.051643192488264
+        0,
+        0
       ],
       "anchorA": [
         -12,
         11,
         -22
-      ]
-    },
-    "wingtip": {
-      "type": "coneTwist",
-      "a": "wing",
-      "b": "wingtip",
-      "swing": 65,
-      "twist": 25,
-      "anchorB": [
-        28,
-        -3.552713678800501e-15,
-        -23.23119777158774
-      ],
-      "anchorA": [
-        -16,
-        4.9999999999999964,
-        -15.051643192488264
       ]
     },
     "wing1": {
@@ -952,336 +471,13 @@
       "twist": 35,
       "anchorB": [
         28,
-        -3.552713678800501e-15,
-        -13.051643192488264
+        0,
+        0
       ],
       "anchorA": [
         12,
         11,
         -22
-      ]
-    },
-    "wingtip1": {
-      "type": "coneTwist",
-      "a": "wing1",
-      "b": "wingtip1",
-      "swing": 65,
-      "twist": 25,
-      "anchorB": [
-        28,
-        -3.552713678800501e-15,
-        -23.23119777158774
-      ],
-      "anchorA": [
-        -40,
-        4.9999999999999964,
-        -15.051643192488264
-      ]
-    },
-    "neck1": {
-      "type": "coneTwist",
-      "a": "root",
-      "b": "neck1",
-      "swing": 32,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        16,
-        -19
-      ]
-    },
-    "neck2": {
-      "type": "coneTwist",
-      "a": "neck1",
-      "b": "neck2",
-      "swing": 32,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "neck3": {
-      "type": "coneTwist",
-      "a": "neck2",
-      "b": "neck3",
-      "swing": 32,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "neck4": {
-      "type": "coneTwist",
-      "a": "neck3",
-      "b": "neck4",
-      "swing": 32,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "neck5": {
-      "type": "coneTwist",
-      "a": "neck4",
-      "b": "neck5",
-      "swing": 32,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail1": {
-      "type": "coneTwist",
-      "a": "root",
-      "b": "tail1",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        16,
-        -19
-      ]
-    },
-    "tail2": {
-      "type": "coneTwist",
-      "a": "tail1",
-      "b": "tail2",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail3": {
-      "type": "coneTwist",
-      "a": "tail2",
-      "b": "tail3",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail4": {
-      "type": "coneTwist",
-      "a": "tail3",
-      "b": "tail4",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail5": {
-      "type": "coneTwist",
-      "a": "tail4",
-      "b": "tail5",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail6": {
-      "type": "coneTwist",
-      "a": "tail5",
-      "b": "tail6",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail7": {
-      "type": "coneTwist",
-      "a": "tail6",
-      "b": "tail7",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail8": {
-      "type": "coneTwist",
-      "a": "tail7",
-      "b": "tail8",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail9": {
-      "type": "coneTwist",
-      "a": "tail8",
-      "b": "tail9",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail10": {
-      "type": "coneTwist",
-      "a": "tail9",
-      "b": "tail10",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail11": {
-      "type": "coneTwist",
-      "a": "tail10",
-      "b": "tail11",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "tail12": {
-      "type": "coneTwist",
-      "a": "tail11",
-      "b": "tail12",
-      "swing": 28,
-      "twist": 20,
-      "anchorB": [
-        0,
-        0,
-        5
-      ],
-      "anchorA": [
-        0,
-        0,
-        5
-      ]
-    },
-    "head": {
-      "type": "coneTwist",
-      "a": "neck5",
-      "b": "head",
-      "swing": 45,
-      "twist": 30,
-      "anchorB": [
-        0,
-        0,
-        8
-      ],
-      "anchorA": [
-        0,
-        -0.2552674230145868,
-        3.4473257698541326
       ]
     },
     "frontleg": {
@@ -1301,23 +497,6 @@
         -22
       ]
     },
-    "frontlegtip": {
-      "type": "coneTwist",
-      "a": "frontleg",
-      "b": "frontlegtip",
-      "swing": 80,
-      "twist": 25,
-      "anchorB": [
-        0,
-        9.582586360367753,
-        0.2088997530610921
-      ],
-      "anchorA": [
-        12,
-        8,
-        -3
-      ]
-    },
     "frontleg1": {
       "type": "coneTwist",
       "a": "root",
@@ -1333,23 +512,6 @@
         12,
         -4,
         -22
-      ]
-    },
-    "frontlegtip1": {
-      "type": "coneTwist",
-      "a": "frontleg1",
-      "b": "frontlegtip1",
-      "swing": 80,
-      "twist": 25,
-      "anchorB": [
-        0,
-        9.582586360367753,
-        0.2088997530610921
-      ],
-      "anchorA": [
-        -12,
-        8,
-        -3
       ]
     },
     "rearleg": {
@@ -1369,23 +531,6 @@
         18
       ]
     },
-    "rearlegtip": {
-      "type": "coneTwist",
-      "a": "rearleg",
-      "b": "rearlegtip",
-      "swing": 80,
-      "twist": 25,
-      "anchorB": [
-        0,
-        11.354017274728701,
-        -5.3502595682042875
-      ],
-      "anchorA": [
-        16,
-        -4,
-        -46
-      ]
-    },
     "rearleg1": {
       "type": "coneTwist",
       "a": "root",
@@ -1402,38 +547,20 @@
         0,
         18
       ]
-    },
-    "rearlegtip1": {
-      "type": "coneTwist",
-      "a": "rearleg1",
-      "b": "rearlegtip1",
-      "swing": 80,
-      "twist": 25,
-      "anchorB": [
-        0,
-        11.354017274728701,
-        -5.3502595682042875
-      ],
-      "anchorA": [
-        -16,
-        -4,
-        -46
-      ]
     }
   },
   "collisionPairs": [],
   "variants": [
     {
-      "geometry": "default",
-      "scale": 1
+      "geometry": "default"
     }
   ],
   "trigger": "!q.is_alive||q.death_ticks>0",
   "release": "q.is_alive&&q.death_ticks==0",
   "simulation": {
     "frequency": 40,
-    "iterations": 10,
-    "contactLimit": 256,
+    "iterations": 8,
+    "contactLimit": 192,
     "gravity": 9.82,
     "poseTransition": 0.4,
     "initialVelocity": [
