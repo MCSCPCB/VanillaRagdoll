@@ -356,5 +356,15 @@
     ],
     "initialSpin": 0
   },
-  "outputLevel": "standard"
+  "outputLevel": "standard",
+  "api": {
+    "applyImpulse": false,
+    "setVelocity": false,
+    "setForce": false,
+    "setTransform": false,
+    "setProperties": false,
+    "setJointsEnabled": false,
+    "setTerrain": false,
+    "setEnvironment": false
+  }
 }
