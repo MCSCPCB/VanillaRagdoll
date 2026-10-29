@@ -35,7 +35,9 @@ test('vanilla references compile in the production worker without uploading vani
   await page.goto('./');
   const bytes = await pack({ clients: [vanillaClient(), vanillaClient('witch'), vanillaClient('evoker')] });
   await page.locator('#file-input').setInputFiles({ name: 'vanilla-references.mcpack', mimeType: 'application/zip', buffer: Buffer.from(bytes) });
-  await expect(page.getByRole('heading', { name: '补丁已生成' })).toBeVisible();
+  // This fixture compiles five physics profiles; shared CI runners can exceed
+  // Playwright's default five-second assertion timeout without a product fault.
+  await expect(page.getByRole('heading', { name: '补丁已生成' })).toBeVisible({ timeout: 45000 });
   const waiting = page.waitForEvent('download'); await page.locator('#download').click(); const download = await waiting;
   const zip = await JSZip.loadAsync(await readFile(await download.path()));
   for (let i = 0; i < 3; i++) expect(zip.file(`entity/demo${i}.entity.json`)).toBeTruthy();
