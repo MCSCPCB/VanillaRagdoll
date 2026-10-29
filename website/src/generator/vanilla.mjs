@@ -39,7 +39,10 @@ export function vanillaProfiles(client, variants, resources, bp) {
     }
     const candidates = catalog.profiles.filter(p => p.geometry === id && !p.folded);
     // Shared baby geometries inherit the family selected by the adult model.
-    const score = p => (p.entity === runtime ? 100 : 0) + Object.values(p.familyGeometry).filter(g => selected.has(g)).length * 2 + (p.key === 'default' ? 1 : 0);
+    const score = p => (p.entity === runtime ? 1000 : 0)
+      + Object.values(p.familyGeometry).filter(g => selected.has(g)).length * 10
+      + (id.split('.').includes(p.entity.slice(10)) ? 2 : 0)
+      + (p.key === 'default' ? 1 : 0);
     candidates.sort((a, b) => score(b) - score(a) || a.entity.localeCompare(b.entity));
     const match = candidates[0];
     if (!match || match.special) throw Error('此原版模型依赖专用原生渲染行为，暂未自动套用：' + id);

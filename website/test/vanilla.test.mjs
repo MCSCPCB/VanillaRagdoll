@@ -35,6 +35,11 @@ test('vanilla geometry reuses maintained configurations; upload overrides and mi
   assert.equal(compiledMixed.successful, 1, JSON.stringify(compiledMixed.reports));
   const unsupported = vanillaClient('witch'); unsupported['minecraft:client_entity'].description.geometry.default = 'geometry.slime';
   assert.match((await inspect({ clients: [unsupported] })).skipped[0].reason, /专用原生渲染/);
+  for (const family of ['spider', 'guardian']) {
+    const mob = vanillaClient('witch'); mob['minecraft:client_entity'].description.geometry.default = `geometry.${family}.v1.8`;
+    const shared = await inspect({ clients: [mob] });
+    assert.equal(shared.accepted[0].profiles[0].native.entity, 'minecraft:' + family, 'Shared geometry defaults to its ordinary family, not a cave/elder variant');
+  }
 });
 
 test('native patch preserves addon live behavior and textures, adds no models, and freezes illager visibility only while active', async () => {
