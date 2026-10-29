@@ -8,6 +8,7 @@ import { clientSize } from '../../vendor/simple-ragdoll/src/core/space.mjs';
 import { animationFile, validateMolang, validateProgram, guardOutput } from './program-validation.mjs';
 import { adaptClient, resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
+import { waterProgram } from './water-buoyancy.mjs';
 import { compileVanilla } from './compile-vanilla.mjs';
 import { gateLifecycle, gateNames, gateDefinition, patchGate, installGate } from './gate.mjs';
 
@@ -19,6 +20,7 @@ function prepare(item, resources, name, reservedNames) {
   // Match VanillaRagdoll's tested adapter order, then remove every disabled BP API.
   const raw = createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames });
   motionProgram(raw, rig);
+  waterProgram(raw, rig);
   const program = specializeApi(raw, rig.api);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;

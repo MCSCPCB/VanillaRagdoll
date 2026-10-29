@@ -9,6 +9,7 @@ import { resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
 import { gateLifecycle, gateNames, patchGate, installGate } from './gate.mjs';
 import { renderersOf } from './vanilla.mjs';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
+import { waterProgram } from './water-buoyancy.mjs';
 import { animationFile, validateMolang, validateProgram, guardOutput } from './program-validation.mjs';
 import { vanillaAnimationStack } from './vanilla/vanilla-animation-stack.mjs';
 import { basePoseAnimations } from './vanilla/base-pose.mjs';
@@ -47,6 +48,7 @@ function prepare(item, spec, index, resources, name, reserved) {
   if (spec.native) raw = contactProgram(gameplayProgram(articulationProgram(raw, rig, entity, profile), rig, entity, client), rig, entity, profile);
   if (nativeCat) catTailOutput(raw, rig, pose);
   motionProgram(raw, rig);
+  waterProgram(raw, rig);
   const program = specializeApi(rewrite(raw, spec.deathRoll, pose?.captureOnly ? null : pose), rig.api);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;

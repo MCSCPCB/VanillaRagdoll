@@ -1,0 +1,10 @@
+{
+  "format_version": "1.20.60",
+  "animations": {
+    "animation.vanilla_ragdoll.gate": {
+      "loop": true,
+      "animation_length": 1,
+      "anim_time_update": "v.vr_trigger = v.vr_native_trigger || q.is_name_any('ragdoll');\nv.vr_release = v.vr_native_release && !q.is_name_any('ragdoll');\nreturn 0;"
+    }
+  }
+}
