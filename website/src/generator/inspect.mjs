@@ -3,6 +3,7 @@ import { autoConfig } from '../../vendor/simple-ragdoll/src/config.js';
 import { normalizeModel } from '../../vendor/simple-ragdoll/src/core/model.mjs';
 import { BP_API_METHODS } from '../../vendor/simple-ragdoll/src/core/api.mjs';
 import { validateExpression } from './validate.mjs';
+import { lifecycle } from './lifecycle.mjs';
 
 const decode = b => new TextDecoder().decode(b);
 const reject = message => { throw new Error(message); };
@@ -161,7 +162,7 @@ export function inspectPack(pack, behaviors) {
       const skeleton = g => JSON.stringify(g.bones.map(b => [b.name, b.parent ?? '']).sort((a, b) => a[0].localeCompare(b[0])));
       if (models.some(g => skeleton(g) !== skeleton(models[0]))) reject('切换模型的骨骼结构不一致，无法安全自动适配');
       const config = autoConfig(client, resources, variants);
-      config.trigger = '!q.is_alive'; config.release = 'q.is_alive';
+      config.trigger = lifecycle.trigger; config.release = lifecycle.release;
       config.api = Object.fromEntries(BP_API_METHODS.map(k => [k, false]));
       config.simulation = { initialVelocity: [1, 1, 1], initialSpin: 0 };
       config.outputLevel = 'standard';

@@ -227,8 +227,8 @@
       "scale": 2
     }
   ],
-  "trigger": "!q.is_alive||(q.max_health>0&&q.health<=0)",
-  "release": "q.is_alive&&q.health>0",
+  "trigger": "(!q.is_alive||(q.max_health>0&&q.health<=0))||q.is_name_any('ragdoll')",
+  "release": "(q.is_alive&&q.health>0)&&!q.is_name_any('ragdoll')",
   "defaults": {
     "friction": 0.3,
     "restitution": 0,

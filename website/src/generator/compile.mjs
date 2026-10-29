@@ -34,7 +34,7 @@ function patchClient(entry, program, animationId) {
   c.scripts.pre_animation = [
     ...(scripts.pre_animation ?? []),
     `v.vr_enabled=${enabled};(!v.vr_enabled)?{v.vr_seen=0;v.vr_ready=0;v.ragdoll_active=0;};`,
-    'v.vr_run=v.vr_enabled&&(v.ragdoll_active||(v.vr_seen>0&&!q.is_alive));',
+    `v.vr_run=v.vr_enabled&&(v.ragdoll_active||(v.vr_seen>0&&(${entry.rig.trigger})));`,
     motionFrame(),
     '(v.vr_enabled&&!v.ragdoll_active&&!v.vr_run)?{v.vr_ready=0;};',
     `(v.vr_enabled&&!v.vr_run)?{v.vr_last_x=q.position(0);v.vr_last_y=q.position(1);v.vr_last_z=q.position(2);t.vr_actor_units=q.model_scale;t.vr_actor_units=t.vr_actor_units??0.0625;t.vr_size=${clientSize(original)};v.vr_units=(t.vr_actor_units>0?t.vr_actor_units:0.0625)*(t.vr_size>0?t.vr_size:1);v.vr_seen=1;};`,

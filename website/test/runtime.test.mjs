@@ -15,7 +15,7 @@ test('packaged scripts hand off the live pose once, inherit delayed motion and d
   function simulate(impact, ui = false) {
     let reads = 0, updates = 0, first = null, active = 0;
     const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
-    const q = { is_in_ui: +ui, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 0, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
+    const q = { is_name_any: () => 0, is_in_ui: +ui, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 0, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
       position: a => a === 1 ? 10 : a === 0 && impact ? 6 * Math.max(0, q.life_time - 0.625) : 0,
       bone_orientation_trs: name => { reads++; assert(['body', 'head'].includes(name)); return { t: { x: 0, y: name === 'body' ? 12 : 20, z: 0 }, r: { x: 0, y: name === 'head' ? 30 : 0, z: 0 }, s: { x: 1, y: 1, z: 1 } }; },
       block_has_any_tag: () => 0, relative_block_has_any_tag: () => 0,
@@ -43,4 +43,29 @@ test('packaged scripts hand off the live pose once, inherit delayed motion and d
   assert.equal(ui.active, 0); assert.equal(ui.rootX, 0);
   assert.equal(+hit.v.vr_motion_done, 1); assert.equal(+hit.v.vr_motion_pending, 0);
   assert.notEqual(hit.rootX, still.rootX);
+
+  let name = '', captures = 0;
+  const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
+  const q = { is_name_any: expected => +(name === expected), is_in_ui: 0, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 1/60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
+    position: a => a === 1 ? 10 : 0, block_has_any_tag: () => 0, relative_block_has_any_tag: () => 0,
+    bone_orientation_trs: bone => { captures++; return { t: { x: 0, y: bone === 'body' ? 12 : 20, z: 0 }, r: { x: 0, y: 30, z: 0 }, s: { x: 1, y: 1, z: 1 } }; },
+  };
+  const run = s => script(s)(v, {}, q, math, {});
+  c.scripts.initialize.forEach(run);
+  const frame = () => {
+    q.life_time += q.delta_time; c.scripts.pre_animation.forEach(run);
+    for (const call of c.scripts.animate) for (const alias of Object.keys(call)) if (alias.startsWith('ragdoll_compute_')) run(animations[c.animations[alias]].anim_time_update);
+  };
+  frame(); frame(); assert.equal(v.ragdoll_active, 0); assert.equal(captures, 0);
+  name = 'ragdoll'; frame(); assert.equal(v.ragdoll_active, 1); assert.equal(captures, 2);
+  for (let i = 0; i < 60; i++) frame();
+  assert.equal(v.ragdoll_active, 1); assert.equal(captures, 2, 'Living named actors must not recapture every frame');
+  name = 'normal'; frame(); assert.equal(v.ragdoll_active, 0, 'Renaming restores a living actor immediately');
+  frame(); assert.equal(v.vr_run, 0); assert.equal(v.vr_ready, 0); assert.equal(v.vr_motion_active, 0);
+  name = 'ragdoll'; const previous = captures; frame(); assert.equal(v.ragdoll_active, 1); assert.equal(captures, previous + 2);
+  q.is_alive = 0; frame(); assert.equal(v.ragdoll_active, 1); assert.equal(captures, previous + 2, 'Death while named must keep the current simulation');
+  name = 'normal'; frame(); assert.equal(v.ragdoll_active, 1, 'A dead actor cannot recover by renaming');
+  q.is_alive = 1; frame(); frame(); assert.equal(v.ragdoll_active, 0);
+  q.is_alive = 0; frame(); assert.equal(v.ragdoll_active, 1, 'Death still triggers after named release');
+  name = 'ragdoll'; q.is_in_ui = 1; frame(); assert.equal(v.ragdoll_active, 0, 'Name does not bypass UI isolation');
 });

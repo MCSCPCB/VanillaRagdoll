@@ -40,8 +40,8 @@
       "scale": 1.6666666666666667
     }
   ],
-  "trigger": "!q.is_alive",
-  "release": "q.is_alive",
+  "trigger": "!q.is_alive||q.is_name_any('ragdoll')",
+  "release": "q.is_alive&&!q.is_name_any('ragdoll')",
   "simulation": {
     "frequency": 20,
     "iterations": 6,

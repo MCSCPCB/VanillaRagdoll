@@ -476,8 +476,8 @@
       }
     }
   ],
-  "trigger": "!q.is_alive||q.swell_amount>=0.9",
-  "release": "q.is_alive&&q.swell_amount<0.9",
+  "trigger": "(!q.is_alive||q.swell_amount>=0.9)||q.is_name_any('ragdoll')",
+  "release": "(q.is_alive&&q.swell_amount<0.9)&&!q.is_name_any('ragdoll')",
   "simulation": {
     "frequency": 20,
     "iterations": 6,

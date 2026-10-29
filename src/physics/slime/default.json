@@ -34,8 +34,8 @@
       "scale": 1
     }
   ],
-  "trigger": "!q.is_alive",
-  "release": "q.is_alive",
+  "trigger": "!q.is_alive||q.is_name_any('ragdoll')",
+  "release": "q.is_alive&&!q.is_name_any('ragdoll')",
   "defaults": {
     "friction": 0.3,
     "restitution": 1,

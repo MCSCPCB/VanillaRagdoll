@@ -322,8 +322,8 @@
       "scale": 2
     }
   ],
-  "trigger": "!q.is_alive",
-  "release": "q.is_alive",
+  "trigger": "!q.is_alive||q.is_name_any('ragdoll')",
+  "release": "q.is_alive&&!q.is_name_any('ragdoll')",
   "simulation": {
     "frequency": 20,
     "iterations": 6,
