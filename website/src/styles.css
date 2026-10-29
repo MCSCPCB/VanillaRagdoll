@@ -11,12 +11,13 @@ h1, h2, h3, h4, p { margin: 0; }
 .brand { display: flex; gap: 13px; align-items: center; text-decoration: none; color: #f4f5f2; font-family: "Minecraft Ten", sans-serif; font-size: 21px; letter-spacing: .5px; }
 .brand img { image-rendering: pixelated; }
 .brand-green { color: var(--green); }
-.repo-link { color: #d7dcd7; font-size: 14px; text-decoration: none; }
+.topbar-actions { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+.repo-link, .lang-toggle { color: #d7dcd7; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.lang-toggle { background: transparent; border: 0; padding: 6px 0; cursor: pointer; }
+.lang-toggle:focus-visible { outline: 3px solid #b5ed93; outline-offset: 5px; }
 .repo-link span { color: var(--green); margin-left: 5px; }
 main { max-width: 1100px; margin: auto; padding: 49px 30px 32px; }
 .intro { margin-bottom: 30px; }
-.eyebrow { display: flex; align-items: center; gap: 9px; color: var(--green); font-size: 12px; letter-spacing: 1.3px; margin-bottom: 12px; }
-.status-dot { width: 7px; height: 7px; display: inline-block; background: #89cf65; box-shadow: 2px 2px #38652d; }
 h1 { font-size: clamp(28px, 3.5vw, 38px); letter-spacing: 1px; line-height: 1.5; font-weight: 700; }
 .lead { color: #bec6bf; margin-top: 8px; font-size: 16px; }
 .workspace { display: grid; grid-template-columns: minmax(0, 1fr) 285px; gap: 34px; align-items: start; }
@@ -24,7 +25,6 @@ ore-card.generator { display: block; width: 100%; min-width: 0; background: #2c3
 .panel-title { display: flex; gap: 11px; align-items: center; padding: 16px 20px; background: #373d3e; border-bottom: 2px solid #1b2020; }
 .panel-title h2 { font-size: 17px; }
 .pixel-badge { color: var(--green); font: 25px/1 monospace; }
-.tag { font-size: 11px; color: #c6e3b8; background: #293f29; padding: 2px 8px; margin-left: auto; white-space: nowrap; }
 .panel-body { padding: 24px; }
 .drop-zone { min-height: 314px; border: 2px dashed #626e65; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #242a29; padding: 26px 15px 23px; text-align: center; }
 .drop-zone.drag-over { background: #334b30; border-color: var(--green); }
@@ -44,10 +44,7 @@ h3 { font-size: 17px; line-height: 1.5; }
 .steps p, .note p { font-size: 13px; color: var(--muted); }
 .note { border-top: 2px solid #3e4541; padding-top: 18px; margin-top: 28px; }
 .note p + p { margin-top: 12px; }
-.output-note { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: #9aa69b; font-size: 11px; margin-top: 26px; }
-.output-note strong { font-weight: normal; color: #c3d2be; }
-.divider { color: #536153; margin: 0 5px; }
-footer { max-width: 1040px; margin: 8px auto 0; padding: 24px 0 28px; display: flex; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid #3a423d; color: #909c92; font-size: 11px; }
+footer { max-width: 1040px; margin: 34px auto 0; padding: 24px 0 28px; display: flex; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid #3a423d; color: #909c92; font-size: 11px; }
 footer a { color: #a4b99c; }
 .unofficial { margin-left: auto; }
 .processing { min-height: 314px; display: flex; flex-direction: column; justify-content: center; }
@@ -76,5 +73,7 @@ summary { cursor: pointer; color: #c9d6bf; padding: 4px 0; }
 .error { border-left: 4px solid #e38771; background: #49312d; color: #ffd4c4; font-size: 13px; padding: 14px; margin-top: 16px; overflow-wrap: anywhere; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (max-width: 800px) { .workspace { grid-template-columns: minmax(0, 1fr); gap: 35px; } main { max-width: 680px; padding-top: 32px; } .guide { padding: 0; } .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; } .steps li { flex-direction: column; gap: 12px; margin: 0; } .note { margin-top: 24px; } footer { margin-inline: 30px; } .unofficial { margin-left: 0; } }
-@media (max-width: 440px) { .topbar { padding: 0 18px; height: 66px; } .brand { font-size: 16px; gap: 9px; } .brand img { width: 30px; height: 30px; } main { padding: 28px 18px; } .panel-body { padding: 16px; } .panel-title { padding: 13px 16px; } .panel-title h2 { font-size: 15px; } .steps { grid-template-columns: 1fr; } .steps li { flex-direction: row; gap: 14px; } .output-note .divider { display: none; } .result-actions { flex-direction: column; } .result-actions ore-button { width: 100%; } footer { margin-inline: 18px; } }
+@media (max-width: 440px) { .topbar { padding: 0 18px; height: 66px; gap: 12px; } .brand { font-size: 16px; gap: 9px; } .brand img { width: 30px; height: 30px; } main { padding: 28px 18px; } .panel-body { padding: 16px; } .panel-title { padding: 13px 16px; } .panel-title h2 { font-size: 15px; } .steps { grid-template-columns: 1fr; } .steps li { flex-direction: row; gap: 14px; } .result-actions { flex-direction: column; } .result-actions ore-button { width: 100%; } footer { margin-inline: 18px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+@media (max-width: 360px) { .topbar { padding-inline: 12px; gap: 8px; } .topbar-actions { gap: 12px; } .brand { font-size: 14px; gap: 6px; } .brand img { width: 26px; height: 26px; } }

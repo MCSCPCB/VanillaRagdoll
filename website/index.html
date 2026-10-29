@@ -4,66 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#25282b">
-  <meta name="description" content="为 Minecraft 基岩版附加包生成独立的布娃娃补丁。支持 ZIP、MCPACK 和 MCADDON，文件仅在浏览器本地处理。">
+  <meta name="description" content="为 Minecraft 基岩版 Add-on 生成布娃娃补丁。支持 .zip、.mcpack 和 .mcaddon，文件只在浏览器本地处理。">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>布娃娃补丁生成器 · VanillaRagdoll</title>
   <link rel="icon" type="image/svg+xml" href="./mark.svg">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./" aria-label="VanillaRagdoll 首页"><img src="./mark.svg" width="36" height="36" alt=""><span>VANILLA<span class="brand-green">RAGDOLL</span></span></a>
-    <a class="repo-link" href="https://github.com/MCSCPCB/VanillaRagdoll" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    <a class="brand" href="./" aria-label="VanillaRagdoll 首页" data-i18n-aria-label="home"><img src="./mark.svg" width="36" height="36" alt=""><span>VANILLA<span class="brand-green">RAGDOLL</span></span></a>
+    <div class="topbar-actions">
+      <button id="lang-toggle" class="lang-toggle" type="button" lang="en" aria-label="Switch to English">EN</button>
+      <a class="repo-link" href="https://github.com/MCSCPCB/VanillaRagdoll" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
   </header>
   <main>
     <div class="intro">
-      <p class="eyebrow"><span class="status-dot"></span> MINECRAFT BEDROCK · 社区工具</p>
-      <h1>布娃娃补丁生成器</h1>
-      <p class="lead">让你的 Addon 生物在死亡时，自然倒下。</p>
+      <h1 data-i18n="heading">布娃娃补丁生成器</h1>
+      <p class="lead" data-i18n="subtitle">为 Add-on 中的生物添加死亡布娃娃</p>
     </div>
     <div class="workspace">
       <ore-card class="generator">
-        <div class="panel-title"><span class="pixel-badge" aria-hidden="true">+</span><h2>添加你的资源包</h2><span class="tag">本地处理</span></div>
+        <div class="panel-title"><span class="pixel-badge" aria-hidden="true">+</span><h2 data-i18n="card_title">添加你的资源包</h2></div>
         <div class="panel-body">
           <div id="drop-zone" class="drop-zone">
             <svg class="upload-art" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M12 6h28l12 12v40H12z" fill="#40464b" stroke="#88938d" stroke-width="3"/><path d="M40 6v12h12" stroke="#88938d" stroke-width="3"/><path d="M32 44V25m-8 8 8-8 8 8M23 49h18" stroke="#a0e081" stroke-width="4"/></svg>
-            <h3>把文件拖到这里</h3>
-            <p class="muted">支持 .zip、.mcpack、.mcaddon</p>
-            <ore-button id="choose" color="primary">选择文件</ore-button>
-            <input id="file-input" type="file" accept=".zip,.mcpack,.mcaddon" hidden aria-label="选择附加包文件">
-            <span class="file-limit">单个文件最大 256 MB</span>
+            <h3 data-i18n="drop_title">把文件拖到这里</h3>
+            <p class="muted" data-i18n="extensions">支持 .zip、.mcpack、.mcaddon</p>
+            <ore-button id="choose" color="primary"><span data-i18n="choose">选择文件</span></ore-button>
+            <input id="file-input" type="file" accept=".zip,.mcpack,.mcaddon" hidden aria-label="选择资源包或 Add-on 文件" data-i18n-aria-label="choose_label">
+            <span class="file-limit" data-i18n="file_limit">单个文件最大 256 MB</span>
           </div>
           <section id="processing" class="processing" hidden aria-labelledby="processing-title">
-            <div class="file-row"><span class="file-symbol" aria-hidden="true">▤</span><div><h3 id="processing-title">正在处理</h3><p id="filename" class="muted"></p></div></div>
-            <ore-progress-bar id="progress" value="0" label="正在读取" aria-label="生成进度"></ore-progress-bar>
+            <div class="file-row"><span class="file-symbol" aria-hidden="true">▤</span><div><h3 id="processing-title" data-i18n="processing">正在处理</h3><p id="filename" class="muted"></p></div></div>
+            <ore-progress-bar id="progress" value="0" label="正在读取" aria-label="生成进度" data-i18n-aria-label="progress_label"></ore-progress-bar>
             <p id="progress-detail" class="progress-detail"></p>
-            <ore-button id="cancel" color="secondary">取消处理</ore-button>
+            <ore-button id="cancel" color="secondary"><span data-i18n="cancel">取消处理</span></ore-button>
           </section>
           <section id="result" class="result" hidden aria-labelledby="result-title">
-            <div class="result-heading"><span id="result-symbol" class="success-mark" aria-hidden="true">✓</span><div><h3 id="result-title" tabindex="-1">补丁已生成</h3><p id="result-summary" class="muted"></p></div></div>
+            <div class="result-heading"><span id="result-symbol" class="success-mark" aria-hidden="true">✓</span><div><h3 id="result-title" tabindex="-1" data-i18n="ready">补丁已生成</h3><p id="result-summary" class="muted"></p></div></div>
             <div id="pack-list" class="pack-list"></div>
-            <div class="result-actions"><ore-button id="download" color="primary">下载布娃娃补丁</ore-button><ore-button id="again" color="secondary">处理另一个包</ore-button></div>
-            <p id="install-note" class="install-note">导入后，同时启用原包与补丁，并将补丁放在原包上方。</p>
-            <details id="report" class="report" hidden><summary id="report-title">处理详情</summary><div id="report-content"></div></details>
+            <div class="result-actions"><ore-button id="download" color="primary"><span id="download-label" data-i18n="download">下载布娃娃补丁</span></ore-button><ore-button id="again" color="secondary"><span data-i18n="again">处理另一个包</span></ore-button></div>
+            <p id="install-note" class="install-note" data-i18n="install">导入后，同时启用原包与补丁，并将补丁放在原包上方。</p>
+            <details id="report" class="report" hidden><summary id="report-title" data-i18n="details">处理详情</summary><div id="report-content"></div></details>
           </section>
           <div id="error" class="error" role="alert" hidden></div>
           <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
         </div>
-        <div class="privacy"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1 2 3v5c0 3 6 7 6 7s6-4 6-7V3z" fill="none" stroke="currentColor"/><path d="m5 8 2 2 4-4" fill="none" stroke="currentColor"/></svg>文件仅在你的浏览器内处理，不会上传到服务器</div>
+        <div class="privacy"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1 2 3v5c0 3 6 7 6 7s6-4 6-7V3z" fill="none" stroke="currentColor"/><path d="m5 8 2 2 4-4" fill="none" stroke="currentColor"/></svg><span data-i18n="privacy">文件仅在你的浏览器内处理，不会上传到服务器</span></div>
       </ore-card>
       <aside class="guide" aria-labelledby="guide-title">
-        <h2 id="guide-title">从资源包到布娃娃</h2>
+        <h2 id="guide-title" data-i18n="guide_title">从资源包到布娃娃</h2>
         <ol class="steps">
-          <li><span class="step-number">1</span><div><h3>选择原包</h3><p>上传资源包，或包含资源包的完整附加包。引用原版模型的实体无需额外补入模型文件。</p></div></li>
-          <li><span class="step-number">2</span><div><h3>自动生成</h3><p>为可处理的生物添加死亡布娃娃，继承姿态与受击运动。</p></div></li>
-          <li><span class="step-number">3</span><div><h3>下载并启用补丁</h3><p>保留原包，叠加使用。原包的名称和图标会延续到补丁中。</p></div></li>
+          <li><span class="step-number">1</span><div><h3 data-i18n="step1_title">选择原包</h3><p data-i18n="step1">上传资源包，或包含资源包的 Add-on。</p></div></li>
+          <li><span class="step-number">2</span><div><h3 data-i18n="step2_title">自动生成</h3><p data-i18n="step2">自动识别可适配的生物并生成补丁。</p></div></li>
+          <li><span class="step-number">3</span><div><h3 data-i18n="step3_title">下载并启用补丁</h3><p data-i18n="step3">同时启用原包与补丁，并将补丁放在原包上方。</p></div></li>
         </ol>
-        <div class="note"><h3>开始前了解一下</h3><p>给生物命名为 <code>ragdoll</code> 也能启用布娃娃；存活时改为其他名字即可恢复。</p><p>特殊死亡动画或复杂模型可能无法适配。无法可靠处理的实体会跳过，并列出原因。</p><p>适用于基岩版 1.26.50 及以上。原版生物请使用 <a href="https://github.com/MCSCPCB/VanillaRagdoll" target="_blank" rel="noopener noreferrer">VanillaRagdoll</a>。</p></div>
+        <div class="note">
+          <h3 data-i18n="notes_title">使用须知</h3>
+          <p><span data-i18n="version_before">需要基岩版 1.26.50 或更高版本。如需为原版生物添加布娃娃，请使用 </span><a href="https://github.com/MCSCPCB/VanillaRagdoll" target="_blank" rel="noopener noreferrer">VanillaRagdoll</a><span data-i18n="version_after">。</span></p>
+          <p data-i18n="compatibility">带有特殊死亡动画或复杂模型的生物可能无法适配，这类生物会被跳过，并在“处理详情”中说明原因。</p>
+          <p><span data-i18n="name_before">用命名牌把生物命名为 </span><code>ragdoll</code><span data-i18n="name_after">，它会立即变成布娃娃。改成其他名字即可恢复。</span></p>
+        </div>
       </aside>
     </div>
-    <div class="output-note"><span aria-hidden="true">▧</span> 原包英文名称 + <strong> Ragdoll</strong><span class="divider">/</span>独立资源包补丁<span class="divider">/</span>多资源包自动合并为 ZIP 下载</div>
   </main>
-  <footer><span>由 <a href="https://github.com/MCSCPCB/Simple-Ragdoll">Simple Ragdoll</a> 驱动</span><span>界面使用 <a href="https://github.com/katorlys/OreUI">OreUI</a> · <a href="./THIRD_PARTY_NOTICES.txt">开源声明</a></span><span class="unofficial">非 Minecraft 官方产品</span></footer>
-  <noscript><p class="error">请启用 JavaScript，以在浏览器中生成布娃娃补丁。</p></noscript>
+  <footer>
+    <span><span data-i18n="based_before">基于 </span><a href="https://github.com/MCSCPCB/Simple-Ragdoll">Simple Ragdoll</a></span>
+    <span><span data-i18n="ui_before">界面使用 </span><a href="https://github.com/katorlys/OreUI">OreUI</a> · <a href="./THIRD_PARTY_NOTICES.txt" data-i18n="notices">开源声明</a></span>
+    <span class="unofficial" data-i18n="unofficial">非 Minecraft 官方产品，未经 Mojang 或 Microsoft 批准，也与其无关</span>
+  </footer>
+  <noscript><p class="error" data-i18n="noscript">需要启用 JavaScript 才能生成布娃娃补丁。</p></noscript>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

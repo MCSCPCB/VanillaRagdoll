@@ -1,9 +1,10 @@
+import { GeneratorError } from './messages.mjs';
 import { validateScript } from './validate.mjs';
 
 export const animationFile = animations => ({ format_version: '1.20.60', animations });
 export function validateMolang(source) {
   if (typeof source !== 'string') return;
-  if (source.length >= 64000) throw new Error('生成的 Molang 超出引擎表达式长度限制');
+  if (source.length >= 64000) throw new GeneratorError('molang_length');
   validateScript(source);
 }
 export function validateProgram(program, checked = new Set()) {

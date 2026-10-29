@@ -34,7 +34,7 @@ test('vanilla geometry reuses maintained configurations; upload overrides and mi
   const compiledMixed = await generate(await pack({ clients: [mixed] }), 'mixed.zip');
   assert.equal(compiledMixed.successful, 1, JSON.stringify(compiledMixed.reports));
   const unsupported = vanillaClient('witch'); unsupported['minecraft:client_entity'].description.geometry.default = 'geometry.slime';
-  assert.match((await inspect({ clients: [unsupported] })).skipped[0].reason, /专用原生渲染/);
+  assert.equal((await inspect({ clients: [unsupported] })).skipped[0].reason.code, 'special_native_geometry');
   for (const family of ['spider', 'guardian']) {
     const mob = vanillaClient('witch'); mob['minecraft:client_entity'].description.geometry.default = `geometry.${family}.v1.8`;
     const shared = await inspect({ clients: [mob] });

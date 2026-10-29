@@ -1,3 +1,4 @@
+import { message, GeneratorError, errorMessage } from './messages.mjs';
 import { normalizeModel } from '../../vendor/simple-ragdoll/src/core/model.mjs';
 import { createProgram } from '../../vendor/simple-ragdoll/src/core/program.mjs';
 import { compilePrograms, compileSpecializedPrograms, structureKey } from '../../vendor/simple-ragdoll/src/core/compute.mjs';
@@ -62,26 +63,26 @@ export async function compileEntities(inspection, token, progress = () => {}) {
     try { programs = compilePrograms(group, { reservedNames }); }
     catch (e) {
       if (group.length > 1) { const middle = Math.ceil(group.length / 2); compile(group.slice(0, middle)); compile(group.slice(middle)); return; }
-      try { programs = compileSpecializedPrograms(group, { reservedNames }); } catch (error) { skipped.push({ name: group[0].id, reason: '物理程序无法安全编译：' + error.message }); return; }
+      try { programs = compileSpecializedPrograms(group, { reservedNames }); } catch (error) { skipped.push({ name: group[0].id, reason: message('compile_failed', { cause: errorMessage(error) }) }); return; }
     }
     let commonValid = false;
     for (const [i, entry] of group.entries()) {
       try {
         const program = programs[i], id = 'animation.ragdoll.' + entry.name;
         validateProgram(program, checked);
-        if (resources.animations.has(id) || Object.keys(program.computeAnimations).some(k => resources.animations.has(k))) throw new Error('生成资源标识符与原包冲突');
+        if (resources.animations.has(id) || Object.keys(program.computeAnimations).some(k => resources.animations.has(k))) throw new GeneratorError('resource_collision');
         const client = patchClient(entry, program, id);
         const animation = guardOutput(program.animation(), 'v.vr_enabled&&v.ragdoll_active');
-        for (const field of ['initialize', 'pre_animation']) for (const code of client['minecraft:client_entity'].description.scripts[field]) if (code.length >= 64000) throw new Error('实体脚本超出引擎长度限制');
+        for (const field of ['initialize', 'pre_animation']) for (const code of client['minecraft:client_entity'].description.scripts[field]) if (code.length >= 64000) throw new GeneratorError('script_length');
         const path = `animations/sr_patch_${entry.name}.json`;
-        if (resources.files.has(path)) throw new Error('生成动画文件路径与原包冲突');
+        if (resources.files.has(path)) throw new GeneratorError('animation_path_collision');
         files.set(entry.record.file, client); files.set(path, animationFile({ [id]: animation }));
         successful.push({ name: entry.id, bodies: entry.rig.bodies.length, joints: entry.rig.joints.length }); commonValid = true;
-      } catch (e) { skipped.push({ name: entry.id, reason: e.message }); }
+      } catch (e) { skipped.push({ name: entry.id, reason: errorMessage(e) }); }
     }
     if (commonValid) {
       const path = `animations/sr_patch_${programs[0].computeName}_kernel.json`;
-      if (resources.files.has(path)) throw new Error('共享计算文件路径与原包冲突');
+      if (resources.files.has(path)) throw new GeneratorError('kernel_path_collision');
       const animations = Object.fromEntries(Object.entries(programs[0].computeAnimations).map(([id, animation]) => {
         const source = '(!v.vr_run)?{return 0;};' + animation.anim_time_update;
         validateMolang(source);
@@ -95,12 +96,12 @@ export async function compileEntities(inspection, token, progress = () => {}) {
     const groups = new Map();
     for (let i = start; i < Math.min(start + 8, accepted.length); i++) {
       const item = accepted[i];
-      progress({ stage: 'generating', current: i, total: inspection.accepted.length, message: item.id });
+      progress({ stage: 'generating', current: i, total: inspection.accepted.length, message: message('progress_mob', { name: item.id }) });
       await new Promise(resolve => setTimeout(resolve, 0));
       try {
         const entry = prepare(item, resources, token + '_e' + i, reservedNames), key = structureKey(entry);
         if (!groups.has(key)) groups.set(key, []); groups.get(key).push(entry);
-      } catch (e) { skipped.push({ name: item.id, reason: '自动配置无法生成：' + e.message }); }
+      } catch (e) { skipped.push({ name: item.id, reason: message('config_failed', { cause: errorMessage(e) }) }); }
     }
     for (const group of groups.values()) compile(group);
     checked.clear();
@@ -108,6 +109,6 @@ export async function compileEntities(inspection, token, progress = () => {}) {
   const native = await compileVanilla(inspection.accepted.filter(item => item.profiles), resources, token, e => progress({ ...e, current: accepted.length + e.current, total: inspection.accepted.length }));
   for (const [path, value] of native.files) files.set(path, value);
   successful.push(...native.successful); skipped.push(...native.skipped);
-  progress({ stage: 'generating', current: inspection.accepted.length, total: inspection.accepted.length, message: '实体处理完成' });
+  progress({ stage: 'generating', current: inspection.accepted.length, total: inspection.accepted.length, message: message('progress_complete') });
   return { files, successful, skipped };
 }

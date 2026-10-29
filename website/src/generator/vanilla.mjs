@@ -1,3 +1,4 @@
+import { GeneratorError } from './messages.mjs';
 import catalog from './vanilla/catalog.mjs';
 import { lifecycle } from './lifecycle.mjs';
 import { BP_API_METHODS } from '../../vendor/simple-ragdoll/src/core/api.mjs';
@@ -45,7 +46,7 @@ export function vanillaProfiles(client, variants, resources, bp) {
       + (p.key === 'default' ? 1 : 0);
     candidates.sort((a, b) => score(b) - score(a) || a.entity.localeCompare(b.entity));
     const match = candidates[0];
-    if (!match || match.special) throw Error('此原版模型依赖专用原生渲染行为，暂未自动套用：' + id);
+    if (!match || match.special) throw new GeneratorError('special_native_geometry', { id });
     const use = (template, when) => {
       const config = configure(structuredClone(template.config));
       config.variants = config.variants.map(v => ({ ...v, geometry: variant.geometry }));
@@ -60,7 +61,7 @@ export function vanillaProfiles(client, variants, resources, bp) {
         const visibility = renderers.get(ref)?.part_visibility ?? [];
         for (const item of visibility) for (const [bone, condition] of Object.entries(item)) if (bone.toLowerCase() === 'rightarm') expressions.push(String(typeof condition === 'boolean' ? Number(condition) : condition));
       }
-      if (!expressions.length || new Set(expressions.map(s => s.replace(/\s/g, '').replace(/query\./g, 'q.'))).size !== 1) throw Error('刌民模型的手臂可见性无法可靠确定');
+      if (!expressions.length || new Set(expressions.map(s => s.replace(/\s/g, '').replace(/query\./g, 'q.'))).size !== 1) throw new GeneratorError('illager_visibility');
       const a = use(folded, variant.when ? `(${variant.when})&&!v.vr_arms_open` : '!v.vr_arms_open');
       a.armsOpen = expressions[0]; result.push(a);
     }

@@ -1,6 +1,7 @@
 // Client-observed motion, in world blocks/second. This estimates movement;
 // it cannot read the damage impulse, attacker or hit location from an RP.
 import {A,If,axes,copy,vector,emit} from '../../vendor/simple-ragdoll/src/core/expression.mjs';
+import { GeneratorError } from './messages.mjs';
 
 export const motionLimits={sample:0.05,window:0.2,deadline:0.25,gap:0.25,jump:8,rejectSpeed:80,maxSpeed:24,minChange:0.25,relativeChange:0.4};
 const p='v.vr_motion_',v=k=>p+k;
@@ -111,7 +112,7 @@ export function motionProgram(program,rig){
     else if(n.kind==='loop')visit(n.body);
   }}
   visit(program.frameChunks[0]);
-  if(count!==3)throw Error('Initial motion: expected three input velocity assignments, got '+count);
+  if(count!==3)throw new GeneratorError('motion_assignments', { count });
   // Keep sampler variables read-only here so compilation recognizes them as
   // external inputs and neither renames nor zero-initializes live history.
   program.initialize.push(A('v.motion_consumed',0));

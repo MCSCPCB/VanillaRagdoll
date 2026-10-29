@@ -1,3 +1,4 @@
+import { message, errorMessage } from './messages.mjs';
 import JSZip from 'jszip';
 import { readUpload, safeFilename, fileStem } from './archive.mjs';
 import { inspectPack, behaviorIndex } from './inspect.mjs';
@@ -18,7 +19,7 @@ export async function generate(data, filename, { progress = () => {}, fallbackIc
   // Split seconds into 16-bit components to stay within manifest version bounds.
   const seconds = Math.floor(Date.now() / 1000), version = [1, Math.floor(seconds / 65536), seconds % 65536];
   const input = await readUpload(data, filename, progress), behaviors = behaviorIndex(input.behaviorPacks), results = [], reports = [], usedNames = new Set();
-  progress({ stage: 'inspecting', message: '检查模型与动画引用', packs: input.resourcePacks.map(p => ({ name: p.name, icon: p.icon })) });
+  progress({ stage: 'inspecting', message: message('progress_inspecting'), packs: input.resourcePacks.map(p => ({ name: p.name, icon: p.icon })) });
   for (let i = 0; i < input.resourcePacks.length; i++) {
     const pack = input.resourcePacks[i];
     const packProgress = event => progress({ ...event, pack: pack.name, packIndex: i, packCount: input.resourcePacks.length });
@@ -26,7 +27,7 @@ export async function generate(data, filename, { progress = () => {}, fallbackIc
       const inspection = inspectPack(pack, behaviors), token = 'web_' + (await digest(pack.manifest.header.uuid.toLowerCase())).slice(0, 16);
       const output = await compileEntities(inspection, token, packProgress);
       const report = { pack: pack.name, index: i, successful: output.successful, skipped: output.skipped, file: null };
-      if (!output.successful.length) { if (!report.skipped.length) report.skipped.push({ name: pack.name, reason: '没有可自动处理的实体' }); reports.push(report); continue; }
+      if (!output.successful.length) { if (!report.skipped.length) report.skipped.push({ name: pack.name, reason: message('no_compatible_mobs') }); reports.push(report); continue; }
       const zip = new JSZip();
       for (const [path, value] of output.files) zip.file(path, JSON.stringify(value));
       const name = pack.name + ' Ragdoll';
@@ -35,10 +36,10 @@ export async function generate(data, filename, { progress = () => {}, fallbackIc
       let outputName = safeFilename(name), suffix = 2;
       while (usedNames.has(outputName.toLowerCase())) outputName = safeFilename(name + ' (' + suffix++ + ')');
       usedNames.add(outputName.toLowerCase()); report.file = outputName;
-      packProgress({ stage: 'packing', message: '正在打包 ' + name });
-      const content = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE', compressionOptions: { level: 6 } }, s => packProgress({ stage: 'packing', percent: s.percent, message: '正在打包 ' + name }));
+      packProgress({ stage: 'packing', message: message('progress_packing', { name }) });
+      const content = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE', compressionOptions: { level: 6 } }, s => packProgress({ stage: 'packing', percent: s.percent, message: message('progress_packing', { name }) }));
       results.push({ name: outputName, data: content }); reports.push(report);
-    } catch (e) { reports.push({ pack: pack.name, successful: [], skipped: [{ name: pack.name, reason: e.message }], file: null }); }
+    } catch (e) { reports.push({ pack: pack.name, successful: [], skipped: [{ name: pack.name, reason: errorMessage(e) }], file: null }); }
   }
   const summary = { reports, warnings: input.warnings, successful: reports.reduce((n, r) => n + r.successful.length, 0), skipped: reports.reduce((n, r) => n + r.skipped.length, 0) };
   if (!results.length) return { ...summary, download: null };

@@ -1,4 +1,5 @@
 import { parseExpression } from '../../vendor/simple-ragdoll/src/core/parse.mjs';
+import { GeneratorError } from './messages.mjs';
 
 // Validate only generated code. Uploaded expressions are never executed in JavaScript.
 export function validateExpression(source) {
@@ -6,7 +7,7 @@ export function validateExpression(source) {
   // valid Molang channel value used by vanilla pose/decorations capture.
   const tree = parseExpression(typeof source === 'string' ? source.replace(/\bthis\b/g, 'v.__channel_value') : source);
   const visit = node => {
-    if (node.kind === 'binary' && node.op === '??' && (node.left.kind !== 'read' || !['v', 't', 'c'].includes(node.left.path[0]))) throw new Error('Molang ?? requires a direct variable');
+    if (node.kind === 'binary' && node.op === '??' && (node.left.kind !== 'read' || !['v', 't', 'c'].includes(node.left.path[0]))) throw new GeneratorError('molang_coalesce');
     for (const value of Object.values(node)) {
       if (Array.isArray(value)) value.forEach(v => v && typeof v === 'object' && visit(v));
       else if (value && typeof value === 'object') visit(value);
@@ -19,7 +20,7 @@ export function validateScript(source) {
   if (!/[;{}]/.test(source)) { validateExpression(source); return; }
   let at = 0;
   const expect = text => {
-    if (!source.startsWith(text, at)) throw new Error('Invalid generated Molang at ' + at + ': ' + source.slice(at, at + 60));
+    if (!source.startsWith(text, at)) throw new GeneratorError('molang_syntax', { offset: at, source: source.slice(at, at + 60) });
     at += text.length;
   };
   const until = stop => {
@@ -34,7 +35,7 @@ export function validateScript(source) {
       }
       at++;
     }
-    throw new Error('Unterminated generated Molang');
+    throw new GeneratorError('molang_unterminated');
   };
   const sequence = end => {
     while (at < source.length && source[at] !== end) {
@@ -49,11 +50,11 @@ export function validateScript(source) {
       } else {
         const statement = until(';'); expect(';');
         const assignment = /^(?:v|t)\.\w+(?:\.\w+)*=([^=][\s\S]*)$/.exec(statement);
-        if (!assignment) throw new Error('Invalid generated Molang assignment: ' + statement.slice(0, 60));
+        if (!assignment) throw new GeneratorError('molang_assignment', { source: statement.slice(0, 60) });
         validateExpression(assignment[1]);
       }
     }
   };
   sequence(null);
-  if (at !== source.length) throw new Error('Trailing generated Molang');
+  if (at !== source.length) throw new GeneratorError('molang_trailing');
 }

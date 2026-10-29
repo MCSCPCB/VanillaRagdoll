@@ -1,8 +1,9 @@
+import { message, GeneratorError } from './messages.mjs';
 import JSZip from 'jszip';
 import { parseJson } from '../../vendor/simple-ragdoll/src/resources.js';
 
 export const limits = { upload: 256 * 1024 ** 2, expanded: 512 * 1024 ** 2, files: 20000, packs: 32, depth: 3 };
-export class InputError extends Error {}
+export class InputError extends GeneratorError {}
 const decoder = new TextDecoder();
 const json = bytes => parseJson(decoder.decode(bytes));
 export const extension = name => name.split('.').at(-1).toLowerCase();
@@ -46,39 +47,39 @@ export function usableIcon(bytes) {
 
 // Preserve the RP boundaries: a BP+RP addon is one output, independent RPs are separate.
 export async function readUpload(data, filename, progress = () => {}) {
-  if (!['zip', 'mcpack', 'mcaddon'].includes(extension(filename))) throw new InputError('请选择 ZIP、MCPACK 或 MCADDON 文件');
-  if (data.byteLength > limits.upload) throw new InputError('文件超过 256 MB，请分别处理其中的资源包');
+  if (!['zip', 'mcpack', 'mcaddon'].includes(extension(filename))) throw new InputError('file_type');
+  if (data.byteLength > limits.upload) throw new InputError('file_size');
   const packs = [], warnings = []; let total = 0, count = 0;
   async function scan(bytes, label, depth) {
-    if (depth > limits.depth) throw new InputError('压缩包嵌套过深，请直接选择其中的资源包');
+    if (depth > limits.depth) throw new InputError('archive_depth');
     let zip;
-    try { zip = await JSZip.loadAsync(bytes); } catch { throw new InputError('无法读取压缩包，请确认文件完整且未加密'); }
+    try { zip = await JSZip.loadAsync(bytes); } catch { throw new InputError('archive_unreadable'); }
     const entries = Object.values(zip.files).filter(e => !e.dir), paths = new Set();
     for (const entry of entries) {
       const path = entry.unsafeOriginalName ?? entry.name;
-      if (path.includes('\\') || path.startsWith('/') || path.includes(':') || path.split('/').some(p => p === '..' || p === '.' || !p)) throw new InputError('压缩包包含无效文件路径');
-      if (paths.has(path.toLowerCase())) throw new InputError('压缩包包含重复或大小写冲突的文件路径');
+      if (path.includes('\\') || path.startsWith('/') || path.includes(':') || path.split('/').some(p => p === '..' || p === '.' || !p)) throw new InputError('archive_path');
+      if (paths.has(path.toLowerCase())) throw new InputError('archive_duplicate_path');
       paths.add(path.toLowerCase());
       total += entry._data?.uncompressedSize ?? 0; count++;
-      if (total > limits.expanded || count > limits.files) throw new InputError('解压后的资源过大，请分别处理其中的资源包');
+      if (total > limits.expanded || count > limits.files) throw new InputError('archive_expanded');
     }
     const roots = entries.filter(e => /(^|\/)manifest\.json$/i.test(e.name)).map(e => e.name.slice(0, -13));
     for (const prefix of roots) {
       const manifestEntry = entries.find(e => e.name.toLowerCase() === (prefix + 'manifest.json').toLowerCase());
       let manifest;
-      try { manifest = json(await manifestEntry.async('uint8array')); } catch { warnings.push({ name: label + '/' + prefix, reason: '清单无法解析，已跳过该包' }); continue; }
-      if (!manifest || !Array.isArray(manifest.modules)) { warnings.push({ name: label + '/' + prefix, reason: '清单模块格式无效，已跳过该包' }); continue; }
+      try { manifest = json(await manifestEntry.async('uint8array')); } catch { warnings.push({ name: label + '/' + prefix, reason: message('manifest_parse') }); continue; }
+      if (!manifest || !Array.isArray(manifest.modules)) { warnings.push({ name: label + '/' + prefix, reason: message('manifest_modules') }); continue; }
       const types = manifest.modules.map(m => m?.type);
       if (!types.includes('resources') && !types.includes('data')) continue;
-      if (!validUUID(manifest.header?.uuid) || !validVersion(manifest.header?.version)) { warnings.push({ name: label + '/' + prefix, reason: '清单缺少有效的 UUID 或版本，已跳过该包' }); continue; }
-      if (packs.length >= limits.packs) throw new InputError('一个文件中的包太多，请分开处理');
+      if (!validUUID(manifest.header?.uuid) || !validVersion(manifest.header?.version)) { warnings.push({ name: label + '/' + prefix, reason: message('manifest_identity') }); continue; }
+      if (packs.length >= limits.packs) throw new InputError('archive_pack_count');
       const files = new Map();
       for (const e of entries) {
         if (!e.name.startsWith(prefix) || roots.some(r => r !== prefix && r.startsWith(prefix) && e.name.startsWith(r))) continue;
         const path = e.name.slice(prefix.length);
         if (/^manifest\.json$/i.test(path) || /^(entity|entities|models|animations|animation_controllers|render_controllers)\/.*\.json$/i.test(path) || /^texts\/en[_-][\w-]+\.lang$/i.test(path) || /^pack_icon\.png$/i.test(path)) {
           const content = await e.async('uint8array');
-          if (content.length !== e._data.uncompressedSize) throw new InputError('压缩包文件长度异常');
+          if (content.length !== e._data.uncompressedSize) throw new InputError('archive_length');
           files.set(path, content);
         }
       }
@@ -86,16 +87,16 @@ export async function readUpload(data, filename, progress = () => {}) {
       const name = englishName(manifest, files, fallback);
       const icon = [...files].find(([p]) => /^pack_icon\.png$/i.test(p))?.[1];
       packs.push({ manifest, files, name, icon: usableIcon(icon) ? icon : null, type: types.includes('resources') ? 'resources' : 'data', label });
-      progress({ stage: 'reading', message: '正在读取 ' + name });
+      progress({ stage: 'reading', message: message('progress_reading', { name }) });
     }
     for (const e of entries) if (/\.(mcpack|mcaddon|zip)$/i.test(e.name) && !roots.some(r => e.name.startsWith(r))) await scan(await e.async('uint8array'), e.name, depth + 1);
   }
   await scan(data, filename, 0);
   const resourcePacks = packs.filter(p => p.type === 'resources');
-  if (!resourcePacks.length) throw new InputError('没有找到可读取的资源包。请提供包含实体定义和模型的资源包，或完整附加包');
+  if (!resourcePacks.length) throw new InputError('archive_no_rp');
   const ids = new Set();
   for (const p of resourcePacks) {
-    if (ids.has(p.manifest.header.uuid.toLowerCase())) throw new InputError('文件中包含同一资源包的多个版本，请只保留一个版本');
+    if (ids.has(p.manifest.header.uuid.toLowerCase())) throw new InputError('archive_duplicate_pack');
     ids.add(p.manifest.header.uuid.toLowerCase());
   }
   return { resourcePacks, behaviorPacks: packs.filter(p => p.type === 'data'), warnings };

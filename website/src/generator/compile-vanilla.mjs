@@ -1,3 +1,4 @@
+import { message, GeneratorError, errorMessage } from './messages.mjs';
 import { normalizeModel } from '../../vendor/simple-ragdoll/src/core/model.mjs';
 import { createProgram } from '../../vendor/simple-ragdoll/src/core/program.mjs';
 import { compilePrograms, compileSpecializedPrograms, structureKey } from '../../vendor/simple-ragdoll/src/core/compute.mjs';
@@ -23,7 +24,7 @@ const runtimeNames = ['profile', 'next', 'switch', 'kernel', 'enabled', 'run', '
 function rewrite(value, deathRoll, pose) {
   if (typeof value === 'string') {
     if (pose && value.startsWith('q.bone_orientation_trs(')) return value.slice('q.bone_orientation_trs('.length, -1).replace(/'([^']+)'/g, (_, name) => {
-      const query = pose.queries.get(name.toLowerCase()); if (!query) throw Error('Missing local pose bone ' + name); return query;
+      const query = pose.queries.get(name.toLowerCase()); if (!query) throw new GeneratorError('native_capture_bone', { bone: name }); return query;
     });
     return value.includes('math.lerp(v.death_previous') ? value.replace(/\*90/g, '*' + deathRoll) : value;
   }
@@ -61,9 +62,9 @@ function patchRenderers(client, entries, resources, token, files) {
   const remap = new Map();
   const replace = id => {
     if (remap.has(id)) return remap.get(id);
-    const source = renderers.get(id); if (!source) throw Error('缺少刌民渲染控制器：' + id);
+    const source = renderers.get(id); if (!source) throw new GeneratorError('illager_renderer_missing', { id });
     const copy = structuredClone(source), name = `controller.render.ragdoll.${token}_${remap.size}`;
-    if (renderers.has(name)) throw Error('生成的渲染控制器标识符已存在');
+    if (renderers.has(name)) throw new GeneratorError('renderer_collision');
     // Append overrides so the last matching rule freezes arm visibility. The
     // inactive branch reproduces the source's last applicable visibility rule.
     for (const bone of ['arms', 'leftarm', 'rightarm']) {
@@ -105,7 +106,7 @@ function patchClient(item, entries, resources, token, files) {
     before.push(`(v.vr_run&&!v.vr_ready&&${gate})?{v.vr_kernel=${e.kernel};v.vr_ready=1;};`);
     const addAnimation = (suffix, animation, condition, list) => {
       const alias = `vr_${suffix}_${e.index}`, animationId = id + '.' + suffix;
-      if (resources.animations.has(animationId)) throw Error('生成动画标识符已存在');
+      if (resources.animations.has(animationId)) throw new GeneratorError('animation_collision');
       animations[alias] = animationId; list.push({ [alias]: condition });
       files.set(`animations/sr_patch_${e.name}_${suffix}.json`, animationFile({ [animationId]: animation }));
     };
@@ -145,20 +146,20 @@ export async function compileVanilla(items, resources, token, progress) {
   for (let start = 0; start < items.length; start += 4) {
     const groups = new Map(), pending = new Map(), checked = new Set(), kernels = new Map();
     for (let i = start; i < Math.min(items.length, start + 4); i++) {
-      const item = items[i]; progress({ stage: 'generating', current: i, total: items.length, message: item.id });
+      const item = items[i]; progress({ stage: 'generating', current: i, total: items.length, message: message('progress_mob', { name: item.id }) });
       await new Promise(resolve => setTimeout(resolve, 0));
       try {
         const entries = item.profiles.map((spec, index) => prepare(item, spec, index, resources, `${token}_n${i}_p${index}`, reserved));
         pending.set(item, entries);
         for (const entry of entries) { const key = structureKey(entry); if (!groups.has(key)) groups.set(key, []); groups.get(key).push(entry); }
-      } catch (e) { skipped.push({ name: item.id, reason: '原版模型配置无法生成：' + e.message }); }
+      } catch (e) { skipped.push({ name: item.id, reason: message('native_config_failed', { cause: errorMessage(e) }) }); }
     }
     function compile(group) {
       let programs;
       try { programs = compilePrograms(group, { reservedNames: reserved }); }
       catch {
         if (group.length > 1) { const mid = Math.ceil(group.length / 2); compile(group.slice(0, mid)); compile(group.slice(mid)); return; }
-        try { programs = compileSpecializedPrograms(group, { reservedNames: reserved }); } catch (e) { group[0].error = e.message; return; }
+        try { programs = compileSpecializedPrograms(group, { reservedNames: reserved }); } catch (e) { group[0].error = errorMessage(e); return; }
       }
       const k = kernel++, animations = Object.fromEntries(Object.entries(programs[0].computeAnimations).map(([id, a]) => [id, { ...a, anim_time_update: `(!v.vr_run||v.vr_kernel!=${k})?{return 0;};` + a.anim_time_update }]));
       kernels.set(k, [`animations/sr_patch_${programs[0].computeName}_kernel.json`, animationFile(animations)]);
@@ -166,21 +167,21 @@ export async function compileVanilla(items, resources, token, progress) {
     }
     for (const group of groups.values()) compile(group);
     for (const [item, entries] of pending) try {
-      for (const e of entries) { if (!e.program) throw Error(e.error); validateProgram(e.program, checked); }
+      for (const e of entries) { if (!e.program) throw new GeneratorError(e.error.code, e.error.params); validateProgram(e.program, checked); }
       const candidate = new Map();
       patchClient(item, entries, resources, entries[0].name, candidate);
       for (const k of new Set(entries.map(e => e.kernel))) candidate.set(...kernels.get(k));
       for (const [path, value] of candidate) {
-        if (path !== item.record.file && resources.files.has(path)) throw Error('生成资源路径与原包冲突');
+        if (path !== item.record.file && resources.files.has(path)) throw new GeneratorError('resource_path_collision');
         for (const [id, a] of Object.entries(value.animations ?? {})) {
-          if (resources.animations.has(id)) throw Error('生成动画标识符与原包冲突');
+          if (resources.animations.has(id)) throw new GeneratorError('animation_id_collision');
           if (a.anim_time_update) { if (!checked.has(a.anim_time_update)) validateMolang(a.anim_time_update); checked.add(a.anim_time_update); }
           for (const b of Object.values(a.bones ?? {})) for (const ch of ['position', 'rotation', 'scale']) for (const code of Array.isArray(b[ch]) ? b[ch] : [b[ch]]) validateMolang(code);
         }
       }
       for (const [path, value] of candidate) files.set(path, value);
       successful.push({ name: item.id, bodies: Math.max(...entries.map(e => e.rig.bodies.length)), joints: Math.max(...entries.map(e => e.rig.joints.length)), profiles: entries.length, source: 'vanilla' });
-    } catch (e) { skipped.push({ name: item.id, reason: e.message }); }
+    } catch (e) { skipped.push({ name: item.id, reason: errorMessage(e) }); }
   }
   return { files, successful, skipped };
 }

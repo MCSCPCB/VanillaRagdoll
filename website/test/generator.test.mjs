@@ -31,15 +31,15 @@ test('unsafe archives and cyclic bones are rejected before traversal', async () 
   const zip = new JSZip(); zip.file('../escape.txt', 'bad');
   await assert.rejects(readUpload(await zip.generateAsync({ type: 'uint8array' }), 'bad.zip'), InputError);
   const g = structuredClone(geometry); g.bones[0].parent = 'head';
-  assert.throws(() => checkGeometry(g), /循环/);
+  assert.throws(() => checkGeometry(g), { code: 'geometry_cycle' });
   const c = await generate(await pack({ model: g }), 'cycle.mcpack');
-  assert.equal(c.download, null); assert.equal(c.successful, 0); assert.match(c.reports[0].skipped[0].reason, /循环/);
+  assert.equal(c.download, null); assert.equal(c.successful, 0); assert.equal(c.reports[0].skipped[0].reason.code, 'geometry_cycle');
 });
 
 test('explicit model selectors are parsed; ambiguous arrays are not guessed', () => {
   const branches = geometryBranches('query.is_baby ? Geometry.baby : Geometry.default');
   assert.deepEqual(branches.map(b => b.alias), ['baby', 'default']);
-  assert.throws(() => geometryBranches('Array.models[q.variant]'), /确定/);
+  assert.throws(() => geometryBranches('Array.models[q.variant]'), { code: 'selector_unknown' });
 });
 
 test('patch contains only required overrides; source, normal state and identity are preserved', async () => {
@@ -98,7 +98,7 @@ test('ambiguous definitions exclude only their consumers; complex live expressio
   const upload = await readUpload(await pack({ clients: [client(), bad, complex], extra }), 'mixed.zip');
   const inspection = inspectPack(upload.resourcePacks[0], new Map());
   assert.deepEqual(inspection.accepted.map(e => e.id), ['demo:mob']);
-  assert.match(inspection.skipped[0].reason, /歧义/); assert.match(inspection.skipped[1].reason, /复杂动画/);
+  assert.equal(inspection.skipped[0].reason.code, 'ambiguous_geometry'); assert.equal(inspection.skipped[1].reason.code, 'animation_call_complex');
 });
 
 test('explicit same-skeleton variants generate while mismatched skeletons are skipped', async () => {
@@ -110,13 +110,13 @@ test('explicit same-skeleton variants generate while mismatched skeletons are sk
   assert.equal(result.successful, 1, JSON.stringify(result.reports));
   baby.bones[1].name = 'different';
   const upload = await readUpload(await pack({ clients: [c], extra }), 'variants.zip');
-  assert.match(inspectPack(upload.resourcePacks[0], new Map()).skipped[0].reason, /骨骼结构不一致/);
+  assert.equal(inspectPack(upload.resourcePacks[0], new Map()).skipped[0].reason.code, 'skeleton_mismatch');
 });
 
 test('provided BP excludes nonliving helpers, and no API flags survive auto configuration', async () => {
   const rp = (await readUpload(await pack(), 'demo.zip')).resourcePacks[0];
   const bp = { files: new Map([['entities/mob.json', new TextEncoder().encode(JSON.stringify({ 'minecraft:entity': { description: { identifier: 'demo:mob' }, components: { 'minecraft:projectile': {} } } }))]]) };
-  const out = inspectPack(rp, behaviorIndex([bp])); assert.equal(out.accepted.length, 0); assert.match(out.skipped[0].reason, /生命值/);
+  const out = inspectPack(rp, behaviorIndex([bp])); assert.equal(out.accepted.length, 0); assert.equal(out.skipped[0].reason.code, 'no_health');
   const accepted = inspectPack(rp, new Map()).accepted;
   assert(Object.values(accepted[0].config.api).every(v => v === false));
 });
