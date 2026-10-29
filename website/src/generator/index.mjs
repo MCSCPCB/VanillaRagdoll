@@ -29,7 +29,7 @@ export async function generate(data, filename, { progress = () => {}, fallbackIc
       const report = { pack: pack.name, index: i, successful: output.successful, skipped: output.skipped, file: null };
       if (!output.successful.length) { if (!report.skipped.length) report.skipped.push({ name: pack.name, reason: message('no_compatible_mobs') }); reports.push(report); continue; }
       const zip = new JSZip();
-      for (const [path, value] of output.files) zip.file(path, JSON.stringify(value));
+      for (const [path, value] of output.files) zip.file(path, JSON.stringify(value, null, path.endsWith('_gate.json') ? 2 : undefined));
       const name = pack.name + ' Ragdoll';
       zip.file('manifest.json', JSON.stringify({ format_version: 2, header: { name, description: 'Simple Ragdoll', uuid: await patchUUID(pack.manifest.header.uuid, 'header'), version, min_engine_version: maxVersion(pack.manifest.header.min_engine_version) }, modules: [{ type: 'resources', uuid: await patchUUID(pack.manifest.header.uuid, 'module'), version }], dependencies: [{ uuid: pack.manifest.header.uuid, version: pack.manifest.header.version }], metadata: { authors: ['Simple Ragdoll'], generated_with: { simple_ragdoll: ['0.1.3'], ragdoll_generator: ['1.0.0'] } } }, null, 2));
       if (pack.icon ?? fallbackIcon) zip.file('pack_icon.png', pack.icon ?? fallbackIcon);

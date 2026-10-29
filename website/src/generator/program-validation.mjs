@@ -5,7 +5,10 @@ export const animationFile = animations => ({ format_version: '1.20.60', animati
 export function validateMolang(source) {
   if (typeof source !== 'string') return;
   if (source.length >= 64000) throw new GeneratorError('molang_length');
-  validateScript(source);
+  // Native scripts and the editable policy can use long aliases and whitespace.
+  const compact = source.toLowerCase().replace(/'[^']*'|\bvariable\.|\bquery\.|\btemp\.|\bcontext\.|\s+|(?<=\d)f\b/g, part =>
+    ({ 'variable.': 'v.', 'query.': 'q.', 'temp.': 't.', 'context.': 'c.' }[part] ?? (part.startsWith("'") ? part : ''))).replace(/return(?=[a-z\d(!+\-])/g, 'return ');
+  validateScript(compact);
 }
 export function validateProgram(program, checked = new Set()) {
   const check = source => { if (!checked.has(source)) { validateMolang(source); checked.add(source); } };

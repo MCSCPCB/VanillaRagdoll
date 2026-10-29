@@ -59,7 +59,8 @@ test('patch contains only required overrides; source, normal state and identity 
   assert.equal(c.scripts.scale, old.scripts.scale); assert.equal(c.scripts.initialize[0], old.scripts.initialize[0]);
   assert.equal(c.scripts.pre_animation[0], old.scripts.pre_animation[0]); assert.equal(c.animations.idle, old.animations.idle);
   assert(c.scripts.animate.some(a => a.idle === '!v.ragdoll_active')); assert(!c.animations.ragdoll_input);
-  assert(c.scripts.pre_animation.some(s => s.includes('v.vr_motion_pending')));
+  const prepare = JSON.parse(await zip.file(names.find(n => n.endsWith('_prepare.json'))).async('string'));
+  assert(Object.values(prepare.animations).some(a => a.anim_time_update.includes('v.vr_motion_pending')));
   const definitions = new Set();
   for (const path of names.filter(n => n.startsWith('animations/'))) for (const id of Object.keys(JSON.parse(await zip.file(path).async('string')).animations)) { assert(!definitions.has(id)); definitions.add(id); }
   for (const [alias, id] of Object.entries(c.animations)) if (alias.startsWith('ragdoll_')) assert(definitions.has(id), id);

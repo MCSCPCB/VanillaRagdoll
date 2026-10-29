@@ -15,6 +15,8 @@ function js(node){
 export const expr=s=>js(parseExpression(typeof s==='string'?s.replace(/\bthis\b/g,'v.test_this'):s));
 const compiled=new Map();
 export function script(source){
+  source=source.toLowerCase().replace(/'[^']*'|\bvariable\.|\bquery\.|\btemp\.|\bcontext\.|\s+|(?<=\d)f\b/g,part=>
+    ({'variable.':'v.','query.':'q.','temp.':'t.','context.':'c.'}[part]??(part.startsWith("'")?part:''))).replace(/return(?=[a-z\d(!+\-])/g,'return ');
   if(compiled.has(source))return compiled.get(source);
   let at=0,loop=0;
   const eat=s=>{assert(source.startsWith(s,at),`Expected ${s}: ${source.slice(at,at+80)}`);at+=s.length;};

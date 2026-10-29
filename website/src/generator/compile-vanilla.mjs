@@ -6,7 +6,7 @@ import { specializeApi } from '../../vendor/simple-ragdoll/src/core/api-speciali
 import { apiSettings } from '../../vendor/simple-ragdoll/src/core/api.mjs';
 import { clientSize } from '../../vendor/simple-ragdoll/src/core/space.mjs';
 import { resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
-import { lifecycle } from './lifecycle.mjs';
+import { gateLifecycle, gateNames, patchGate, installGate } from './gate.mjs';
 import { renderersOf } from './vanilla.mjs';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
 import { animationFile, validateMolang, validateProgram, guardOutput } from './program-validation.mjs';
@@ -36,7 +36,7 @@ function rewrite(value, deathRoll, pose) {
 function prepare(item, spec, index, resources, name, reserved) {
   const client = item.record.value['minecraft:client_entity'].description;
   const entity = { id: spec.native?.entity ?? item.id }, profile = { key: spec.native?.key, geometry: spec.native?.alias ?? spec.profile.geometry };
-  let rig = normalizeModel(spec.config, resources, client);
+  let rig = normalizeModel({ ...spec.config, ...gateLifecycle }, resources, client);
   if (spec.native) rig = gameplayRig(articulationRig(rig, entity, profile), client);
   const decorations = spec.native ? decorationPlan(resources, client, rig, index) : [];
   const geometry = resources.geometries.get(rig.variants[0].geometry);
@@ -81,7 +81,7 @@ function patchRenderers(client, entries, resources, token, files) {
   files.set(`render_controllers/sr_patch_${token}.json`, { format_version: '1.8.0', render_controllers: clones });
 }
 
-function patchClient(item, entries, resources, token, files) {
+function patchClient(item, entries, resources, token, files, gate) {
   const value = structuredClone(item.record.value), c = value['minecraft:client_entity'].description, scripts = c.scripts ?? {};
   const { animations, normal } = vanillaAnimationStack(c), base = basePoseAnimations(resources, { ...c, animations }, normal);
   delete c.animation_controllers;
@@ -89,12 +89,12 @@ function patchClient(item, entries, resources, token, files) {
   for (let i = entries.length - 2; i >= 0; i--) selector = `(${entries[i].spec.profile.when})?${i}:(${selector})`;
   const initialize = [...(scripts.initialize ?? []), runtimeNames.map(k => `v.vr_${k}=${k === 'units' ? '.0625' : ['profile', 'kernel'].includes(k) ? -1 : 0};`).join('') + 'v.ragdoll_active=0;', motionInitialize];
   const arms = entries.find(e => e.spec.armsOpen)?.spec.armsOpen;
-  const before = [...(scripts.pre_animation ?? []),
+  const before = [
     'v.vr_enabled=!q.is_in_ui;(!v.vr_enabled)?{v.vr_profile=-1;v.vr_kernel=-1;v.ragdoll_active=0;};',
     ...(arms ? [`(v.vr_enabled&&!v.ragdoll_active&&q.is_alive)?{v.vr_arms_open=${arms};};`] : []),
     `v.vr_next=v.vr_enabled?(v.ragdoll_active?v.vr_profile:(${selector})):-1;v.vr_switch=v.vr_profile!=v.vr_next;v.vr_profile=v.vr_next;`,
     '(v.vr_switch)?{v.vr_seen=0;v.vr_ready=0;};',
-    `v.vr_run=v.vr_enabled&&(v.ragdoll_active||(v.vr_seen>0&&(${lifecycle.trigger})));`, motionFrame(),
+    `v.vr_run=v.vr_enabled&&(v.ragdoll_active||(v.vr_seen>0&&(${gateLifecycle.trigger})));`, motionFrame(),
     '(v.vr_enabled&&!v.ragdoll_active&&!v.vr_run)?{v.vr_ready=0;v.vr_kernel=-1;};',
     `(v.vr_enabled&&!v.vr_run)?{v.vr_last_x=q.position(0);v.vr_last_y=q.position(1);v.vr_last_z=q.position(2);t.vr_actor_units=q.model_scale;t.vr_actor_units=t.vr_actor_units??0.0625;t.vr_size=${clientSize(c)};v.vr_units=(t.vr_actor_units>0?t.vr_actor_units:0.0625)*(t.vr_size>0?t.vr_size:1);v.vr_seen=1;};`];
   const compute = [], captures = [], baselines = [], decorations = [], outputs = [];
@@ -126,15 +126,16 @@ function patchClient(item, entries, resources, token, files) {
     const alias = `vr_kernel_${k}_${i}`; animations[alias] = id; compute.push({ [alias]: `v.vr_run&&v.vr_kernel==${k}` });
   });
   const live = call => typeof call === 'string' ? (base.direct.has(call) ? call : { [call]: '!v.ragdoll_active' }) : Object.fromEntries(Object.entries(call).map(([key, weight]) => [key, base.direct.has(key) ? weight : `(!v.ragdoll_active)*(${typeof weight === 'boolean' ? Number(weight) : weight})`]));
-  c.scripts = { ...scripts, initialize, pre_animation: before, animate: [...compute, ...baselines, ...normal.map(live), ...base.extras, ...captures, ...decorations, ...outputs], should_update_bones_and_effects_offscreen: `(${scripts.should_update_bones_and_effects_offscreen ?? 0})||(v.vr_enabled&&v.ragdoll_active)` };
+  c.scripts = { ...scripts, initialize, pre_animation: [...(scripts.pre_animation ?? [])], animate: [...compute, ...baselines, ...normal.map(live), ...base.extras, ...captures, ...decorations, ...outputs], should_update_bones_and_effects_offscreen: `(${scripts.should_update_bones_and_effects_offscreen ?? 0})||(v.vr_enabled&&v.ragdoll_active)` };
   c.animations = animations;
+  installGate(c, { gate, scope: token, path: `animations/sr_patch_${token}_prepare.json`, setup: before, files });
   if (new Set(entries.map(e => c.geometry[e.spec.profile.geometry])).size === 1) c.queryable_geometry = entries[0].spec.profile.geometry;
   else delete c.queryable_geometry;
   const versionAtLeast = (v, floor) => String(v ?? 0).split('.').map(Number).reduce((d, n, i) => d || n - (floor[i] ?? 0), 0) >= 0;
   if (!versionAtLeast(value.format_version, [1, 20, 60])) value.format_version = '1.20.60';
   if (!versionAtLeast(c.min_engine_version, [1, 26, 50])) c.min_engine_version = '1.26.50';
   // Check our added statements only; source scripts may span several entries.
-  for (const source of before.slice((scripts.pre_animation ?? []).length)) validateMolang(source);
+  for (const source of before) validateMolang(source);
   patchRenderers(c, entries, resources, token, files);
   files.set(item.record.file, value);
 }
@@ -142,7 +143,7 @@ function patchClient(item, entries, resources, token, files) {
 export async function compileVanilla(items, resources, token, progress) {
   const files = new Map(), successful = [], skipped = [];
   let kernel = 0;
-  const reserved = [...resourceVariables(resources), ...motionReserved, ...runtimeNames.map(k => 'v.vr_' + k), 'v.vr_head_scale', 'v.ragdoll_active'];
+  const reserved = [...resourceVariables(resources), ...motionReserved, ...gateNames, ...runtimeNames.map(k => 'v.vr_' + k), 'v.vr_head_scale', 'v.ragdoll_active'];
   for (let start = 0; start < items.length; start += 4) {
     const groups = new Map(), pending = new Map(), checked = new Set(), kernels = new Map();
     for (let i = start; i < Math.min(items.length, start + 4); i++) {
@@ -169,7 +170,7 @@ export async function compileVanilla(items, resources, token, progress) {
     for (const [item, entries] of pending) try {
       for (const e of entries) { if (!e.program) throw new GeneratorError(e.error.code, e.error.params); validateProgram(e.program, checked); }
       const candidate = new Map();
-      patchClient(item, entries, resources, entries[0].name, candidate);
+      patchClient(item, entries, resources, entries[0].name, candidate, patchGate(token));
       for (const k of new Set(entries.map(e => e.kernel))) candidate.set(...kernels.get(k));
       for (const [path, value] of candidate) {
         if (path !== item.record.file && resources.files.has(path)) throw new GeneratorError('resource_path_collision');

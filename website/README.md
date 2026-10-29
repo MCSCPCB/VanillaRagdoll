@@ -48,6 +48,8 @@ VanillaRagdoll 的浏览器工具，为第三方 Minecraft 基岩版 Add-on 自�
 
 ## 开发与测试
 
+每个生成的补丁包都有独立的 `animations/sr_patch_web_<包标识>_gate.json`，集中控制该补丁中全部布娃娃的进入和恢复条件。默认保留死亡及命名牌触发。修改门控文件无需重新生成物理代码，详见[门控说明](../docs/ragdoll-gate.md)。页面不提供额外控件。
+
 需要 Node.js 22。进入本目录运行：
 
 ```sh

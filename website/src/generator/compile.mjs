@@ -9,12 +9,13 @@ import { animationFile, validateMolang, validateProgram, guardOutput } from './p
 import { adaptClient, resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
 import { compileVanilla } from './compile-vanilla.mjs';
+import { gateLifecycle, gateNames, gateDefinition, patchGate, installGate } from './gate.mjs';
 
 const extraNames = ['v.vr_enabled', 'v.vr_run', 'v.vr_switch', 'v.vr_seen', 'v.vr_ready', 'v.vr_last_x', 'v.vr_last_y', 'v.vr_last_z', 'v.vr_units', 'v.ragdoll_active'];
 
 function prepare(item, resources, name, reservedNames) {
   const client = item.record.value['minecraft:client_entity'].description;
-  const rig = normalizeModel(item.config, resources, client);
+  const rig = normalizeModel({ ...item.config, ...gateLifecycle }, resources, client);
   // Match VanillaRagdoll's tested adapter order, then remove every disabled BP API.
   const raw = createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames });
   motionProgram(raw, rig);
@@ -27,13 +28,12 @@ function prepare(item, resources, name, reservedNames) {
   return { ...item, name, rig, ...program };
 }
 
-function patchClient(entry, program, animationId) {
+function patchClient(entry, program, animationId, gate, files) {
   const original = entry.record.value['minecraft:client_entity'].description, scripts = original.scripts ?? {};
   const value = adaptClient(entry.record.value, entry.rig, program, animationId), c = value['minecraft:client_entity'].description;
   const enabled = '!q.is_in_ui';
   c.scripts.initialize = [...(scripts.initialize ?? []), 'v.vr_enabled=0;v.vr_run=0;v.vr_switch=0;v.vr_seen=0;v.vr_ready=0;v.vr_last_x=0;v.vr_last_y=0;v.vr_last_z=0;v.vr_units=0.0625;v.ragdoll_active=0;', motionInitialize];
-  c.scripts.pre_animation = [
-    ...(scripts.pre_animation ?? []),
+  const setup = [
     `v.vr_enabled=${enabled};(!v.vr_enabled)?{v.vr_seen=0;v.vr_ready=0;v.ragdoll_active=0;};`,
     `v.vr_run=v.vr_enabled&&(v.ragdoll_active||(v.vr_seen>0&&(${entry.rig.trigger})));`,
     motionFrame(),
@@ -49,6 +49,8 @@ function patchClient(entry, program, animationId) {
   // Preserve a higher declared engine version from the input.
   const old = String(original.min_engine_version ?? '0').split('.').map(Number);
   if (old.reduce((d, n, i) => d || n - ([1, 26, 50][i] ?? 0), 0) <= 0) c.min_engine_version = '1.26.50';
+  c.scripts.pre_animation = [...(scripts.pre_animation ?? [])];
+  installGate(c, { gate, scope: entry.name, path: `animations/sr_patch_${entry.name}_prepare.json`, setup, files, enabled });
   return value;
 }
 
@@ -56,7 +58,9 @@ const checked = new Set();
 
 export async function compileEntities(inspection, token, progress = () => {}) {
   const { resources } = inspection, accepted = inspection.accepted.filter(item => !item.profiles), skipped = [...inspection.skipped], successful = [], files = new Map();
-  const reservedNames = [...new Set([...resourceVariables(resources), ...motionReserved, ...extraNames])];
+  const reservedNames = [...new Set([...resourceVariables(resources), ...motionReserved, ...gateNames, ...extraNames])];
+  const gate = patchGate(token);
+  if (resources.files.has(gate.path) || resources.animations.has(gate.id)) throw new GeneratorError('resource_collision');
   checked.clear();
   function compile(group) {
     let programs;
@@ -71,12 +75,17 @@ export async function compileEntities(inspection, token, progress = () => {}) {
         const program = programs[i], id = 'animation.ragdoll.' + entry.name;
         validateProgram(program, checked);
         if (resources.animations.has(id) || Object.keys(program.computeAnimations).some(k => resources.animations.has(k))) throw new GeneratorError('resource_collision');
-        const client = patchClient(entry, program, id);
+        const candidate = new Map(), client = patchClient(entry, program, id, gate, candidate);
         const animation = guardOutput(program.animation(), 'v.vr_enabled&&v.ragdoll_active');
         for (const field of ['initialize', 'pre_animation']) for (const code of client['minecraft:client_entity'].description.scripts[field]) if (code.length >= 64000) throw new GeneratorError('script_length');
         const path = `animations/sr_patch_${entry.name}.json`;
         if (resources.files.has(path)) throw new GeneratorError('animation_path_collision');
-        files.set(entry.record.file, client); files.set(path, animationFile({ [id]: animation }));
+        candidate.set(path, animationFile({ [id]: animation }));
+        for (const [path, value] of candidate) {
+          if (resources.files.has(path) || Object.keys(value.animations).some(id => resources.animations.has(id))) throw new GeneratorError('resource_collision');
+        }
+        candidate.set(entry.record.file, client);
+        for (const [path, value] of candidate) files.set(path, value);
         successful.push({ name: entry.id, bodies: entry.rig.bodies.length, joints: entry.rig.joints.length }); commonValid = true;
       } catch (e) { skipped.push({ name: entry.id, reason: errorMessage(e) }); }
     }
@@ -109,6 +118,7 @@ export async function compileEntities(inspection, token, progress = () => {}) {
   const native = await compileVanilla(inspection.accepted.filter(item => item.profiles), resources, token, e => progress({ ...e, current: accepted.length + e.current, total: inspection.accepted.length }));
   for (const [path, value] of native.files) files.set(path, value);
   successful.push(...native.successful); skipped.push(...native.skipped);
+  if (successful.length) files.set(gate.path, gateDefinition(gate.id));
   progress({ stage: 'generating', current: inspection.accepted.length, total: inspection.accepted.length, message: message('progress_complete') });
   return { files, successful, skipped };
 }

@@ -27,9 +27,12 @@ test('packaged scripts hand off the live pose once, inherit delayed motion and d
     for (let i = 0; i <= 60; i++) {
       q.life_time = i / 60; q.delta_time = i ? 1 / 60 : 0; q.is_alive = +(i < 36); q.death_ticks = q.is_alive ? 0 : Math.floor((i - 36) / 3);
       c.scripts.pre_animation.forEach(run);
-      if (v.vr_motion_pending) { updates++; assert(impact); assert(v.vr_motion_kickx > 1); }
+      const onPrepared = () => { if (v.vr_motion_pending) { updates++; assert(impact); assert(v.vr_motion_kickx > 1); } };
       // Also evaluate at zero animation weight: the kernel itself must guard its queries.
-      for (const call of c.scripts.animate) for (const alias of Object.keys(call)) if (alias.startsWith('ragdoll_compute_')) run(animations[c.animations[alias]].anim_time_update);
+      for (const call of c.scripts.animate) for (const alias of typeof call === 'string' ? [call] : Object.keys(call)) {
+        const code = animations[c.animations[alias]]?.anim_time_update;
+        if (code) { run(code); if (alias.startsWith('vr_prepare_')) onPrepared(); }
+      }
       if (i < 36 || ui) { assert.equal(reads, 0); assert.equal(v.ragdoll_active, 0); }
       if (v.ragdoll_active && !active) { first = value(bones.head.rotation[1]); active++; }
       for (const b of Object.values(bones)) for (const ch of Object.values(b)) for (const s of ch) assert(Number.isFinite(value(s)));
@@ -54,7 +57,10 @@ test('packaged scripts hand off the live pose once, inherit delayed motion and d
   c.scripts.initialize.forEach(run);
   const frame = () => {
     q.life_time += q.delta_time; c.scripts.pre_animation.forEach(run);
-    for (const call of c.scripts.animate) for (const alias of Object.keys(call)) if (alias.startsWith('ragdoll_compute_')) run(animations[c.animations[alias]].anim_time_update);
+    for (const call of c.scripts.animate) for (const alias of typeof call === 'string' ? [call] : Object.keys(call)) {
+        const code = animations[c.animations[alias]]?.anim_time_update;
+        if (code) { run(code); }
+      }
   };
   frame(); frame(); assert.equal(v.ragdoll_active, 0); assert.equal(captures, 0);
   name = 'ragdoll'; frame(); assert.equal(v.ragdoll_active, 1); assert.equal(captures, 2);

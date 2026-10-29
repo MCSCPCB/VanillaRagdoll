@@ -19,6 +19,11 @@ test('production page: worker, local-only processing, exact download contents an
   const waiting = page.waitForEvent('download'); await page.locator('#download').click(); const download = await waiting;
   expect(download.suggestedFilename()).toBe('Test Creatures Ragdoll.mcpack');
   const zip = await JSZip.loadAsync(await readFile(await download.path()));
+  const gates = Object.keys(zip.files).filter(p => /animations\/.*_gate\.json$/.test(p));
+  expect(gates).toHaveLength(1);
+  const gateId = Object.keys(JSON.parse(await zip.file(gates[0]).async('string')).animations)[0];
+  const c = JSON.parse(await zip.file('entity/demo0.entity.json').async('string'))['minecraft:client_entity'].description;
+  expect(c.animations[Object.keys(c.scripts.animate[0])[0]]).toBe(gateId);
   const manifest = JSON.parse(await zip.file('manifest.json').async('string'));
   expect(manifest.header.name).toBe('Test Creatures Ragdoll'); expect(manifest.header.description).toBe('Simple Ragdoll');
   expect(zip.file('pack_icon.png')).toBeTruthy(); expect(zip.file('models/entity/demo.geo.json')).toBeNull();
