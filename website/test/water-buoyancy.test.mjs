@@ -18,8 +18,9 @@ test('two-point buoyancy lifts, damps and turns immersed bodies while preserving
       b0vx: 1, b0vy: 0, b0vz: 0, b0wx: 0, b0wy: 1, b0wz: 0 });
     function step(water, changes = {}) {
       const v = { ...state(), ...changes }, positions = [];
-      const q = { [absolute ? 'block_has_any_tag' : 'relative_block_has_any_tag']: (x, y, z, tag) => {
-        assert.equal(tag, 'water'); positions.push([x, y, z]); return +water(x, y, z);
+      const q = { [absolute ? 'block_has_any_tag' : 'relative_block_has_any_tag']: (x, y, z, ...tags) => {
+        if (tags.includes('water')) { positions.push([x, y, z]); return +water(x, y, z); }
+        assert.deepEqual(tags, ['lava']); return 0;
       } };
       run(v, {}, q, testMath, {}); return { v, positions };
     }
@@ -39,13 +40,15 @@ test('two-point buoyancy lifts, damps and turns immersed bodies while preserving
 });
 
 test('downloaded custom and vanilla-model patches execute water physics only during ragdolls', async () => {
-  const result = await generate(await pack({ clients: [client(), vanillaClient()] }), 'water.mcpack');
-  assert.equal(result.successful, 2, JSON.stringify(result.reports));
+  const iron = client('demo:metal_mob');
+  iron['minecraft:client_entity'].description.geometry = { default: 'geometry.irongolem' };
+  const result = await generate(await pack({ clients: [client(), vanillaClient(), iron] }), 'water.mcpack');
+  assert.equal(result.successful, 3, JSON.stringify(result.reports));
   const zip = await JSZip.loadAsync(result.download.data), animations = {};
   for (const f of Object.values(zip.files)) if (!f.dir && f.name.startsWith('animations/')) Object.assign(animations, JSON.parse(await f.async('string')).animations);
-  for (const path of ['entity/demo0.entity.json', 'entity/demo1.entity.json']) {
+  for (const path of ['entity/demo0.entity.json', 'entity/demo1.entity.json', 'entity/demo2.entity.json']) {
     const c = JSON.parse(await zip.file(path).async('string'))['minecraft:client_entity'].description;
-    function simulate(wet, ui = false) {
+    function simulate(liquid, ui = false) {
       let queries = 0, name = '';
       const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
       const q = { is_name_any: expected => +(name === expected), is_in_ui: +ui, is_alive: 1, is_baby: 0,
@@ -53,7 +56,7 @@ test('downloaded custom and vanilla-model patches execute water physics only dur
         position: a => a === 1 ? 10 : 0,
         bone_orientation_trs: bone => ({ t: { x: 0, y: bone === 'head' ? 20 : 12, z: 0 }, r: { x: 0, y: 0, z: 0 }, s: { x: 1, y: 1, z: 1 } }),
         relative_block_has_any_tag: (x, y, z, ...tags) => {
-          if (tags.length === 1 && tags[0] === 'water') { queries++; return +wet; }
+          if (tags.includes('water') || tags.includes('lava')) { queries++; return +tags.includes(liquid); }
           return 0;
         },
       };
@@ -73,13 +76,17 @@ test('downloaded custom and vanilla-model patches execute water physics only dur
       const pose = c.animations.ragdoll_generated ?? c.animations['vr_pose_' + (ui ? 0 : v.vr_profile)];
       assert(pose, 'Generated pose must be present');
       const positions = Object.values(animations[pose].bones).flatMap(b => [b.position ?? []].flat().map(value));
+      const bodyY = value(Object.entries(animations[pose].bones).find(([bone]) => bone.toLowerCase() === 'body')[1].position[1]);
       assert(positions.every(Number.isFinite));
       if (ui) assert.equal(queries, 0, 'No water reads in UI'); else assert(queries > 0, 'Compiled water branch must run');
       const beforeRelease = queries; name = ''; frame(); frame();
       assert.equal(queries, beforeRelease, 'Released ragdolls stop water queries');
-      return { positions, queries };
+      return { positions, queries, bodyY };
     }
-    const dry = simulate(false), wet = simulate(true); simulate(true, true);
+    const dry = simulate(null), wet = simulate('water'), lava = simulate('lava'); simulate('lava', true);
     assert.notDeepEqual(wet.positions, dry.positions, 'Both compiler paths must apply buoyancy to their actual outputs');
+    assert.notDeepEqual(lava.positions, wet.positions, 'Downloaded kernels must distinguish lava from water');
+    if (path.endsWith('demo2.entity.json')) assert(wet.bodyY < 0 && lava.bodyY < 0, 'Verified iron-golem geometry must keep metal density in the downloaded patch');
+    else assert(wet.bodyY > dry.bodyY && lava.bodyY > wet.bodyY, 'Ordinary models must receive stronger support in denser liquid');
   }
 });

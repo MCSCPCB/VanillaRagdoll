@@ -9,6 +9,7 @@ import { animationFile, validateMolang, validateProgram, guardOutput } from './p
 import { adaptClient, resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
 import { waterProgram } from './water-buoyancy.mjs';
+import { materialRig, materialProgram } from './materials.mjs';
 import { compileVanilla } from './compile-vanilla.mjs';
 import { gateLifecycle, gateNames, gateDefinition, patchGate, installGate } from './gate.mjs';
 
@@ -16,9 +17,9 @@ const extraNames = ['v.vr_enabled', 'v.vr_run', 'v.vr_switch', 'v.vr_seen', 'v.v
 
 function prepare(item, resources, name, reservedNames) {
   const client = item.record.value['minecraft:client_entity'].description;
-  const rig = normalizeModel({ ...item.config, ...gateLifecycle }, resources, client);
+  const rig = materialRig(normalizeModel({ ...item.config, ...gateLifecycle }, resources, client));
   // Match VanillaRagdoll's tested adapter order, then remove every disabled BP API.
-  const raw = createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames });
+  const raw = materialProgram(createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames }), rig);
   motionProgram(raw, rig);
   waterProgram(raw, rig);
   const program = specializeApi(raw, rig.api);

@@ -10,6 +10,7 @@ import { gateLifecycle, gateNames, patchGate, installGate } from './gate.mjs';
 import { renderersOf } from './vanilla.mjs';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
 import { waterProgram } from './water-buoyancy.mjs';
+import { materialRig, materialProgram } from './materials.mjs';
 import { animationFile, validateMolang, validateProgram, guardOutput } from './program-validation.mjs';
 import { vanillaAnimationStack } from './vanilla/vanilla-animation-stack.mjs';
 import { basePoseAnimations } from './vanilla/base-pose.mjs';
@@ -37,14 +38,14 @@ function rewrite(value, deathRoll, pose) {
 function prepare(item, spec, index, resources, name, reserved) {
   const client = item.record.value['minecraft:client_entity'].description;
   const entity = { id: spec.native?.entity ?? item.id }, profile = { key: spec.native?.key, geometry: spec.native?.alias ?? spec.profile.geometry };
-  let rig = normalizeModel({ ...spec.config, ...gateLifecycle }, resources, client);
+  let rig = materialRig(normalizeModel({ ...spec.config, ...gateLifecycle }, resources, client), spec.native?.entity);
   if (spec.native) rig = gameplayRig(articulationRig(rig, entity, profile), client);
   const decorations = spec.native ? decorationPlan(resources, client, rig, index) : [];
   const geometry = resources.geometries.get(rig.variants[0].geometry);
   const nativeCat = spec.native && needsNativeCatTail(entity, profile);
   const pose = spec.native && needsLocalPose(entity, profile) ? localPoseCache(geometry, rig, index, { activationOnly: true, entityRelative: entityRelativeBones(entity, resources, client) }) : nativeCat ? catTailPose(rig, index) : null;
   reserved.push(...decorations.map(f => f.name), ...(pose?.reserved ?? []));
-  let raw = createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames: reserved });
+  let raw = materialProgram(createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames: reserved }), rig);
   if (spec.native) raw = contactProgram(gameplayProgram(articulationProgram(raw, rig, entity, profile), rig, entity, client), rig, entity, profile);
   if (nativeCat) catTailOutput(raw, rig, pose);
   motionProgram(raw, rig);
