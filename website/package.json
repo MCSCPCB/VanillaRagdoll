@@ -1,0 +1,21 @@
+{
+  "name": "vanilla-ragdoll-generator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "jszip": "3.10.1",
+    "oreui-web": "0.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "vite": "6.4.5"
+  }
+}

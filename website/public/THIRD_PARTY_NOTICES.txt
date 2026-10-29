@@ -1,0 +1,25 @@
+Third-party notices
+
+OreUI 0.0.1 (oreui-web)
+https://github.com/katorlys/OreUI
+License: Mozilla Public License 2.0 (see OreUI-LICENSE.txt).
+Used unmodified as a dependency. The upstream source and package are available at
+https://github.com/katorlys/OreUI and https://www.npmjs.com/package/oreui-web/v/0.0.1.
+OreUI is an unofficial fan project, not affiliated with Mojang or Microsoft.
+Its bundled Minecraft fonts are credited to Mojang/Microsoft, not to this website.
+Minecraft is a trademark of Mojang/Microsoft.
+
+JSZip 3.10.1
+https://github.com/Stuk/jszip
+Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, Antolín
+Dachary. Used under the MIT license (see JSZip-LICENSE.txt).
+
+Lit and its dependencies
+https://github.com/lit/lit
+Copyright (c) 2017 Google LLC. BSD-3-Clause (see Lit-LICENSE.txt).
+
+Simple Ragdoll 0.1.3
+https://github.com/MCSCPCB/Simple-Ragdoll
+Core snapshot: 1051cc2aa608cf649ccbb6e60514953d4c997b15
+Source/provenance: website/vendor/simple-ragdoll/SOURCE.json in the VanillaRagdoll
+repository. Distributed by the project author; no additional license is implied.
