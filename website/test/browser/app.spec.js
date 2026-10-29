@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import JSZip from 'jszip';
-import { pack } from '../fixtures.mjs';
+import { pack, vanillaClient } from '../fixtures.mjs';
 
 test('production page: worker, local-only processing, exact download contents and repeat upload', async ({ page }, info) => {
   const errors = [], external = [], bad = [];
@@ -27,6 +27,21 @@ test('production page: worker, local-only processing, exact download contents an
   await page.locator('#file-input').setInputFiles({ name: 'creatures.mcpack', mimeType: 'application/zip', buffer: Buffer.from(bytes) });
   await expect(page.getByRole('heading', { name: '补丁已生成' })).toBeVisible();
   expect(errors).toEqual([]); expect(external).toEqual([]); expect(bad).toEqual([]);
+});
+
+test('vanilla references compile in the production worker without uploading vanilla models', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto('./');
+  const bytes = await pack({ clients: [vanillaClient(), vanillaClient('witch'), vanillaClient('evoker')] });
+  await page.locator('#file-input').setInputFiles({ name: 'vanilla-references.mcpack', mimeType: 'application/zip', buffer: Buffer.from(bytes) });
+  await expect(page.getByRole('heading', { name: '补丁已生成' })).toBeVisible();
+  const waiting = page.waitForEvent('download'); await page.locator('#download').click(); const download = await waiting;
+  const zip = await JSZip.loadAsync(await readFile(await download.path()));
+  for (let i = 0; i < 3; i++) expect(zip.file(`entity/demo${i}.entity.json`)).toBeTruthy();
+  expect(Object.keys(zip.files).some(p => p.startsWith('models/'))).toBe(false);
+  expect(Object.keys(zip.files).some(p => p.startsWith('render_controllers/'))).toBe(true);
+  expect(errors).toEqual([]);
 });
 
 test('mobile: error recovery, cancellation, keyboard access and narrow layout', async ({ page }, info) => {

@@ -4,12 +4,12 @@ import { compilePrograms, compileSpecializedPrograms, structureKey } from '../..
 import { specializeApi } from '../../vendor/simple-ragdoll/src/core/api-specialize.mjs';
 import { apiSettings } from '../../vendor/simple-ragdoll/src/core/api.mjs';
 import { clientSize } from '../../vendor/simple-ragdoll/src/core/space.mjs';
-import { validateScript } from './validate.mjs';
+import { animationFile, validateMolang, validateProgram, guardOutput } from './program-validation.mjs';
 import { adaptClient, resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
+import { compileVanilla } from './compile-vanilla.mjs';
 
 const extraNames = ['v.vr_enabled', 'v.vr_run', 'v.vr_switch', 'v.vr_seen', 'v.vr_ready', 'v.vr_last_x', 'v.vr_last_y', 'v.vr_last_z', 'v.vr_units', 'v.ragdoll_active'];
-const animationFile = animations => ({ format_version: '1.20.60', animations });
 
 function prepare(item, resources, name, reservedNames) {
   const client = item.record.value['minecraft:client_entity'].description;
@@ -52,20 +52,9 @@ function patchClient(entry, program, animationId) {
 }
 
 const checked = new Set();
-function validateMolang(source) {
-  if (typeof source !== 'string') return;
-  if (source.length >= 64000) throw new Error('生成的 Molang 超出引擎表达式长度限制');
-  if (checked.has(source)) return;
-  validateScript(source); checked.add(source);
-}
-function validateProgram(program) {
-  for (const code of [...program.initializeSources, ...program.preAnimationSources]) validateMolang(code);
-  for (const a of Object.values(program.computeAnimations)) validateMolang(a.anim_time_update);
-  for (const b of Object.values(program.animation().bones)) for (const ch of Object.values(b)) for (const code of Array.isArray(ch) ? ch : [ch]) validateMolang(code);
-}
 
 export async function compileEntities(inspection, token, progress = () => {}) {
-  const { resources, accepted } = inspection, skipped = [...inspection.skipped], successful = [], files = new Map();
+  const { resources } = inspection, accepted = inspection.accepted.filter(item => !item.profiles), skipped = [...inspection.skipped], successful = [], files = new Map();
   const reservedNames = [...new Set([...resourceVariables(resources), ...motionReserved, ...extraNames])];
   checked.clear();
   function compile(group) {
@@ -79,16 +68,10 @@ export async function compileEntities(inspection, token, progress = () => {}) {
     for (const [i, entry] of group.entries()) {
       try {
         const program = programs[i], id = 'animation.ragdoll.' + entry.name;
-        validateProgram(program);
+        validateProgram(program, checked);
         if (resources.animations.has(id) || Object.keys(program.computeAnimations).some(k => resources.animations.has(k))) throw new Error('生成资源标识符与原包冲突');
         const client = patchClient(entry, program, id);
-        const animation = program.animation();
-        const gate = 'v.vr_enabled&&v.ragdoll_active';
-        for (const b of Object.values(animation.bones)) for (const ch of ['position', 'rotation', 'scale']) if (b[ch] !== undefined) {
-          const neutral = ch === 'scale' ? 1 : 0;
-          const wrap = s => typeof s === 'string' && s.includes('return ') ? `(!(${gate}))?{return ${neutral};};${s}` : `(${gate})?(${s}):${neutral}`;
-          b[ch] = Array.isArray(b[ch]) ? b[ch].map(wrap) : wrap(b[ch]);
-        }
+        const animation = guardOutput(program.animation(), 'v.vr_enabled&&v.ragdoll_active');
         for (const field of ['initialize', 'pre_animation']) for (const code of client['minecraft:client_entity'].description.scripts[field]) if (code.length >= 64000) throw new Error('实体脚本超出引擎长度限制');
         const path = `animations/sr_patch_${entry.name}.json`;
         if (resources.files.has(path)) throw new Error('生成动画文件路径与原包冲突');
@@ -112,7 +95,7 @@ export async function compileEntities(inspection, token, progress = () => {}) {
     const groups = new Map();
     for (let i = start; i < Math.min(start + 8, accepted.length); i++) {
       const item = accepted[i];
-      progress({ stage: 'generating', current: i, total: accepted.length, message: item.id });
+      progress({ stage: 'generating', current: i, total: inspection.accepted.length, message: item.id });
       await new Promise(resolve => setTimeout(resolve, 0));
       try {
         const entry = prepare(item, resources, token + '_e' + i, reservedNames), key = structureKey(entry);
@@ -122,6 +105,9 @@ export async function compileEntities(inspection, token, progress = () => {}) {
     for (const group of groups.values()) compile(group);
     checked.clear();
   }
-  progress({ stage: 'generating', current: accepted.length, total: accepted.length, message: '实体处理完成' });
+  const native = await compileVanilla(inspection.accepted.filter(item => item.profiles), resources, token, e => progress({ ...e, current: accepted.length + e.current, total: inspection.accepted.length }));
+  for (const [path, value] of native.files) files.set(path, value);
+  successful.push(...native.successful); skipped.push(...native.skipped);
+  progress({ stage: 'generating', current: inspection.accepted.length, total: inspection.accepted.length, message: '实体处理完成' });
   return { files, successful, skipped };
 }

@@ -23,3 +23,11 @@ https://github.com/MCSCPCB/Simple-Ragdoll
 Core snapshot: 1051cc2aa608cf649ccbb6e60514953d4c997b15
 Source/provenance: website/vendor/simple-ragdoll/SOURCE.json in the VanillaRagdoll
 repository. Distributed by the project author; no additional license is implied.
+
+Minecraft Bedrock vanilla resource metadata (1.26.50 baseline)
+Copyright Mojang AB / Microsoft. Geometry, animation and renderer metadata is
+used to resolve references to the game's built-in assets during compilation.
+No vanilla textures are included; model files are not emitted in generated
+patches. This website is an unofficial tool, not an official Minecraft product.
+VanillaRagdoll physics/adapters and their source hashes:
+website/src/generator/vanilla/SOURCE.json in this repository.

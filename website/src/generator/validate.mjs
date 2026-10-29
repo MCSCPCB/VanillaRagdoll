@@ -2,7 +2,9 @@ import { parseExpression } from '../../vendor/simple-ragdoll/src/core/parse.mjs'
 
 // Validate only generated code. Uploaded expressions are never executed in JavaScript.
 export function validateExpression(source) {
-  const tree = parseExpression(source);
+  // The core expression parser has no animation-channel context. `this` is a
+  // valid Molang channel value used by vanilla pose/decorations capture.
+  const tree = parseExpression(typeof source === 'string' ? source.replace(/\bthis\b/g, 'v.__channel_value') : source);
   const visit = node => {
     if (node.kind === 'binary' && node.op === '??' && (node.left.kind !== 'read' || !['v', 't', 'c'].includes(node.left.path[0]))) throw new Error('Molang ?? requires a direct variable');
     for (const value of Object.values(node)) {

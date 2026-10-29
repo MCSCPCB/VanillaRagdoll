@@ -4,6 +4,7 @@ import { normalizeModel } from '../../vendor/simple-ragdoll/src/core/model.mjs';
 import { BP_API_METHODS } from '../../vendor/simple-ragdoll/src/core/api.mjs';
 import { validateExpression } from './validate.mjs';
 import { lifecycle } from './lifecycle.mjs';
+import { withVanillaResources, vanillaProfiles } from './vanilla.mjs';
 
 const decode = b => new TextDecoder().decode(b);
 const reject = message => { throw new Error(message); };
@@ -73,7 +74,7 @@ export function geometryBranches(source, guard = '1', depth = 0) {
   return [...geometryBranches(s.slice(question + 1, colon), `(${guard})&&(${test})`, depth + 1), ...geometryBranches(s.slice(colon + 1), `(${guard})&&!(${test})`, depth + 1)];
 }
 
-function selectVariants(client, resources) {
+export function selectVariants(client, resources) {
   const aliases = client.geometry ?? {}, entries = Object.entries(aliases);
   if (!entries.length || entries.some(([, id]) => typeof id !== 'string')) reject('没有可解析的模型引用');
   if (new Set(entries.map(([, id]) => id)).size === 1) return [{ geometry: entries[0][0] }];
@@ -85,7 +86,8 @@ function selectVariants(client, resources) {
     const r = renderers.get(call); if (!r) reject('缺少用于判断模型切换的渲染控制器');
     selectors.push(geometryBranches(r.geometry));
   }
-  if (!selectors.length || selectors.some(s => JSON.stringify(s) !== JSON.stringify(selectors[0]))) reject('多个渲染层使用不同模型，已保留原实体');
+  const signature = s => JSON.stringify(s).toLowerCase().replace(/query\./g, 'q.').replace(/\s/g, '');
+  if (!selectors.length || selectors.some(s => signature(s) !== signature(selectors[0]))) reject('多个渲染层使用不同模型，已保留原实体');
   const actual = new Map(entries.map(([alias]) => [alias.toLowerCase(), alias]));
   const grouped = new Map();
   for (const { alias, guard } of selectors[0]) {
@@ -125,7 +127,7 @@ export function inspectPack(pack, behaviors) {
   }
   for (const [path, id] of clientFiles) if (ambiguous.has('client:' + id)) parsed.delete(path);
   for (const key of ambiguous) if (key.startsWith('client:')) excludedFiles.push({ name: key.slice(7), reason: '原包重复定义了此实体，无法确定覆盖对象' });
-  const resources = indexResources(parsed), accepted = [], skipped = [...excludedFiles];
+  const resources = withVanillaResources(indexResources(parsed)), accepted = [], skipped = [...excludedFiles];
   for (const [id, record] of resources.clients) {
     try {
       const client = descriptionOf(record);
@@ -144,7 +146,7 @@ export function inspectPack(pack, behaviors) {
       if (/\b(?:v|variable)\.(?:ragdoll_|vr_|rg[a-z0-9]+\b)/i.test(JSON.stringify(record.value))) reject('实体已有布娃娃或使用了保留变量，未重复注入');
       const bp = behaviors.get(id), bpText = JSON.stringify(bp ?? {});
       if (bp && !bpText.includes('"minecraft:health"')) reject('行为定义没有生命值组件，未为此实体添加死亡模拟');
-      if (bp?.description?.runtime_identifier && /(?:player|dragon|wither|spider|slime|magma_cube|guardian)$/.test(bp.description.runtime_identifier)) reject('实体使用特殊原生渲染行为，未套用通用死亡补偿');
+      if (bp?.description?.runtime_identifier && /(?:player|dragon|wither|slime|magma_cube)$/.test(bp.description.runtime_identifier)) reject('实体使用特殊原生渲染行为，未套用通用死亡补偿');
       for (const field of ['initialize', 'pre_animation', 'animate']) if (client.scripts?.[field] !== undefined && !Array.isArray(client.scripts[field])) reject('实体动画脚本结构不受支持');
       for (const field of ['initialize', 'pre_animation']) if ((client.scripts?.[field] ?? []).some(s => typeof s !== 'string' || s.length > 60000)) reject('原实体脚本过长或格式不受支持');
       for (const call of client.scripts?.animate ?? []) {
@@ -159,6 +161,13 @@ export function inspectPack(pack, behaviors) {
       const models = variants.map(v => resources.geometries.get(client.geometry[v.geometry]));
       if (models.some(g => !g)) reject('缺少实体模型；请上传包含模型的完整资源包');
       models.forEach(checkGeometry);
+      const profiles = vanillaProfiles(client, variants, resources, bp);
+      if (profiles) {
+        for (const p of profiles) normalizeModel(p.config, resources, client);
+        accepted.push({ id, record, profiles });
+        continue;
+      }
+      if (bp?.description?.runtime_identifier && /(?:spider|guardian)$/.test(bp.description.runtime_identifier)) reject('自定义模型使用特殊原生渲染行为，未套用通用死亡补偿');
       const skeleton = g => JSON.stringify(g.bones.map(b => [b.name, b.parent ?? '']).sort((a, b) => a[0].localeCompare(b[0])));
       if (models.some(g => skeleton(g) !== skeleton(models[0]))) reject('切换模型的骨骼结构不一致，无法安全自动适配');
       const config = autoConfig(client, resources, variants);
