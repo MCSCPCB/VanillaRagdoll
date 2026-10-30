@@ -30,11 +30,19 @@
     "src/core/space.mjs",
     "src/core/storage.mjs",
     "src/core/syntax.mjs",
+    "src/core/terrain-recovery.mjs",
     "src/export.js",
     "src/i18n.js",
     "src/presets/villager-models.json",
     "src/presets/villager.json",
     "src/resources.js",
     "src/rig.js"
-  ]
+  ],
+  "localChanges": {
+    "description": "Shared terrain-change wakeup and persistent entrapment recovery from the local Simple-Ragdoll working tree.",
+    "sha256": {
+      "src/core/program.mjs": "7200d55f87507b64156eda0d20198dc42687d6f70ba7dfe0dc309bc85f8dabb7",
+      "src/core/terrain-recovery.mjs": "cd1a1018d6da7af95fbff2a5135be272b6998dd9133b590249f02126d96b76ac"
+    }
+  }
 }

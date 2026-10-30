@@ -1,6 +1,7 @@
 import { message, GeneratorError, errorMessage } from './messages.mjs';
 import { normalizeModel } from '../../vendor/simple-ragdoll/src/core/model.mjs';
 import { createProgram } from '../../vendor/simple-ragdoll/src/core/program.mjs';
+import { terrainRecoveryProgram } from '../../vendor/simple-ragdoll/src/core/terrain-recovery.mjs';
 import { compilePrograms, compileSpecializedPrograms, structureKey } from '../../vendor/simple-ragdoll/src/core/compute.mjs';
 import { specializeApi } from '../../vendor/simple-ragdoll/src/core/api-specialize.mjs';
 import { apiSettings } from '../../vendor/simple-ragdoll/src/core/api.mjs';
@@ -19,9 +20,10 @@ function prepare(item, resources, name, reservedNames) {
   const client = item.record.value['minecraft:client_entity'].description;
   const rig = materialRig(normalizeModel({ ...item.config, ...gateLifecycle }, resources, client));
   // Match VanillaRagdoll's tested adapter order, then remove every disabled BP API.
-  const raw = materialProgram(createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames }), rig);
+  const raw = materialProgram(createProgram({ ...rig, api: apiSettings() }, { preview: true, terrainRecovery: false, reservedNames }), rig);
   motionProgram(raw, rig);
   waterProgram(raw, rig);
+  terrainRecoveryProgram(raw, rig);
   const program = specializeApi(raw, rig.api);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;

@@ -1,6 +1,7 @@
 import { message, GeneratorError, errorMessage } from './messages.mjs';
 import { normalizeModel } from '../../vendor/simple-ragdoll/src/core/model.mjs';
 import { createProgram } from '../../vendor/simple-ragdoll/src/core/program.mjs';
+import { terrainRecoveryProgram } from '../../vendor/simple-ragdoll/src/core/terrain-recovery.mjs';
 import { compilePrograms, compileSpecializedPrograms, structureKey } from '../../vendor/simple-ragdoll/src/core/compute.mjs';
 import { specializeApi } from '../../vendor/simple-ragdoll/src/core/api-specialize.mjs';
 import { apiSettings } from '../../vendor/simple-ragdoll/src/core/api.mjs';
@@ -19,7 +20,7 @@ import { needsLocalPose, entityRelativeBones } from './vanilla/pose-routing.mjs'
 import { decorationPlan, decorationAnimation } from './vanilla/decorations.mjs';
 import { articulationRig, articulationProgram } from './vanilla/articulation.mjs';
 import { gameplayRig, gameplayProgram, gameplayAnimation } from './vanilla/gameplay-fixes.mjs';
-import { contactProgram } from './vanilla/contact-performance.mjs';
+import { contactProgram, coreTerrainOnly } from './vanilla/contact-performance.mjs';
 import { needsNativeCatTail, catTailPose, catTailOutput } from './vanilla/cat-native.mjs';
 
 const runtimeNames = ['profile', 'next', 'switch', 'kernel', 'enabled', 'run', 'seen', 'ready', 'last_x', 'last_y', 'last_z', 'units', 'arms_open'];
@@ -45,11 +46,14 @@ function prepare(item, spec, index, resources, name, reserved) {
   const nativeCat = spec.native && needsNativeCatTail(entity, profile);
   const pose = spec.native && needsLocalPose(entity, profile) ? localPoseCache(geometry, rig, index, { activationOnly: true, entityRelative: entityRelativeBones(entity, resources, client) }) : nativeCat ? catTailPose(rig, index) : null;
   reserved.push(...decorations.map(f => f.name), ...(pose?.reserved ?? []));
-  let raw = materialProgram(createProgram({ ...rig, api: apiSettings() }, { preview: true, reservedNames: reserved }), rig);
+  let raw = materialProgram(createProgram({ ...rig, api: apiSettings() }, { preview: true, terrainRecovery: false, reservedNames: reserved }), rig);
   if (spec.native) raw = contactProgram(gameplayProgram(articulationProgram(raw, rig, entity, profile), rig, entity, client), rig, entity, profile);
   if (nativeCat) catTailOutput(raw, rig, pose);
   motionProgram(raw, rig);
   waterProgram(raw, rig);
+  terrainRecoveryProgram(raw, rig, {
+    shapeIndices: spec.native && coreTerrainOnly(entity, profile) ? rig.shapes.flatMap((s, i) => rig.bodies[s.body].bone === 'body' ? [i] : []) : undefined,
+  });
   const program = specializeApi(rewrite(raw, spec.deathRoll, pose?.captureOnly ? null : pose), rig.api);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;

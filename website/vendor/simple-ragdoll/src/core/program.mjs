@@ -9,6 +9,7 @@ import { createLiquids } from "./liquids.mjs";
 import { createResults } from "./results.mjs";
 import { worldSpace, worldRig } from './space.mjs';
 import { specializeApi } from './api-specialize.mjs';
+import { terrainRecoveryProgram } from './terrain-recovery.mjs';
 
 const quaternion=(out,values)=>quat.map((k,i)=>A(out+k,values[i]));
 const inverse=(out,q)=>[scale(out,q,-1),A(out+"w",q+"w")];
@@ -163,7 +164,7 @@ export function boneOutput(rig,index) {
   ];
 }
 
-export function createProgram(model, {preview=false,reservedNames=[],id="generated"}={}) {
+export function createProgram(model, {preview=false,reservedNames=[],id="generated",terrainRecovery=true}={}) {
   const rig=worldRig(model),space=worldSpace(model);
   const s=rig.simulation,dt=1/s.frequency,anchor=anchorPrograms(),death=deathPrograms(),d=createDynamics(rig,s),input=createInputs(rig),liquids=createLiquids(rig),results=createResults(rig,reservedNames),poseKeys=[...axes,...quat.map(k=>"q"+k)];
   let variant=String(rig.variants.length-1);
@@ -194,7 +195,9 @@ export function createProgram(model, {preview=false,reservedNames=[],id="generat
     [If('v.active',[interpolatedBodies(rig),compactOutput(rig,boneOutput)]),results.frame]];
   let rootOutputs=rig.bodies.map((_,i)=>boneOutput(rig,i));
   const lowered=lowerRecords({initialize:groupVariables(initialize),frame:frameBlocks.map(groupVariables),rootOutputs:rootOutputs.map(groupVariables)});
-  const specialized=specializeApi({initialize:lowered.initialize,frameChunks:lowered.frame,rootOutputs:lowered.rootOutputs},rig.api);
+  const raw={initialize:lowered.initialize,frameChunks:lowered.frame,rootOutputs:lowered.rootOutputs};
+  if(terrainRecovery)terrainRecoveryProgram(raw,model);
+  const specialized=specializeApi(raw,rig.api);
   initialize=specialized.initialize;frameBlocks=specialized.frameChunks;rootOutputs=specialized.rootOutputs;
   if(preview)return {initialize,frameChunks:frameBlocks,rootOutputs};
   return compilePrograms([{name:id,rig:model,initialize,frameChunks:frameBlocks,rootOutputs}],{reservedNames})[0];
