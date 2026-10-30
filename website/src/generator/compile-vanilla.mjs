@@ -11,6 +11,7 @@ import { gateLifecycle, gateNames, patchGate, installGate } from './gate.mjs';
 import { renderersOf } from './vanilla.mjs';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
 import { waterProgram } from './water-buoyancy.mjs';
+import { cameraPushProgram } from './camera-push.mjs';
 import { materialRig, materialProgram } from './materials.mjs';
 import { animationFile, validateMolang, validateProgram, guardOutput } from './program-validation.mjs';
 import { vanillaAnimationStack } from './vanilla/vanilla-animation-stack.mjs';
@@ -54,6 +55,7 @@ function prepare(item, spec, index, resources, name, reserved) {
   terrainRecoveryProgram(raw, rig, {
     shapeIndices: spec.native && coreTerrainOnly(entity, profile) ? rig.shapes.flatMap((s, i) => rig.bodies[s.body].bone === 'body' ? [i] : []) : undefined,
   });
+  cameraPushProgram(raw, rig);
   const program = specializeApi(rewrite(raw, spec.deathRoll, pose?.captureOnly ? null : pose), rig.api);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;

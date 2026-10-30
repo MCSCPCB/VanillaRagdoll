@@ -10,6 +10,7 @@ import { animationFile, validateMolang, validateProgram, guardOutput } from './p
 import { adaptClient, resourceVariables } from '../../vendor/simple-ragdoll/src/export.js';
 import { motionReserved, motionInitialize, motionFrame, motionProgram } from './initial-motion.mjs';
 import { waterProgram } from './water-buoyancy.mjs';
+import { cameraPushProgram } from './camera-push.mjs';
 import { materialRig, materialProgram } from './materials.mjs';
 import { compileVanilla } from './compile-vanilla.mjs';
 import { gateLifecycle, gateNames, gateDefinition, patchGate, installGate } from './gate.mjs';
@@ -24,6 +25,7 @@ function prepare(item, resources, name, reservedNames) {
   motionProgram(raw, rig);
   waterProgram(raw, rig);
   terrainRecoveryProgram(raw, rig);
+  cameraPushProgram(raw, rig);
   const program = specializeApi(raw, rig.api);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;
