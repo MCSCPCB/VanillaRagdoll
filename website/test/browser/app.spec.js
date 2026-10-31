@@ -26,6 +26,15 @@ test('production page: worker, local-only processing, exact download contents an
   expect(c.animations[Object.keys(c.scripts.animate[0])[0]]).toBe(gateId);
   const manifest = JSON.parse(await zip.file('manifest.json').async('string'));
   expect(manifest.header.name).toBe('Test Creatures Ragdoll'); expect(manifest.header.description).toBe('Simple Ragdoll');
+  expect(manifest.format_version).toBe(3); expect(manifest.subpacks).toBeUndefined();
+  const [setting] = manifest.settings;
+  expect(setting.type).toBe('dropdown'); expect(setting.default).toBe('ragdoll');
+  expect(setting.options.map(o => o.name)).toEqual(['ragdoll', 'blocky']);
+  const modeFile = Object.keys(zip.files).find(p => /^animations\/.*_mode\.json$/.test(p));
+  const mode = JSON.parse(await zip.file(modeFile).async('string'));
+  expect(Object.values(mode.animations)[0].anim_time_update).toContain(`q.is_pack_setting_selected('${setting.name}','blocky')`);
+  expect(await zip.file('texts/en_US.lang').async('string')).toContain('Blocky §7Splits each mob in its individual parts.');
+  expect(await zip.file('texts/zh_CN.lang').async('string')).toContain('布娃娃 §7将生物变成布娃娃');
   expect(zip.file('pack_icon.png')).toBeTruthy(); expect(zip.file('models/entity/demo.geo.json')).toBeNull();
   await page.screenshot({ path: info.outputPath('result.png'), fullPage: true });
   await page.locator('#again').click();

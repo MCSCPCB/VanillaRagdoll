@@ -1,0 +1,1 @@
+{"format_version":"1.20.60","animations":{"animation.vanilla_ragdoll.gate.mode":{"loop":true,"animation_length":1,"anim_time_update":"v.vr_blocky=q.is_pack_setting_selected('vanilla_ragdoll:mode','blocky');return 0;"}}}

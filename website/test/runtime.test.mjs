@@ -15,7 +15,7 @@ test('packaged scripts hand off the live pose once, inherit delayed motion and d
   function simulate(impact, ui = false) {
     let reads = 0, updates = 0, first = null, active = 0;
     const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
-    const q = { is_name_any: () => 0, is_in_ui: +ui, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 0, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
+    const q = { is_pack_setting_selected: () => 0, is_name_any: () => 0, is_in_ui: +ui, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 0, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
       position: a => a === 1 ? 10 : a === 0 && impact ? 6 * Math.max(0, q.life_time - 0.625) : 0,
       bone_orientation_trs: name => { reads++; assert(['body', 'head'].includes(name)); return { t: { x: 0, y: name === 'body' ? 12 : 20, z: 0 }, r: { x: 0, y: name === 'head' ? 30 : 0, z: 0 }, s: { x: 1, y: 1, z: 1 } }; },
       block_has_any_tag: () => 0, relative_block_has_any_tag: () => 0,
@@ -49,7 +49,7 @@ test('packaged scripts hand off the live pose once, inherit delayed motion and d
 
   let name = '', captures = 0;
   const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
-  const q = { is_name_any: expected => +(name === expected), is_in_ui: 0, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 1/60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
+  const q = { is_pack_setting_selected: () => 0, is_name_any: expected => +(name === expected), is_in_ui: 0, is_baby: 0, is_alive: 1, life_time: 0, delta_time: 1/60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: 0.0625,
     position: a => a === 1 ? 10 : 0, block_has_any_tag: () => 0, relative_block_has_any_tag: () => 0,
     bone_orientation_trs: bone => { captures++; return { t: { x: 0, y: bone === 'body' ? 12 : 20, z: 0 }, r: { x: 0, y: 30, z: 0 }, s: { x: 1, y: 1, z: 1 } }; },
   };

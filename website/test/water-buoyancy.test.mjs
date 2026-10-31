@@ -18,7 +18,7 @@ test('two-point buoyancy lifts, damps and turns immersed bodies while preserving
       b0vx: 1, b0vy: 0, b0vz: 0, b0wx: 0, b0wy: 1, b0wz: 0 });
     function step(water, changes = {}) {
       const v = { ...state(), ...changes }, positions = [];
-      const q = { [absolute ? 'block_has_any_tag' : 'relative_block_has_any_tag']: (x, y, z, ...tags) => {
+      const q = { is_pack_setting_selected: () => 0, [absolute ? 'block_has_any_tag' : 'relative_block_has_any_tag']: (x, y, z, ...tags) => {
         if (tags.includes('water')) { positions.push([x, y, z]); return +water(x, y, z); }
         assert.deepEqual(tags, ['lava']); return 0;
       } };
@@ -51,7 +51,7 @@ test('downloaded custom and vanilla-model patches execute water physics only dur
     function simulate(liquid, ui = false) {
       let queries = 0, name = '';
       const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
-      const q = { is_name_any: expected => +(name === expected), is_in_ui: +ui, is_alive: 1, is_baby: 0,
+      const q = { is_pack_setting_selected: () => 0, is_name_any: expected => +(name === expected), is_in_ui: +ui, is_alive: 1, is_baby: 0,
         life_time: 0, delta_time: 1 / 60, frame_alpha: 1, model_scale: .0625, death_ticks: 0, body_y_rotation: 0,
         position: a => a === 1 ? 10 : 0,
         bone_orientation_trs: bone => ({ t: { x: 0, y: bone === 'head' ? 20 : 12, z: 0 }, r: { x: 0, y: 0, z: 0 }, s: { x: 1, y: 1, z: 1 } }),

@@ -14,6 +14,7 @@ import { cameraPushProgram } from './camera-push.mjs';
 import { materialRig, materialProgram } from './materials.mjs';
 import { compileVanilla } from './compile-vanilla.mjs';
 import { gateLifecycle, gateNames, gateDefinition, patchGate, installGate } from './gate.mjs';
+import { blockyProgram, installModes, modeResource } from './blocky.mjs';
 
 const extraNames = ['v.vr_enabled', 'v.vr_run', 'v.vr_switch', 'v.vr_seen', 'v.vr_ready', 'v.vr_last_x', 'v.vr_last_y', 'v.vr_last_z', 'v.vr_units', 'v.ragdoll_active'];
 
@@ -26,7 +27,7 @@ function prepare(item, resources, name, reservedNames) {
   waterProgram(raw, rig);
   terrainRecoveryProgram(raw, rig);
   cameraPushProgram(raw, rig);
-  const program = specializeApi(raw, rig.api);
+  const program = blockyProgram(specializeApi(raw, rig.api), rig);
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;
     if (n.name === 'v.frame_to_world') n.value = 'v.vr_units';
@@ -68,6 +69,8 @@ export async function compileEntities(inspection, token, progress = () => {}) {
   const reservedNames = [...new Set([...resourceVariables(resources), ...motionReserved, ...gateNames, ...extraNames])];
   const gate = patchGate(token);
   if (resources.files.has(gate.path) || resources.animations.has(gate.id)) throw new GeneratorError('resource_collision');
+  const mode = modeResource(gate);
+  if (resources.files.has(mode.path) || resources.animations.has(mode.id)) throw new GeneratorError('resource_collision');
   checked.clear();
   function compile(group) {
     let programs;
@@ -125,7 +128,10 @@ export async function compileEntities(inspection, token, progress = () => {}) {
   const native = await compileVanilla(inspection.accepted.filter(item => item.profiles), resources, token, e => progress({ ...e, current: accepted.length + e.current, total: inspection.accepted.length }));
   for (const [path, value] of native.files) files.set(path, value);
   successful.push(...native.successful); skipped.push(...native.skipped);
-  if (successful.length) files.set(gate.path, gateDefinition(gate.id));
+  if (successful.length) {
+    files.set(gate.path, gateDefinition(gate.id));
+    installModes(files, gate);
+  }
   progress({ stage: 'generating', current: inspection.accepted.length, total: inspection.accepted.length, message: message('progress_complete') });
   return { files, successful, skipped };
 }

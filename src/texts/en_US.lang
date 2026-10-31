@@ -1,2 +1,5 @@
-pack.name=Vanilla Ragdoll Resource Pack 1.1.0
+pack.name=Vanilla Ragdoll Resource Pack 1.2.0
 pack.description=Made by: MINECRAFT-SCPCB
+text.vanilla_ragdoll.mode.title=Mob Settings
+text.vanilla_ragdoll.mode.ragdoll=Ragdoll §lTurns mobs into ragdolls.
+text.vanilla_ragdoll.mode.blocky=Blocky §lSplits each mob in its individual parts.

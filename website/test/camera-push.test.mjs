@@ -17,7 +17,7 @@ test('downloaded custom and native patches push sleeping bodies and preserve ent
     const model=index?vanillaCatalog.geometries[c.geometry.default]:geometry,bones=new Map(model.bones.map(b=>[b.name.toLowerCase(),b]));
     let camera=[100,1.62,.5],name='',buried=false,removed=false,cameraReads=0,angleReads=0,terrainReads=0;
     const v=new Proxy({},{get:(o,k)=>k in o?o[k]:0});
-    const q={is_in_ui:0,is_alive:1,is_baby:0,life_time:0,delta_time:1/60,death_ticks:0,body_y_rotation:0,frame_alpha:1,model_scale:.0625,
+    const q={ is_pack_setting_selected: () => 0,is_in_ui:0,is_alive:1,is_baby:0,life_time:0,delta_time:1/60,death_ticks:0,body_y_rotation:0,frame_alpha:1,model_scale:.0625,
       is_name_any:n=>+(name===n),position:a=>a===1?0:.5,
       get distance_from_camera(){cameraReads++;assert.equal(q.is_in_ui,0);return Math.hypot(camera[0]-.5,camera[1],camera[2]-.5);},
       rotation_to_camera:axis=>{angleReads++;const d=[camera[0]-.5,camera[1],camera[2]-.5];return axis?Math.atan2(-d[0],d[2])*180/Math.PI:-Math.atan2(d[1],Math.hypot(d[0],d[2]))*180/Math.PI;},

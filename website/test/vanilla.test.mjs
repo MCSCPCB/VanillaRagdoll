@@ -84,7 +84,7 @@ test('baby native geometry captures live local pose, retains head yaw, switches 
   const math = { ...testMath, random: (a, b) => (a + b) / 2 };
   const bones = vanillaCatalog.geometries['geometry.zombie.baby'].bones;
   let name = '', nativeReads = 0;
-  const v = {}, q = { is_in_ui: 0, is_alive: 1, is_baby: 1, life_time: 0, delta_time: 1/60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: .03125,
+  const v = {}, q = { is_pack_setting_selected: () => 0, is_in_ui: 0, is_alive: 1, is_baby: 1, life_time: 0, delta_time: 1/60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: .03125,
     is_name_any: n => +(name === n), position: a => a === 1 ? 10 : 0, relative_block_has_any_tag: () => 0, block_has_any_tag: () => 0,
     bone_orientation_trs: bone => { nativeReads++; return { t: { x: 0, y: 12, z: 0 }, r: { x: 0, y: 0, z: 0 }, s: { x: 1, y: 1, z: 1 } }; },
   };

@@ -30,7 +30,7 @@ test('one editable policy controls custom and native mobs in the same frame, ind
   function actor(c) {
     let name = '', reads = 0;
     const v = new Proxy({}, { get: (o, k) => k in o ? o[k] : 0 });
-    const q = { is_alive: 1, is_baby: 0, is_in_ui: 0, life_time: 0, delta_time: 1 / 60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: .0625,
+    const q = { is_pack_setting_selected: () => 0, is_alive: 1, is_baby: 0, is_in_ui: 0, life_time: 0, delta_time: 1 / 60, death_ticks: 0, body_y_rotation: 0, frame_alpha: 1, model_scale: .0625,
       is_name_any: expected => +(name === expected), position: a => a === 1 ? 10 : 0,
       bone_orientation_trs: () => { reads++; return { t: { x: 0, y: 12, z: 0 }, r: { x: 0, y: 30, z: 0 }, s: { x: 1, y: 1, z: 1 } }; },
       block_has_any_tag: () => 0, relative_block_has_any_tag: () => 0,

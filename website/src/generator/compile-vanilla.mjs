@@ -23,6 +23,7 @@ import { articulationRig, articulationProgram } from './vanilla/articulation.mjs
 import { gameplayRig, gameplayProgram, gameplayAnimation } from './vanilla/gameplay-fixes.mjs';
 import { contactProgram, coreTerrainOnly } from './vanilla/contact-performance.mjs';
 import { needsNativeCatTail, catTailPose, catTailOutput } from './vanilla/cat-native.mjs';
+import { blockyProgram } from './blocky.mjs';
 
 const runtimeNames = ['profile', 'next', 'switch', 'kernel', 'enabled', 'run', 'seen', 'ready', 'last_x', 'last_y', 'last_z', 'units', 'arms_open'];
 function rewrite(value, deathRoll, pose) {
@@ -52,11 +53,11 @@ function prepare(item, spec, index, resources, name, reserved) {
   if (nativeCat) catTailOutput(raw, rig, pose);
   motionProgram(raw, rig);
   waterProgram(raw, rig);
-  terrainRecoveryProgram(raw, rig, {
-    shapeIndices: spec.native && coreTerrainOnly(entity, profile) ? rig.shapes.flatMap((s, i) => rig.bodies[s.body].bone === 'body' ? [i] : []) : undefined,
-  });
+  terrainRecoveryProgram(raw, rig);
   cameraPushProgram(raw, rig);
-  const program = specializeApi(rewrite(raw, spec.deathRoll, pose?.captureOnly ? null : pose), rig.api);
+  const program = blockyProgram(specializeApi(rewrite(raw, spec.deathRoll, pose?.captureOnly ? null : pose), rig.api), rig, {
+    terrainShapeIndices: spec.native && coreTerrainOnly(entity, profile) ? rig.shapes.flatMap((s, i) => rig.bodies[s.body].bone === 'body' ? [i] : []) : undefined,
+  });
   for (const n of program.initialize.flat(Infinity)) if (n.kind === 'set') {
     if (n.name === 'v.frames' || n.name === 'v.has_position') n.value = 1;
     if (n.name === 'v.frame_to_world') n.value = 'v.vr_units';

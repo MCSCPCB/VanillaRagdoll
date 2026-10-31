@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import JSZip from 'jszip';
-import { readUpload, englishName, InputError } from '../src/generator/archive.mjs';
+import { readUpload, englishName, InputError, validVersion } from '../src/generator/archive.mjs';
 import { geometryBranches, checkGeometry } from '../src/generator/inspect.mjs';
 import { inspectPack, behaviorIndex } from '../src/generator/inspect.mjs';
 import { readFile } from 'node:fs/promises';
@@ -48,11 +48,11 @@ test('patch contains only required overrides; source, normal state and identity 
   assert.equal(result.successful, 2, JSON.stringify(result.reports)); assert.equal(result.skipped, 0);
   assert.equal(result.download.name, 'Test Creatures Ragdoll.mcpack'); assert.deepEqual(original, copy);
   const zip = await JSZip.loadAsync(result.download.data), names = Object.keys(zip.files).filter(n => !zip.files[n].dir);
-  assert(names.every(n => n === 'manifest.json' || /^(entity|animations)\//.test(n)));
+  assert(names.every(n => n === 'manifest.json' || /^(entity|animations)\//.test(n) || /^texts\/(languages\.json|en_US\.lang|zh_CN\.lang)$/.test(n)));
   const m = JSON.parse(await zip.file('manifest.json').async('string'));
   assert.equal(m.header.name, 'Test Creatures Ragdoll'); assert.equal(m.header.description, 'Simple Ragdoll');
   assert.notEqual(m.header.uuid, rpUUID); assert.equal(m.header.uuid, await patchUUID(rpUUID, 'header'));
-  assert.deepEqual(m.dependencies, [{ uuid: rpUUID, version: [2, 3, 4] }]);
+  assert.deepEqual(m.dependencies, [{ uuid: rpUUID, version: '2.3.4' }]);
   const c = JSON.parse(await zip.file('entity/demo0.entity.json').async('string'))['minecraft:client_entity'].description;
   const old = client()['minecraft:client_entity'].description;
   for (const k of ['identifier', 'geometry', 'textures', 'materials', 'render_controllers']) assert.deepEqual(c[k], old[k]);
@@ -71,6 +71,30 @@ test('multiple independent RPs download as distinct patches in one ZIP', async (
   const result = await generate(await zip.generateAsync({ type: 'uint8array' }), 'collection.zip');
   assert.equal(result.successful, 2); assert.equal(result.download.name, 'collection Ragdoll.zip');
   assert.deepEqual(Object.keys((await JSZip.loadAsync(result.download.data)).files).sort(), ['Another Pack Ragdoll.mcpack', 'Test Creatures Ragdoll.mcpack']);
+  const bundle = await JSZip.loadAsync(result.download.data), settings = [];
+  for (const file of Object.values(bundle.files)) {
+    const patch = await JSZip.loadAsync(await file.async('uint8array'));
+    const m = JSON.parse(await patch.file('manifest.json').async('string'));
+    const [setting] = m.settings; settings.push(setting.name);
+    const modePath = Object.keys(patch.files).find(p => /^animations\/.*_mode\.json$/.test(p));
+    const source = Object.values(JSON.parse(await patch.file(modePath).async('string')).animations)[0].anim_time_update;
+    assert(source.includes(`q.is_pack_setting_selected('${setting.name}','blocky')`));
+  }
+  assert.equal(new Set(settings).size, 2, 'Each patch must control only its own mode');
+});
+
+test('format 3 input retains string dependency versions and higher engine requirements', async () => {
+  for (const version of ['2.3.4', '2.3.4-beta.1', [2, 3, 4]]) assert(validVersion(version));
+  for (const version of ['2.3', '2.03.4', '2.3.4 bad', [-1, 2, 3], null]) assert(!validVersion(version));
+  const m = manifest(); m.format_version = 3; m.header.version = '2.3.4'; m.header.min_engine_version = '1.26.60';
+  m.modules[0].version = '2.3.4';
+  const original = await pack({ extra: { 'manifest.json': m } }), copy = original.slice();
+  const result = await generate(original, 'new-format.mcpack');
+  assert.equal(result.successful, 1, JSON.stringify(result.reports)); assert.deepEqual(original, copy);
+  const zip = await JSZip.loadAsync(result.download.data), output = JSON.parse(await zip.file('manifest.json').async('string'));
+  assert.equal(output.format_version, 3); assert.equal(output.header.min_engine_version, '1.26.60');
+  assert.equal(output.modules[0].version, output.header.version);
+  assert.deepEqual(output.dependencies, [{ uuid: rpUUID, version: '2.3.4' }]);
 });
 
 test('one unsupported entity leaves the valid entity intact and gives no empty patch', async () => {

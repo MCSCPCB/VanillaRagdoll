@@ -1,2 +1,5 @@
-pack.name=香草布娃娃 资源包 1.1.0
+pack.name=香草布娃娃 资源包 1.2.0
 pack.description=作者：MINECRAFT-SCPCB
+text.vanilla_ragdoll.mode.title=生物设置
+text.vanilla_ragdoll.mode.ragdoll=布娃娃 §l将生物变成布娃娃
+text.vanilla_ragdoll.mode.blocky=方块化 §l将每个生物拆分为独立部件

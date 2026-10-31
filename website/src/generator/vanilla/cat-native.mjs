@@ -3,7 +3,7 @@
 // Preserve the verified live local position throughout simulation. Independent
 // solver translation must not pull this rendered child away from that attachment.
 // Rotation still comes from the separately colliding, jointed physical tail.
-import {A,If,axes,vector,axisRotation,multiply,emit} from '../../../vendor/simple-ragdoll/src/core/expression.mjs';
+import {A,If,axes,vector,axisRotation,multiply,rotate,emit} from '../../../vendor/simple-ragdoll/src/core/expression.mjs';
 
 export const needsNativeCatTail=(entity,profile)=>['minecraft:cat','minecraft:ocelot'].includes(entity.id)&&profile.key==='default';
 const local='v.vr_cat_tail_local_';
@@ -51,6 +51,22 @@ export function catTailOutput(program,rig,cache){
   ];
   program.frameChunks[0].push(If('v.activated',calibration));
   program.initialize.push(vector(basis,[0,0,0]),A(basis+'w',1));
+  program.initialize.push(vector('v.cat_tail_origin',[0,0,0]));
+  // Convert the two simulated pivots to parent-local model space. Calibrate
+  // the renderer's native origin once, so Blocky preserves the first pose but
+  // can then translate tail2 independently instead of pinning it to tail1.
+  const pivot=(j,out)=>[
+    vector('t.cat_offset',rig.bodies[j].modelCenter.map((n,k)=>`(${n-rig.bodies[j].pivot[k]})*v.body_to_world*${k===2?-1:1}`)),
+    rotate('t.cat_offset',`v.render${j}q`,'t.cat_offset'),
+    ...axes.map(k=>A(out+k,`v.render${j}${k}-t.cat_offset${k}`)),
+  ];
+  const detached=[pivot(i,'t.cat_child'),pivot(parent,'t.cat_parent'),
+    ...axes.map(k=>A('t.cat_delta'+k,`t.cat_child${k}-t.cat_parent${k}`)),
+    inverse('t.cat_inv',`v.render${parent}q`),rotate('t.cat_position','t.cat_inv','t.cat_delta'),
+    ...axes.map(k=>A('t.cat_position'+k,`t.cat_position${k}*${k==='z'?-1:1}/v.body_to_world`)),
+    If('v.activated',axes.map(k=>A('v.cat_tail_origin'+k,`t.cat_position${k}-${cache.local}p${k}`))),
+    ...axes.map(k=>A(`v.out${i}p${k}`,`t.cat_position${k}-v.cat_tail_origin${k}`)),
+  ];
   // Parent-relative output inherits the existing root death-roll compensation;
   // entity yaw also cancels between the two world-space orientations. Reflect
   // their relative quaternion back into model space once, then remove the basis.
@@ -58,7 +74,7 @@ export function catTailOutput(program,rig,cache){
   // collider centers. Do not claim exact rendered/physical center agreement.
   const output=[relation(`v.render${i}q`,`v.render${parent}q`),
     A('t.cat_relqx','-t.cat_relqx'),A('t.cat_relqy','-t.cat_relqy'),
-    ...axes.map(k=>A(`v.out${i}p${k}`,cache.local+'p'+k)),
+    If('v.vr_blocky',detached,axes.map(k=>A(`v.out${i}p${k}`,cache.local+'p'+k))),
     inverse('t.cat_basis_inv',basis),multiply('t.cat_outputq','t.cat_basis_inv','t.cat_relq'),
     modelEuler(`v.out${i}r`,'t.cat_outputq')];
   program.frameChunks.at(-1).push(If('v.active',output));

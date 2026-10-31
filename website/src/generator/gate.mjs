@@ -1,8 +1,9 @@
 import { animationFile, validateMolang } from './program-validation.mjs';
 import { GeneratorError } from './messages.mjs';
+import { modeName, modeResource } from './blocky.mjs';
 
 export const gateLifecycle = { trigger: 'v.vr_trigger', release: 'v.vr_release' };
-export const gateNames = ['v.vr_trigger', 'v.vr_release', 'v.vr_native_trigger', 'v.vr_native_release'];
+export const gateNames = ['v.vr_trigger', 'v.vr_release', 'v.vr_native_trigger', 'v.vr_native_release', modeName];
 
 export function gateDefinition(id) {
   return animationFile({ [id]: {
@@ -26,11 +27,15 @@ export function patchGate(token) {
 export function installGate(client, { gate, scope, path, setup, files, enabled = '!q.is_in_ui', native = { trigger: '!q.is_alive', release: 'q.is_alive' } }) {
   const scripts = client.scripts;
   scripts.initialize.push('v.vr_trigger=0;v.vr_release=1;v.vr_native_trigger=0;v.vr_native_release=1;');
+  scripts.initialize.push(`${modeName}=0;`);
   scripts.pre_animation.push(`v.vr_enabled=${enabled};v.vr_native_trigger=v.vr_enabled?(${native.trigger}):0;v.vr_native_release=v.vr_enabled?(${native.release}):1;`);
   const gateAlias = `vr_gate_${scope}`;
   if (Object.hasOwn(client.animations, gateAlias)) throw new GeneratorError('resource_collision');
   client.animations[gateAlias] = gate.id;
-  const calls = [{ [gateAlias]: 'v.vr_enabled' }], definitions = {};
+  const modeAlias = `vr_mode_${scope}`;
+  if (Object.hasOwn(client.animations, modeAlias)) throw new GeneratorError('resource_collision');
+  client.animations[modeAlias] = modeResource(gate).id;
+  const calls = [{ [gateAlias]: 'v.vr_enabled' }, { [modeAlias]: 'v.vr_enabled' }], definitions = {};
   // Keep whole expressions together, especially temporary variables. Existing
   // compiler chunks already fit the expression limit before their guard.
   let source = '';

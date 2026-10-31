@@ -11,7 +11,16 @@ export const fileStem = name => name.replace(/^.*[\\/]/, '').replace(/\.(zip|mca
 export const cleanName = name => String(name).replace(/§[0-9a-z]/gi, '').replace(/[\x00-\x1f\x7f]/g, '').trim();
 export const safeFilename = name => (cleanName(name).replace(/[<>:"/\\|?*]/g, '_').replace(/[. ]+$/g, '').slice(0, 120) || 'Addon') + '.mcpack';
 export const validUUID = s => typeof s === 'string' && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(s);
-export const validVersion = v => Array.isArray(v) && v.length === 3 && v.every(n => Number.isInteger(n) && n >= 0);
+export function versionParts(value) {
+  if (typeof value === 'string') {
+    const match = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/.exec(value);
+    if (!match) return null;
+    value = match.slice(1, 4).map(Number);
+  }
+  return Array.isArray(value) && value.length === 3 && value.every(n => Number.isSafeInteger(n) && n >= 0) ? value : null;
+}
+export const validVersion = value => versionParts(value) !== null;
+export const versionString = value => Array.isArray(value) ? value.join('.') : value;
 
 export function languageTable(text) {
   const table = new Map();

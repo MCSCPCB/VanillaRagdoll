@@ -17,7 +17,7 @@ test('downloaded custom and native patches watch sleeping terrain and suspend pe
     const model=i?vanillaCatalog.geometries[c.geometry.default]:geometry,bones=new Map(model.bones.map(b=>[b.name,b]));
     let mode='floor',name='',solid=0,liquid=0;
     const v=new Proxy({},{get:(o,k)=>k in o?o[k]:0});
-    const q={is_name_any:n=>+(name===n),is_in_ui:0,is_alive:1,is_baby:0,life_time:0,delta_time:1/20,death_ticks:0,body_y_rotation:0,frame_alpha:1,model_scale:.0625,
+    const q={ is_pack_setting_selected: () => 0,is_name_any:n=>+(name===n),is_in_ui:0,is_alive:1,is_baby:0,life_time:0,delta_time:1/20,death_ticks:0,body_y_rotation:0,frame_alpha:1,model_scale:.0625,
       position:a=>a===1?0:.5,
       bone_orientation_trs:n=>{const b=bones.get(n);assert(b,n);return {t:Object.fromEntries(['x','y','z'].map((k,j)=>[k,(b.pivot??[0,0,0])[j]])),r:{x:0,y:0,z:0},s:{x:1,y:1,z:1}};},
       relative_block_has_any_tag:(x,y,z,...tags)=>{

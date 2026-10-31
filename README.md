@@ -10,6 +10,7 @@
 - 纯资源包，无需依赖行为包
 - 修改 `animations/_gate.json` 动画文件中的 Molang 变量，自定义布娃娃触发条件
 - 使用命名牌将生物命名为 `ragdoll` ，也可以触发布娃娃
+- 资源包设置中可切换的布娃娃或方块化模式
 - 通过布娃娃生成器，为指定的附加包 Add-on 制作简化的布娃娃效果
 
 # Vanilla Ragdoll
@@ -24,4 +25,5 @@ It runs entirely as a resource pack, with no behavior pack required. A simple [R
 - Resource pack only, with no behavior pack required
 - Customize ragdoll triggers by editing the Molang variables in animation files ending in `_gate.json` under `animations/`
 - Name a mob `ragdoll` with a name tag to activate ragdoll physics
+- Switch between Ragdoll and Blocky modes in the resource pack settings
 - Use the Ragdoll Generator to create simplified ragdoll effects for your add-ons

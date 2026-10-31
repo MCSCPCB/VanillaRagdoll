@@ -20,7 +20,7 @@ export function contactProgram(program,rig,entity,profile){
           // Check both the loop count and branch; inter-body contacts must
           // never inherit the terrain-only filter.
           const bodyPairs=body.some(x=>x.kind==='if'&&x.test==='!t.contact_mode');
-          sites++;return [{...n,body:[If((combined||bodyPairs?'!t.contact_mode||':'')+allowed.map(i=>'t.shape=='+i).join('||'),body.slice(0,-1)),last]}];
+          sites++;return [{...n,body:[If('v.vr_blocky||'+(combined||bodyPairs?'!t.contact_mode||':'')+allowed.map(i=>'t.shape=='+i).join('||'),body.slice(0,-1)),last]}];
         }
         return [{...n,body}];
       }
